@@ -2,6 +2,7 @@ import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import { IBaseService } from '@/types/core.types';
 import { ApiServiceData, ApiServiceQueryParams } from '@/types/utility.types';
 import AsyncHandler from '@/utils/decorators/AsyncHandler';
+import AppConfig from '@/config/AppConfig';
 
 /**
  * Service class for making HTTP requests using Axios.
@@ -13,14 +14,12 @@ class ApiService implements IBaseService<AxiosError> {
   /**
    * Creates an instance of ApiService.
    * @param {string} baseURL - Base URL for API requests.
+   * @param {number} baseURL - Axios request timeout.
    */
-  constructor(baseURL: string) {
+  constructor(baseURL: string, timeout: number) {
     this.axiosInstance = axios.create({
-      baseURL:
-        baseURL ||
-        process.env.REACT_APP_API_BASE_URL ||
-        'https://api.example.com',
-      timeout: 20000,
+      baseURL,
+      timeout,
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json'
@@ -91,8 +90,6 @@ class ApiService implements IBaseService<AxiosError> {
     return response.data;
   }
 
-  // Similarly, document other methods like post, put, patch, and delete
-
   /**
    * Performs a POST request.
    * @async
@@ -110,6 +107,57 @@ class ApiService implements IBaseService<AxiosError> {
     const response = await this.axiosInstance.post(url, data, config);
     return response.data;
   }
+
+  /**
+   * Performs a PUT request.
+   * @async
+   * @param {string} url - The URL for the PUT request.
+   * @param {T} [data={}] - The data to send with the PUT request.
+   * @param {AxiosRequestConfig} [config={}] - Optional Axios request configuration.
+   * @template T - The type of data expected in the response.
+   */
+  @AsyncHandler
+  async put<T extends ApiServiceData>(
+    url: string,
+    data: T = {} as T,
+    config: AxiosRequestConfig = {}
+  ) {
+    const response = await this.axiosInstance.put(url, data, config);
+    return response.data;
+  }
+
+  /**
+   * Performs a PATCH request.
+   * @async
+   * @param {string} url - The URL for the PATCH request.
+   * @param {T} [data={}] - The data to send with the PATCH request.
+   * @param {AxiosRequestConfig} [config={}] - Optional Axios request configuration.
+   * @template T - The type of data expected in the response.
+   */
+  @AsyncHandler
+  async patch<T extends ApiServiceData>(
+    url: string,
+    data: T = {} as T,
+    config: AxiosRequestConfig = {}
+  ) {
+    const response = await this.axiosInstance.patch(url, data, config);
+    return response.data;
+  }
+
+  /**
+   * Performs a DELETE request.
+   * @async
+   * @param {string} url - The URL for the DELETE request.
+   * @param {AxiosRequestConfig} [config={}] - Optional Axios request configuration.
+   */
+  @AsyncHandler
+  async delete(url: string, config: AxiosRequestConfig = {}) {
+    const response = await this.axiosInstance.delete(url, config);
+    return response.data;
+  }
 }
 
-export default new ApiService('https://api.production.com');
+export default new ApiService(
+  AppConfig.Api.BASE_URL,
+  AppConfig.Api.REQUEST_TIMEOUT
+);
