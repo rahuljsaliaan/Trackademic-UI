@@ -1,11 +1,27 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --background-color: #EEF5FF;
+  --primary-color: #282828;
+  --secondary-color: #5B5B6C;
+  --tertiary-color: #DFE5EE;
+  --text-color: #ffffff;
+  --accent-color: #414DED;
+  
+  font-family: "Manrope", sans-serif;;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: var(--primary-color);
+  background-color: var(--background-color);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -25,9 +41,8 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  /* min-width: 320px;
+  min-height: 100vh; */
 }
 
 h1 {
@@ -72,4 +87,80 @@ button:focus-visible {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+/* ----------Get Started Page---------- */
+
+.get-started-container{
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 64px;
+}
+
+.get-started-logo-container, 
+.get-started-image-container, 
+.get-started-content-container, 
+.get-started-button-container{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 0;
+}
+
+.get-started-image-container img, .get-started-logo-container img{
+  max-width: 100%;
+}
+
+.get-started-content-container{
+  display: flex;
+  flex-direction: column;
+}
+
+.get-started-content-paragraph{
+  padding-top: 16px;
+}
+
+.get-started-content-paragraph p{
+  color: var(--secondary-color);
+}
+
+.get-started-content-header h1{
+  font-size: 32px;
+  font-weight: 900;
+  text-align: center;
+  color: var(--primary-color);
+}
+
+.get-started-content-paragraph p{
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.get-started-button-container button{
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #282828;
+  min-width: 300px;
+  border-radius: 100px;
+}
+
+
+/* ----------Media Query---------- */
+@media (max-width: 768px){
+  .get-started-container{
+    padding: 16px 32px;
+    justify-content: space-evenly;
+  }
+
+  .get-started-button-container button{
+    width: 100%;
+    min-width: 50px;
+  }
+  
 }
