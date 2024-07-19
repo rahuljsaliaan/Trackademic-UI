@@ -176,18 +176,18 @@ button:focus-visible {
   padding: 32px;
 }
 
-.input-with-label{
+.input-with-label, .input-with-label-div{
   display: flex;
   flex-direction: column;
 }
 
-.input-with-label label{
+.input-with-label label, .input-with-label-div label, .input-with-label-otp label{
   font-size: 14px;
   font-weight: 500;
   padding-bottom: 4px;
 }
 
-.input-with-label input{
+.input-with-label input, .input-with-label-div input{
   font-size: 16px;
   font-weight: 500;
   padding-bottom: 4px;
@@ -201,11 +201,11 @@ button:focus-visible {
   margin-bottom: 16px;
 }
 
-.input-with-label input::placeholder {
+.input-with-label input::placeholder, .input-with-label-div input::placeholder {
   color: var(--secondary-color); 
 }
 
-.input-with-label input:focus {
+.input-with-label input:focus, .input-with-label-div input:focus {
   border: 2px solid var(--accent-color); 
 }
 
@@ -237,6 +237,45 @@ button:focus-visible {
   padding: 32px 0;
 }
 
+.input-with-label-and-button{
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.input-button-container{
+  display: flex;
+  height: max-content;
+  justify-self: flex-end;
+  align-items: center;
+  padding-left: 8px;
+  margin-bottom: 16px;
+}
+
+.digit-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+
+  input {
+    width: 50px;
+    height: fit-content;
+    background-color: var(--text-color);
+    border: none;
+    text-align: center;
+    color: var(--primary-color);
+    margin: 0 2px;
+    font-family: Manrope;
+    font-size: 20px;
+    font-weight: 700;
+    padding: 12px;
+    border: 2px solid var(--tertiary-color);
+    border-radius: 6px;
+    outline: none;
+  }
+}
+
 
 /* ----------Media Query---------- */
 @media (max-width: 768px){
@@ -260,7 +299,7 @@ button:focus-visible {
     bottom: 0;
   }
 
-  .login-form{
+  .login-form, .forgot-email-entry-form{
     width: 100%;
   }
 
@@ -270,6 +309,14 @@ button:focus-visible {
   
   .input-with-label input{
     min-width: 100%;
+  }
+
+  .input-with-label-div{
+    width: fit-content;
+  }
+
+  .input-with-label-and-button, .input-with-label-div{
+    width: 100%;
   }
   
 }
