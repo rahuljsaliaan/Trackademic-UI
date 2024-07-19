@@ -9,3 +9,9 @@ export interface IBaseService<T> {
    */
   handleError(error: T): void;
 }
+
+export interface IEventData {
+     [key:string]: unknown
+}
+
+export type EventCallBack = (data:IEventData)=> void;
