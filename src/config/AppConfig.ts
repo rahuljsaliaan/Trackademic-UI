@@ -1,6 +1,12 @@
 import { secondsToMilliseconds } from 'date-fns';
 
 const AppConfig = {
+  App: {
+    IS_DEVELOPMENT: ['development', 'dev', 'local'].includes(
+      <string>import.meta.env.VITE_ENV
+    )
+  },
+
   Api: {
     BASE_URL:
       <string>import.meta.env.VITE_API_BASE_URL ||
