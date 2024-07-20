@@ -1,4 +1,4 @@
-import ForgotResetPassword from '@/pages/auth/ForgotResetPassword';
+import ForgotPassword from '@/pages/auth/ForgotPassword';
 import GlobalStyle from '@/styles/GlobalStyle';
 
 export default function App() {
@@ -6,7 +6,7 @@ export default function App() {
     <>
       <GlobalStyle />
       <main className="">
-        <ForgotResetPassword />
+        <ForgotPassword />
       </main>
     </>
   );
