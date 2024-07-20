@@ -20,3 +20,4 @@
 | `style:`      | 💄 `:lipstick:`   | Add or update UI and style files.                     |
 | `test:`       | 🧪 `:test_tube:`  | Add or update tests.                                  |
 | `wip:`        | 🚧 `:construction:`| Work in progress.                                    |
+| `merge:`      | 🔀 `:twisted_rightwards_arrows:` | Merge branches.                         |
