@@ -1,12 +1,14 @@
-import Count from "@/components/Count/Count";
 import "@/styles/app.css";
+// import GetStarted from "@/pages/getStarted/GetStarted";
+// import Login from "@/pages/auth/Login";
+// import ForgotPassword from "@/pages/auth/ForgotPassword";
+import ForgotResetPassword from "@/pages/auth/ForgotResetPassword";
 
 export default function App() {
   return (
-    <main className="center">
-      <h1>Trackademic UI</h1>
-
-      <Count />
+    <main className="">
+      {/* <GetStarted /> */}
+      <ForgotResetPassword/>
     </main>
   );
 }
