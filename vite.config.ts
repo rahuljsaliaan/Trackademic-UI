@@ -45,7 +45,7 @@ export default defineConfig({
       },
       // Specify the path to your custom service worker file
       // (relative to the project root)
-      srcDir: 'src',
+      srcDir: path.resolve(__dirname, './src'),
       filename: 'service-worker.js', // Custom service worker file
       manifest: {
         short_name: 'Trackademic',
