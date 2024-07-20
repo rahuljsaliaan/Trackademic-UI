@@ -1,14 +1,20 @@
-import "@/styles/app.css";
-// import GetStarted from "@/pages/getStarted/GetStarted";
-// import Login from "@/pages/auth/Login";
-// import ForgotPassword from "@/pages/auth/ForgotPassword";
-import ForgotResetPassword from "@/pages/auth/ForgotResetPassword";
+import { Helmet } from 'react-helmet';
+import ForgotResetPassword from '@/pages/auth/ForgotResetPassword';
+import GlobalStyle from '@/styles/GlobalStyle';
 
 export default function App() {
   return (
-    <main className="">
-      {/* <GetStarted /> */}
-      <ForgotResetPassword/>
-    </main>
+    <>
+      <Helmet>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap"
+          rel="stylesheet"
+        />
+      </Helmet>
+      <GlobalStyle />
+      <main className="">
+        <ForgotResetPassword />
+      </main>
+    </>
   );
 }
