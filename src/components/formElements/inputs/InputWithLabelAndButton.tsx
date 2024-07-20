@@ -1,3 +1,5 @@
+import styled from 'styled-components';
+
 interface InputWithLabelProps {
   label: string;
   placeholder: string;
@@ -12,7 +14,34 @@ interface ButtonProps {
   buttonPadding?: string;
 }
 
-interface InputWithLabelAndButtonProps extends InputWithLabelProps, ButtonProps {}
+type StyledButtonProps = Omit<ButtonProps, 'buttonText'>;
+
+interface InputWithLabelAndButtonProps
+  extends InputWithLabelProps,
+    ButtonProps {}
+
+const StyledLabel = styled.label`
+  font-family: 'Manrope';
+  font-size: 14px;
+  font-weight: 700;
+`;
+
+const StyledInput = styled.input`
+  font-family: 'Manrope';
+  font-size: 14px;
+  font-weight: 700;
+`;
+
+const StyledButton = styled.button<StyledButtonProps>`
+  background-color: ${(props) => props.buttonColor || 'blue'};
+  padding: ${(props) => props.buttonPadding || '10px 20px'};
+  border: 2px solid #131313;
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+`;
 
 const InputWithLabelAndButton: React.FC<InputWithLabelAndButtonProps> = ({
   label,
@@ -21,41 +50,25 @@ const InputWithLabelAndButton: React.FC<InputWithLabelAndButtonProps> = ({
   name,
   id,
   buttonText,
-  buttonColor = 'blue',
-  buttonPadding = '10px 20px',
+  buttonColor,
+  buttonPadding
 }) => {
-  const inputStyle = {
-    fontFamily: 'Manrope',
-    fontSize: '14px',
-    fontWeight: '700',
-  };
-
-  const buttonStyle = {
-    backgroundColor: buttonColor,
-    padding: buttonPadding,
-    border: '2px solid #131313',
-    borderRadius: '6px',
-    color: '#fff',
-    cursor: 'pointer',
-    fontSize: '14px',
-    fontWeight: '700',
-  };
-
   return (
     <div className="input-with-label-and-button">
-        <div className="input-with-label-div">
-            <label htmlFor={id || name}>{label}</label>
-            <input
-                type={type}
-                id={id || name}
-                name={name}
-                placeholder={placeholder}
-                style={inputStyle}
-            />
-        </div>
-        <div className="input-button-container">
-            <button style={buttonStyle}>{buttonText}</button>
-        </div>
+      <div className="input-with-label-div">
+        <StyledLabel htmlFor={id || name}>{label}</StyledLabel>
+        <StyledInput
+          type={type}
+          id={id || name}
+          name={name}
+          placeholder={placeholder}
+        />
+      </div>
+      <div className="input-button-container">
+        <StyledButton buttonColor={buttonColor} buttonPadding={buttonPadding}>
+          {buttonText}
+        </StyledButton>
+      </div>
     </div>
   );
 };
