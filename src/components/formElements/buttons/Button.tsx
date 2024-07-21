@@ -10,7 +10,6 @@ interface ButtonProps {
 
 type StyledButtonProps = Omit<ButtonProps, 'text'>;
 
-// Styled button component
 const StyledButton = styled.button<StyledButtonProps>`
   background-color: ${(props: StyledButtonProps) =>
     props.color || RootColor.ACCENT_COLOR};
