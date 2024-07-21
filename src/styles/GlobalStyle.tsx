@@ -324,6 +324,14 @@ const GlobalStyle = createGlobalStyle`
     .input-with-label-div {
       width: 100%;
     }
+
+    .forgot-email-entry-form{
+      padding: 32px;
+    }
+
+    .input-with-label-div input{
+      min-width: 100px;
+    }
   }
 `;
 
