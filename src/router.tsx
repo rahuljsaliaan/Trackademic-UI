@@ -19,15 +19,17 @@ const routes: RouteObject[] = [
         element: <Login />
       },
       {
-        path: '/reset_password',
+        path: '/reset-password',
         element: <ForgotResetPassword />
       },
       {
-        path: '/change_password',
+        path: '/change-password',
         element: <ForgotPassword />
       }
     ]
   }
 ];
 
-export const router: ReactRouter = createBrowserRouter(routes);
+const router: ReactRouter = createBrowserRouter(routes);
+
+export default router;

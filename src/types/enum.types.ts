@@ -19,3 +19,14 @@ export enum RootColor {
   TEXT_COLOR = 'var(--text-color)',
   ACCENT_COLOR = 'var(--accent-color)'
 }
+
+/**
+ * Enum for defining route paths in the application.
+ * @enum {string}
+ */
+export enum Routes {
+  HOME = '/',
+  LOGIN = '/login',
+  RESET_PASSWORD = '/reset-password',
+  CHANGE_PASSWORD = '/change-password'
+}

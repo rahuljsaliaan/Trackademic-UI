@@ -31,6 +31,11 @@ export type ClassMethodDecoratorTargetFunction<
   Return
 > = (this: This, ...args: Args) => Return;
 
+/**
+ * Type definition for ReactRouter.
+ * Utilizes the ReturnType utility type to infer the return type of the `createBrowserRouter` function.
+ * This type is expected to represent the router object created by `createBrowserRouter`.
+ */
 export type ReactRouter = ReturnType<typeof createBrowserRouter>;
 
 // #endregion
