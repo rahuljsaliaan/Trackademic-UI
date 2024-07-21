@@ -1,18 +1,19 @@
 import { createBrowserRouter, RouteObject } from 'react-router-dom';
-import Login from './pages/auth/Login';
+import { ReactRouter } from '@/types/utility.types';
+import App from '@/App';
+import Login from '@/pages/auth/Login';
 import ForgotPassword from '@/pages/auth/ForgotPassword';
 import ForgotResetPassword from '@/pages/auth/ForgotResetPassword';
-import App from './App';
 
- const routes:RouteObject[] = [
+const routes: RouteObject[] = [
   {
     path: '/',
-    element: <App/>,
+    element: <App />,
     children: [
       {
-        path: '/',
+        path: '/'
         // element: <Home/>
-      },  
+      },
       {
         path: '/login',
         element: <Login />
@@ -24,9 +25,9 @@ import App from './App';
       {
         path: '/change_password',
         element: <ForgotPassword />
-      },
+      }
     ]
   }
 ];
 
-export const router = createBrowserRouter(routes);
+export const router: ReactRouter = createBrowserRouter(routes);

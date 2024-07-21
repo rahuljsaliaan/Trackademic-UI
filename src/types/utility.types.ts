@@ -1,5 +1,7 @@
 // #region Types
 
+import { createBrowserRouter } from 'react-router-dom';
+
 /**
  * Defines the shape of parameters accepted by API service methods.
  * This type allows for key-value pairs where keys are strings and values can be either strings or numbers.
@@ -28,5 +30,7 @@ export type ClassMethodDecoratorTargetFunction<
   Args extends unknown[],
   Return
 > = (this: This, ...args: Args) => Return;
+
+export type ReactRouter = ReturnType<typeof createBrowserRouter>;
 
 // #endregion
