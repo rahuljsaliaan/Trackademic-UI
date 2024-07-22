@@ -1,4 +1,4 @@
-import { IUserDocument } from '@trackademic/trackademic-schema-toolkit';
+import { IUserDocument } from 'trackademic-schema-toolkit';
 import axiosService from '@/services/api';
 
 export const getRefreshToken = async (): Promise<null> => {
