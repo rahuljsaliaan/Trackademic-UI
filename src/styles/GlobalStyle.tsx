@@ -281,6 +281,42 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 
+  /* ----------Dashboard---------- */
+
+  .dashboard{
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .dashboard-contents{
+    width: 100%;
+    padding: 16px 16px 64px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+  }
+
+  .bar-chart-container{
+    background: linear-gradient(90deg, #35B3FF 0%, #7847FA 100%), #D9D9D9;
+    padding: 16px;
+    border-radius: 10px;
+  }
+
+  .dashboard-attendance-section, 
+  .dashboard-examinations-section, 
+  .dashboard-announcements-section,
+  .dashboard-calendar-section{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .statistics-card-container{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
   /* ----------Media Query---------- */
   @media (max-width: 768px) {
     .get-started-container {
@@ -331,6 +367,25 @@ const GlobalStyle = createGlobalStyle`
 
     .input-with-label-div input{
       min-width: 100px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .dashboard{
+      display: flex;
+      height: auto;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      overflow: scroll;
+    }
+    .dashboard-contents{
+      max-width: 600px;
+      /* overflow: scroll; */
+    }
+
+    .dashboard-footer{
+      width: 600px;
     }
   }
 `;
