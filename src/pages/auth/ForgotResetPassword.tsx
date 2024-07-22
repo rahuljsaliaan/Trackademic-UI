@@ -4,7 +4,7 @@ import Button from '@/components/formElements/buttons/Button';
 import forgotPasswordImage from '@/assets/images/forgotPasswordImage.svg';
 import { RootColor } from '@/types/enum.types';
 
-export default function Login() {
+export default function ForgotResetPassword() {
   return (
     <div className="auth-container">
       <AuthHeader
