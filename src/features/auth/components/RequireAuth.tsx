@@ -1,5 +1,5 @@
 import React from 'react';
-import { useGetCurrentUser } from '@/features/auth/hooks/useGetCurrentUser';
+import { useGetCurrentUser } from '@/features/users/hooks/useGetCurrentUser';
 
 interface RequireAuthProps {
   children: React.ReactNode;

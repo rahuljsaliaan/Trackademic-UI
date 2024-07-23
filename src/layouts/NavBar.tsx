@@ -9,14 +9,14 @@ const MenuOverlay = styled.div<{ isVisible: boolean }>`
   background-color: rgba(255, 255, 255, 0.5);
   display: flex;
   justify-content: flex-end;
-  opacity: ${props => (props.isVisible ? '1' : '0')};
+  opacity: ${(props) => (props.isVisible ? '1' : '0')};
   transition: opacity 0.3s ease;
-  pointer-events: ${props => (props.isVisible ? 'auto' : 'none')};
+  pointer-events: ${(props) => (props.isVisible ? 'auto' : 'none')};
 `;
 
 const NavContainer = styled.div<{ isVisible: boolean }>`
   margin-top: 16px;
-  background-color: #4535EA;
+  background-color: #4535ea;
   height: fit-content;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
@@ -25,7 +25,8 @@ const NavContainer = styled.div<{ isVisible: boolean }>`
   align-items: center;
   justify-content: center;
   padding: 8px;
-  transform: ${props => (props.isVisible ? 'translateX(0)' : 'translateX(100%)')};
+  transform: ${(props) =>
+    props.isVisible ? 'translateX(0)' : 'translateX(100%)'};
   transition: transform 0.3s ease;
 `;
 
@@ -57,7 +58,7 @@ const NavLink = styled.a`
   color: #ffffff;
   outline: none;
   &:hover {
-    color: #ffffff; 
+    color: #ffffff;
   }
 `;
 
@@ -90,7 +91,11 @@ interface NavBarProps {
   closeIconSrc: string;
 }
 
-const NavBar: React.FC<NavBarProps> = ({ isVisible, onClose, closeIconSrc }) => {
+const NavBar: React.FC<NavBarProps> = ({
+  isVisible,
+  onClose,
+  closeIconSrc
+}) => {
   const handleOverlayClick = () => {
     onClose();
   };

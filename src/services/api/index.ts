@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import { IBaseService } from '@/types/core.types';
 import { ApiServiceData, ApiServiceQueryParams } from '@/types/utility.types';
-import AsyncHandler from '@/utils/decorators/AsyncHandler';
+// import AsyncHandler from '@/utils/decorators/AsyncHandler';
 import AppConfig from '@/config/AppConfig';
 
 /**
@@ -80,14 +80,20 @@ class ApiService implements IBaseService<AxiosError> {
    * @param {ApiServiceQueryParams} [params={}] - Optional query parameters.
    * @param {AxiosRequestConfig} [config={}] - Optional Axios request configuration.
    */
-  @AsyncHandler
   async get(
     url: string,
     params: ApiServiceQueryParams = {},
     config: AxiosRequestConfig = {}
   ) {
-    const response = await this.axiosInstance.get(url, { params, ...config });
-    return response.data;
+    try {
+      const response = await this.axiosInstance.get(url, {
+        params,
+        ...config
+      });
+      return response.data;
+    } catch (error) {
+      this.handleError(error as AxiosError);
+    }
   }
 
   /**
@@ -98,14 +104,17 @@ class ApiService implements IBaseService<AxiosError> {
    * @param {AxiosRequestConfig} [config={}] - Optional Axios request configuration.
    * @template T - The type of data expected in the response.
    */
-  @AsyncHandler
   async post<T extends ApiServiceData>(
     url: string,
     data: T = {} as T,
     config: AxiosRequestConfig = {}
   ) {
-    const response = await this.axiosInstance.post(url, data, config);
-    return response.data;
+    try {
+      const response = await this.axiosInstance.post(url, data, config);
+      return response.data;
+    } catch (error) {
+      this.handleError(error as AxiosError);
+    }
   }
 
   /**
@@ -116,14 +125,17 @@ class ApiService implements IBaseService<AxiosError> {
    * @param {AxiosRequestConfig} [config={}] - Optional Axios request configuration.
    * @template T - The type of data expected in the response.
    */
-  @AsyncHandler
   async put<T extends ApiServiceData>(
     url: string,
     data: T = {} as T,
     config: AxiosRequestConfig = {}
   ) {
-    const response = await this.axiosInstance.put(url, data, config);
-    return response.data;
+    try {
+      const response = await this.axiosInstance.put(url, data, config);
+      return response.data;
+    } catch (error) {
+      this.handleError(error as AxiosError);
+    }
   }
 
   /**
@@ -134,14 +146,17 @@ class ApiService implements IBaseService<AxiosError> {
    * @param {AxiosRequestConfig} [config={}] - Optional Axios request configuration.
    * @template T - The type of data expected in the response.
    */
-  @AsyncHandler
   async patch<T extends ApiServiceData>(
     url: string,
     data: T = {} as T,
     config: AxiosRequestConfig = {}
   ) {
-    const response = await this.axiosInstance.patch(url, data, config);
-    return response.data;
+    try {
+      const response = await this.axiosInstance.patch(url, data, config);
+      return response.data;
+    } catch (error) {
+      this.handleError(error as AxiosError);
+    }
   }
 
   /**
@@ -150,10 +165,13 @@ class ApiService implements IBaseService<AxiosError> {
    * @param {string} url - The URL for the DELETE request.
    * @param {AxiosRequestConfig} [config={}] - Optional Axios request configuration.
    */
-  @AsyncHandler
   async delete(url: string, config: AxiosRequestConfig = {}) {
-    const response = await this.axiosInstance.delete(url, config);
-    return response.data;
+    try {
+      const response = await this.axiosInstance.delete(url, config);
+      return response.data;
+    } catch (error) {
+      this.handleError(error as AxiosError);
+    }
   }
 }
 

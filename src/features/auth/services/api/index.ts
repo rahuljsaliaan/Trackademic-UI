@@ -1,4 +1,4 @@
-import { IUserDocument } from 'trackademic-schema-toolkit';
+import { IUserDocument, LoginDTO } from 'trackademic-schema-toolkit';
 import axiosService from '@/services/api';
 
 export const getRefreshToken = async (): Promise<null> => {
@@ -6,7 +6,10 @@ export const getRefreshToken = async (): Promise<null> => {
   return response.data as null;
 };
 
-export const getCurrentUser = async (): Promise<IUserDocument> => {
-  const response = await axiosService.get('auth/current-user');
+export const login = async ({
+  email,
+  password
+}: LoginDTO): Promise<IUserDocument> => {
+  const response = await axiosService.post('auth/login', { email, password });
   return response.data;
 };

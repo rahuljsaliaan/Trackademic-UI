@@ -21,8 +21,8 @@ export default function AsyncHandler<
     This,
     Args,
     Promise<Return>
-  >
-  //   context: ClassMethodDecoratorContext
+  >,
+  _context: ClassMethodDecoratorContext
 ) {
   return async function (this: This, ...args: Args) {
     try {
