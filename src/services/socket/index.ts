@@ -16,11 +16,11 @@ class SocketService implements IBaseService<Error> {
   handleError(_error: Error): void {}
 
   private initializeSocket(): void {
-    this.socket.on(SocketEvent.CONNECT, () => {
+    this.socket.on(SocketEvent.Connect, () => {
       Logger.debug('Connected to server');
     });
 
-    this.socket.on(SocketEvent.DISCONNECT, () => {
+    this.socket.on(SocketEvent.Disconnect, () => {
       Logger.debug('Disconnected from server');
     });
   }

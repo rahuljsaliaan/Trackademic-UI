@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import NavBar from '@/components/dashboard/NavBar';
+import NavBar from '@/layouts/NavBar';
+import { useGetCurrentUser } from '@/features/users/hooks/useGetCurrentUser';
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -13,7 +14,7 @@ const ProfileSection = styled.div`
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: #D7E7FF;
+  background-color: #d7e7ff;
   overflow: hidden;
 `;
 
@@ -67,7 +68,7 @@ const NotificationDot = styled.img<{ show: boolean }>`
   left: 8px;
   height: 8px;
   width: 8px;
-  display: ${props => (props.show ? 'block' : 'none')};
+  display: ${(props) => (props.show ? 'block' : 'none')};
 `;
 
 const IconContainer = styled.div`
@@ -83,27 +84,28 @@ const Icon = styled.img`
 interface DashboardHeaderProps {
   profileSrc: string;
   greetingText: string;
-  name: string;
   bellIconSrc: string;
   notificationDot: boolean;
   menuIconSrc: string;
   closeIconSrc: string;
 }
 
-const DashboardHeader: React.FC<DashboardHeaderProps> = ({
+const Header: React.FC<DashboardHeaderProps> = ({
   profileSrc,
   greetingText,
-  name,
   notificationDot,
   bellIconSrc,
   menuIconSrc,
   closeIconSrc
 }) => {
+  const { user, status } = useGetCurrentUser();
   const [isMenuOpen, setMenuOpen] = useState(false);
 
   const handleMenuToggle = () => {
-    setMenuOpen(prev => !prev);
+    setMenuOpen((prev) => !prev);
   };
+
+  if (status === 'pending') return <div>Loading...</div>;
 
   return (
     <>
@@ -114,20 +116,24 @@ const DashboardHeader: React.FC<DashboardHeaderProps> = ({
           </ProfileSection>
           <GreetingsWIthNameSection>
             <Greetings>{greetingText}</Greetings>
-            <UserName>{name}</UserName>
+            <UserName>{user?.name}</UserName>
           </GreetingsWIthNameSection>
         </HeaderRightLeftContainer>
         <HeaderRightLeftContainer>
           <NotificationSection>
             <NotificationIcon src={bellIconSrc} alt="Notifications" />
-            <NotificationDot show={notificationDot} src="src/assets/icons/notificationDot.svg" alt="Notifications" />
+            <NotificationDot
+              show={notificationDot}
+              src="src/assets/icons/notificationDot.svg"
+              alt="Notifications"
+            />
           </NotificationSection>
           <IconContainer>
             <Icon src={menuIconSrc} alt="Menu" onClick={handleMenuToggle} />
           </IconContainer>
         </HeaderRightLeftContainer>
       </HeaderContainer>
-      <NavBar 
+      <NavBar
         isVisible={isMenuOpen}
         onClose={handleMenuToggle}
         closeIconSrc={closeIconSrc}
@@ -136,4 +142,4 @@ const DashboardHeader: React.FC<DashboardHeaderProps> = ({
   );
 };
 
-export default DashboardHeader;
+export default Header;

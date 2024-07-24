@@ -1,10 +1,12 @@
+import { UserRole } from 'trackademic-schema-toolkit';
+
 /**
  * Enum for socket event types.
  * @enum {string}
  */
 export enum SocketEvent {
-  CONNECT = 'connect',
-  DISCONNECT = 'disconnect'
+  Connect = 'connect',
+  Disconnect = 'disconnect'
 }
 
 /**
@@ -12,21 +14,45 @@ export enum SocketEvent {
  * @enum {string}
  */
 export enum RootColor {
-  BACKGROUND_COLOR = 'var(--background-color)',
-  PRIMARY_COLOR = 'var(--primary-color)',
-  SECONDARY_COLOR = 'var(--secondary-color)',
-  TERTIARY_COLOR = 'var(--tertiary-color)',
-  TEXT_COLOR = 'var(--text-color)',
-  ACCENT_COLOR = 'var(--accent-color)'
+  BackgroundColor = 'var(--background-color)',
+  PrimaryColor = 'var(--primary-color)',
+  SecondaryColor = 'var(--secondary-color)',
+  TertiaryColor = 'var(--tertiary-color)',
+  TextColor = 'var(--text-color)',
+  AccentColor = 'var(--accent-color)'
 }
 
 /**
  * Enum for defining route paths in the application.
  * @enum {string}
  */
-export enum Routes {
-  HOME = '/',
-  LOGIN = '/login',
-  RESET_PASSWORD = '/reset-password',
-  CHANGE_PASSWORD = '/change-password'
+export enum AppRoutes {
+  Home = '/',
+  Login = '/login',
+  DashboardStudent = '/dashboard-student',
+  DashboardFaculty = '/dashboard-faculty',
+  DashboardHOD = '/dashboard-hod',
+  DashboardPrincipal = '/dashboard-principal',
+  ForgotPassword = '/forgot-password',
+  ResetPassword = '/reset-password',
+  ChangePassword = '/change-password'
+}
+
+/**
+ * Maps user roles to dashboard routes.
+ *
+ * Utilizes `UserRole` enum for keys and `AppRoutes` enum for values to assign
+ * dashboard routes based on user roles.
+ *
+ * @type {{ [key in UserRole]: AppRoutes }}
+ */
+export const UserRoleRouteMap: { [key in UserRole]: AppRoutes } = {
+  [UserRole.Student]: AppRoutes.DashboardStudent,
+  [UserRole.faculty]: AppRoutes.DashboardFaculty,
+  [UserRole.HeadOfDepartment]: AppRoutes.DashboardHOD,
+  [UserRole.Principle]: AppRoutes.DashboardPrincipal
+};
+
+export enum QueryKeys {
+  CurrentUser = 'currentUser'
 }

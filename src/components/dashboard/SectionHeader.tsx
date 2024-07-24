@@ -41,7 +41,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ title, tagline }) => {
         <Title>{title}</Title>
         <Tagline>{tagline}</Tagline>
       </TitleContainer>
-      <Button text="More" color={RootColor.PRIMARY_COLOR} />
+      <Button text="More" color={RootColor.PrimaryColor} />
     </HeaderContainer>
   );
 };

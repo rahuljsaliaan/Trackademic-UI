@@ -3,27 +3,41 @@ import { ReactRouter } from '@/types/utility.types';
 import App from '@/App';
 import Login from '@/pages/auth/Login';
 import ForgotPassword from '@/pages/auth/ForgotPassword';
-import ForgotResetPassword from '@/pages/auth/ForgotResetPassword';
+import ResetPassword from '@/pages/auth/ResetPassword';
+import StudentDashboard from '@/pages/dashboard/StudentDashboard';
+import LecturerDashboard from '@/pages/dashboard/LecturerDashboard';
+import GetStarted from '@/pages/getStarted/GetStarted';
+import NotFoundError from '@/pages/error/NotFoundError';
+import { AppRoutes } from '@/types/enum.types';
 
 const routes: RouteObject[] = [
   {
     path: '/',
     element: <App />,
+    errorElement: <NotFoundError />,
     children: [
       {
-        path: '/'
-        // element: <Home/>
+        path: AppRoutes.Home,
+        element: <GetStarted />
       },
       {
-        path: '/login',
+        path: AppRoutes.DashboardStudent,
+        element: <StudentDashboard />
+      },
+      {
+        path: AppRoutes.DashboardFaculty,
+        element: <LecturerDashboard />
+      },
+      {
+        path: AppRoutes.Login,
         element: <Login />
       },
       {
-        path: '/reset-password',
-        element: <ForgotResetPassword />
+        path: AppRoutes.ResetPassword,
+        element: <ResetPassword />
       },
       {
-        path: '/change-password',
+        path: AppRoutes.ForgotPassword,
         element: <ForgotPassword />
       }
     ]

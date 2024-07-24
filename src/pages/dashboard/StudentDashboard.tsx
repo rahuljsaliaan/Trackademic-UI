@@ -1,11 +1,11 @@
-import DashboardHeader from '@/components/dashboard/DashboardHeader';
-import Quote from '@/components/dashboard/Quote';
+import Header from '@/layouts/Header';
+import Quote from '@/components/card/Quote';
 import SectionHeader from '@/components/dashboard/SectionHeader';
 import StatisticsCard from '@/components/dashboard/StatisticsCard';
-import BarChart from '@/components/dashboard/BarChart';
-import CarouselCard from '@/components/dashboard/CarouselCard';
-import ContentCard from '@/components/dashboard/ContentCard';
-import Table from '@/components/dashboard/Table';
+import BarChart from '@/components/chart/BarChart';
+import CarouselCard from '@/components/card/CarouselCard';
+import ContentCard from '@/components/card/ContentCard';
+import Table from '@/components/table/Table';
 import Footer from '@/components/dashboard/Footer';
 
 export default function StudentDashboard() {
@@ -49,44 +49,28 @@ export default function StudentDashboard() {
   ];
 
   return (
-    <div className='dashboard'>
-      <div className='dashboard-contents'>
-        <DashboardHeader
+    <div className="dashboard">
+      <div className="dashboard-contents">
+        <Header
           profileSrc="src/assets/images/profile.png"
           greetingText="Namasthe!"
-          name="John Doe"
           bellIconSrc="src/assets/icons/notificationBell.svg"
           notificationDot={true}
           menuIconSrc="src/assets/icons/menu.svg"
           closeIconSrc="src/assets/icons/menuClose.svg"
         />
-        <Quote 
+        <Quote
           heading="Quote of the Day"
           quote="Education is the passport to the future, for tomorrow belongs to those who prepare for it today."
           author="Franklin D. Roosevelt"
         />
-        <div className='dashboard-attendance-section'>
-          <SectionHeader
-            title="Attendance"
-            tagline="Where Every Day Counts!"
-          />
+        <div className="dashboard-attendance-section">
+          <SectionHeader title="Attendance" tagline="Where Every Day Counts!" />
           <BarChart />
-          <div className='statistics-card-container'>
-            <StatisticsCard
-              label="Semester"
-              data="04"
-              variant="normal"
-            />
-            <StatisticsCard
-              label="Subjects"
-              data="06"
-              variant="normal"
-            />
-            <StatisticsCard
-              label="Average"
-              data="69"
-              variant="normal"
-            />
+          <div className="statistics-card-container">
+            <StatisticsCard label="Semester" data="04" variant="normal" />
+            <StatisticsCard label="Subjects" data="06" variant="normal" />
+            <StatisticsCard label="Average" data="69" variant="normal" />
             <StatisticsCard
               label="Shortage"
               data={shortageValue}
@@ -94,43 +78,24 @@ export default function StudentDashboard() {
             />
           </div>
         </div>
-        <div className='dashboard-examinations-section'>
-          <SectionHeader
-            title="Examinations"
-            tagline="Track Your Triumphs!"
-          />
+        <div className="dashboard-examinations-section">
+          <SectionHeader title="Examinations" tagline="Track Your Triumphs!" />
           <BarChart />
-          <div className='statistics-card-container'>
-            <StatisticsCard
-              label="Semester"
-              data="04"
-              variant="normal"
-            />
-            <StatisticsCard
-              label="Subjects"
-              data="06"
-              variant="normal"
-            />
-            <StatisticsCard
-              label="SGPA"
-              data="6.9"
-              variant="normal"
-            />
-            <StatisticsCard
-              label="CGPA"
-              data="7.6"
-              variant="normal"
-            />
+          <div className="statistics-card-container">
+            <StatisticsCard label="Semester" data="04" variant="normal" />
+            <StatisticsCard label="Subjects" data="06" variant="normal" />
+            <StatisticsCard label="SGPA" data="6.9" variant="normal" />
+            <StatisticsCard label="CGPA" data="7.6" variant="normal" />
           </div>
         </div>
-        <div className='dashboard-announcements-section'>
+        <div className="dashboard-announcements-section">
           <SectionHeader
             title="Announcements"
             tagline="Hot News & Cool Updates"
           />
-          <CarouselCard content={contentData}/>
+          <CarouselCard content={contentData} />
         </div>
-        <div className='dashboard-calendar-section'>
+        <div className="dashboard-calendar-section">
           <SectionHeader
             title="Events & Calendar"
             tagline="Discover What's Coming Up Around You!"
@@ -138,7 +103,7 @@ export default function StudentDashboard() {
           <Table columns={columns} rows={rows} />
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }

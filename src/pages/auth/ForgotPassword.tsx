@@ -25,7 +25,7 @@ export default function ForgotPassword() {
           <div className="auth-form-button-div">
             <Button
               text="Unlock Account"
-              color={RootColor.ACCENT_COLOR}
+              color={RootColor.AccentColor}
               padding="12px 16px"
               width="100%"
             />

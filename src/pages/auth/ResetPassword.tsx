@@ -4,7 +4,7 @@ import Button from '@/components/formElements/buttons/Button';
 import forgotPasswordImage from '@/assets/images/forgotPasswordImage.svg';
 import { RootColor } from '@/types/enum.types';
 
-export default function ForgotResetPassword() {
+export default function ResetPassword() {
   return (
     <div className="auth-container">
       <AuthHeader
@@ -30,7 +30,7 @@ export default function ForgotResetPassword() {
           <div className="auth-form-button-div">
             <Button
               text="Activate Super Security"
-              color={RootColor.ACCENT_COLOR}
+              color={RootColor.AccentColor}
               padding="12px 16px"
               width="100%"
             />

@@ -1,11 +1,13 @@
 import styled from 'styled-components';
+import { FieldPath, FieldValues, UseFormRegister } from 'react-hook-form';
 
-interface InputWithLabelProps {
+interface InputWithLabelProps<T extends FieldValues> {
   label: string;
   placeholder: string;
   type?: string;
-  name?: string;
   id?: string;
+  register: UseFormRegister<T>;
+  field: FieldPath<T>;
 }
 
 const StyledInput = styled.input`
@@ -18,21 +20,22 @@ const StyledLabel = styled.label`
   /* Add styles for the label if needed */
 `;
 
-const InputWithLabel: React.FC<InputWithLabelProps> = ({
+const InputWithLabel = <T extends FieldValues>({
   label,
   placeholder,
-  type = 'text',
-  name,
-  id
-}) => {
+  id,
+  type,
+  register,
+  field
+}: InputWithLabelProps<T>) => {
   return (
     <div className="input-with-label">
-      <StyledLabel htmlFor={id || name}>{label}</StyledLabel>
+      <StyledLabel htmlFor={id || field}>{label}</StyledLabel>
       <StyledInput
+        id={id || field}
         type={type}
-        id={id || name}
-        name={name}
         placeholder={placeholder}
+        {...register(field)}
       />
     </div>
   );

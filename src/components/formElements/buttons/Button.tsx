@@ -6,13 +6,14 @@ interface ButtonProps {
   color?: RootColor;
   padding?: string;
   width?: string;
+  type?: 'button' | 'submit' | 'reset';
 }
 
 type StyledButtonProps = Omit<ButtonProps, 'text'>;
 
 const StyledButton = styled.button<StyledButtonProps>`
   background-color: ${(props: StyledButtonProps) =>
-    props.color || RootColor.ACCENT_COLOR};
+    props.color || RootColor.AccentColor};
   padding: ${(props: StyledButtonProps) => props.padding || '10px 20px'};
   width: ${(props: StyledButtonProps) => props.width || 'auto'};
   border: none;
@@ -25,12 +26,13 @@ const StyledButton = styled.button<StyledButtonProps>`
 
 const Button: React.FC<ButtonProps> = ({
   text,
-  color = RootColor.ACCENT_COLOR,
+  color = RootColor.AccentColor,
   padding = '10px 20px',
-  width = 'auto'
+  width = 'auto',
+  type = 'button'
 }) => {
   return (
-    <StyledButton color={color} padding={padding} width={width}>
+    <StyledButton type={type} color={color} padding={padding} width={width}>
       {text}
     </StyledButton>
   );
