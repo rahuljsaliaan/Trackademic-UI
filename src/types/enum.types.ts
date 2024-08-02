@@ -48,13 +48,14 @@ export enum AppRoutes {
  */
 export const UserRoleRouteMap: { [key in UserRole]: AppRoutes } = {
   [UserRole.Student]: AppRoutes.DashboardStudent,
-  [UserRole.faculty]: AppRoutes.DashboardFaculty,
+  [UserRole.Faculty]: AppRoutes.DashboardFaculty,
   [UserRole.HeadOfDepartment]: AppRoutes.DashboardHOD,
   [UserRole.Principle]: AppRoutes.DashboardPrincipal
 };
 
 export enum QueryKeys {
-  CurrentUser = 'currentUser'
+  CurrentUser = 'currentUser',
+  StudentAttendance = 'studentAttendance'
 }
 
 export enum MutationKeys {
