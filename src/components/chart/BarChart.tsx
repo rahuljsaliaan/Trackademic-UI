@@ -2,10 +2,15 @@ import React from 'react';
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js';
 import { ChartData, ChartOptions } from 'chart.js';
+import { useGetStudentAttendance } from '@/features/users/student/hooks/useGetStudentAttendance';
 
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
 
 const BarChart: React.FC = () => {
+  const {attendanceData} = useGetStudentAttendance(); 
+
+  console.log(attendanceData);
+  
   const data: ChartData<'bar'> = {
     labels: ['21MCA301', '21MCA302', '21MCA303', '21MCA304', '21MCA305', '21MCA306'],
     datasets: [

@@ -1,3 +1,4 @@
+import {useNavigate} from 'react-router-dom';
 import AuthHeader from '@/components/auth/AuthHeader';
 import InputWithLabel from '@/components/formElements/inputs/InputWithLabel';
 import Button from '@/components/formElements/buttons/Button';
@@ -7,9 +8,15 @@ import useLogin from '@/features/auth/hooks/useLogin';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoginDTO, loginSchema } from 'trackademic-schema-toolkit';
+import { useGetCurrentUser } from '@/features/users/hooks/useGetCurrentUser';
+import {UserRoleRouteMap} from '@/types/enum.types.ts'
 
 export default function Login() {
+  const navigate = useNavigate();
   const { mutate, status } = useLogin();
+  const {user} = useGetCurrentUser();
+
+  if(user) navigate(`${UserRoleRouteMap[user.role]}`);
 
   function handleOnSubmit(data: LoginDTO) {
     mutate(data);
