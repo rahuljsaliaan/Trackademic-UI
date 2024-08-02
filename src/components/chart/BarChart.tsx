@@ -1,41 +1,58 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
-import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js';
+import {
+  Chart as ChartJS,
+  Title,
+  Tooltip,
+  Legend,
+  BarElement,
+  CategoryScale,
+  LinearScale
+} from 'chart.js';
 import { ChartData, ChartOptions } from 'chart.js';
-import { useGetStudentAttendance } from '@/features/users/student/hooks/useGetStudentAttendance';
 
-ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
+ChartJS.register(
+  Title,
+  Tooltip,
+  Legend,
+  BarElement,
+  CategoryScale,
+  LinearScale
+);
 
-const BarChart: React.FC = () => {
-  const {attendanceData} = useGetStudentAttendance(); 
+interface IBarChartProps {
+  data: {
+    label: string;
+    averagePercentage: number;
+  }[];
+}
 
-  console.log(attendanceData);
-  
-  const data: ChartData<'bar'> = {
-    labels: ['21MCA301', '21MCA302', '21MCA303', '21MCA304', '21MCA305', '21MCA306'],
+const BarChart: React.FC<IBarChartProps> = ({ data }) => {
+  const chartData: ChartData<'bar'> = {
+    labels: data.map((item) => item.label),
     datasets: [
       {
-        data: [87, 81, 68, 52, 89, 49],
+        data: data.map((item) => item.averagePercentage),
         backgroundColor: (context) => {
           const value = context?.raw as number;
-          return value <= 80 ? '#FFD689' : '#ffffff';
+          return value < 80 ? '#FFD689' : '#ffffff';
         },
         borderColor: (context) => {
           const value = context?.raw as number;
-          return value <= 80 ? '#F5B640' : '#D7E7FF';
+          return value < 80 ? '#F5B640' : '#D7E7FF';
         },
         borderRadius: {
           topLeft: 50,
           topRight: 50,
-          bottomLeft: 50, 
-          bottomRight: 50,
+          bottomLeft: 50,
+          bottomRight: 50
         },
         borderWidth: 2,
         barThickness: 15,
         maxBarThickness: 50,
-        borderSkipped: false,
-      },
-    ],
+        borderSkipped: false
+      }
+    ]
   };
 
   const options: ChartOptions<'bar'> = {
@@ -43,50 +60,50 @@ const BarChart: React.FC = () => {
       x: {
         beginAtZero: true,
         grid: {
-          display: false,
+          display: false
         },
         ticks: {
           color: '#D8DEE7',
           font: {
             family: 'Manrope',
-            size: 8,
-          },
+            size: 8
+          }
         },
         border: {
-          color: '#D8DEE7', 
-          width: 2,
-        },
+          color: '#D8DEE7',
+          width: 2
+        }
       },
       y: {
         beginAtZero: true,
         min: 0,
         max: 100,
         grid: {
-          display: false,
+          display: false
         },
         ticks: {
           color: '#D8DEE7',
           font: {
             family: 'Manrope',
-            size: 8,
-          },
+            size: 8
+          }
         },
         border: {
           color: '#D8DEE7',
-          width: 2, 
-        },
-      },
+          width: 2
+        }
+      }
     },
     plugins: {
       legend: {
-        display: false, 
-      },
-    },
+        display: false
+      }
+    }
   };
 
   return (
-    <div className='bar-chart-container'>
-      <Bar data={data} options={options} />
+    <div className="bar-chart-container">
+      <Bar data={chartData} options={options} />
     </div>
   );
 };

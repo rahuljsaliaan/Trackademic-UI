@@ -1,12 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { QueryKeys } from '@/types/enum.types';
-import { getStudentAttendance } from '../service/api';
+import { getStudentAttendance } from '../services/api';
 
-export const useGetStudentAttendance = () => {
-
+export const useGetStudentAttendance = (semester: number) => {
   const { data: attendanceData, status } = useQuery({
-    queryKey: [QueryKeys.StudentAttendance],
-    queryFn: getStudentAttendance
+    queryKey: [QueryKeys.StudentAttendance, semester],
+    queryFn: () => getStudentAttendance(semester)
   });
 
   if (status === 'error') {
