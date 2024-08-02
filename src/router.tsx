@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouteObject } from 'react-router-dom';
 import { ReactRouter } from '@/types/utility.types';
+import { AppRoutes } from '@/types/enum.types';
 import App from '@/App';
 import Login from '@/pages/auth/Login';
 import ForgotPassword from '@/pages/auth/ForgotPassword';
@@ -8,7 +9,8 @@ import StudentDashboard from '@/pages/dashboard/StudentDashboard';
 import LecturerDashboard from '@/pages/dashboard/LecturerDashboard';
 import GetStarted from '@/pages/getStarted/GetStarted';
 import NotFoundError from '@/pages/error/NotFoundError';
-import { AppRoutes } from '@/types/enum.types';
+import PersistLogin from '@/features/auth/components/PersistLogin';
+import RequireAuth from '@/features/auth/components/RequireAuth';
 
 const routes: RouteObject[] = [
   {
@@ -17,17 +19,28 @@ const routes: RouteObject[] = [
     errorElement: <NotFoundError />,
     children: [
       {
+        element: <PersistLogin />,
+        children: [
+          {
+            element: <RequireAuth />,
+            children: [
+              {
+                path: AppRoutes.DashboardStudent,
+                element: <StudentDashboard />
+              },
+              {
+                path: AppRoutes.DashboardFaculty,
+                element: <LecturerDashboard />
+              }
+            ]
+          }
+        ]
+      },
+      {
         path: AppRoutes.Home,
         element: <GetStarted />
       },
-      {
-        path: AppRoutes.DashboardStudent,
-        element: <StudentDashboard />
-      },
-      {
-        path: AppRoutes.DashboardFaculty,
-        element: <LecturerDashboard />
-      },
+
       {
         path: AppRoutes.Login,
         element: <Login />
