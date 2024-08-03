@@ -1,4 +1,4 @@
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import AuthHeader from '@/components/auth/AuthHeader';
 import InputWithLabel from '@/components/formElements/inputs/InputWithLabel';
 import Button from '@/components/formElements/buttons/Button';
@@ -9,30 +9,31 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoginDTO, loginSchema } from 'trackademic-schema-toolkit';
 import { useGetCurrentUser } from '@/features/users/hooks/useGetCurrentUser';
-import {UserRoleRouteMap} from '@/types/enum.types.ts'
+import { UserRoleRouteMap } from '@/types/enum.types.ts';
 
 export default function Login() {
   const navigate = useNavigate();
   const { mutate, status } = useLogin();
-  const {user} = useGetCurrentUser();
+  const { user } = useGetCurrentUser();
 
-  if(user) navigate(`${UserRoleRouteMap[user.role]}`);
-
-  function handleOnSubmit(data: LoginDTO) {
-    mutate(data);
-  }
+  if (user) navigate(`${UserRoleRouteMap[user.role]}`);
 
   const {
     register,
-    handleSubmit
+    handleSubmit,
     // formState: { errors }
     // setError
+    reset
   } = useForm<LoginDTO>({
     resolver: zodResolver(loginSchema)
   });
 
-  if (status === 'pending') {
-    return <div>Loading...</div>;
+  function handleOnSubmit(data: LoginDTO) {
+    mutate(data, {
+      onError: () => {
+        reset();
+      }
+    });
   }
 
   return (
@@ -50,6 +51,7 @@ export default function Login() {
             placeholder="Your email please"
             register={register}
             field="email"
+            disabled={status === 'pending'}
           />
           <InputWithLabel
             id="password"
@@ -58,6 +60,7 @@ export default function Login() {
             placeholder="Is It a Secret?"
             register={register}
             field="password"
+            disabled={status === 'pending'}
           />
           <div className="auth-form-forgot-anchor-container">
             <a href="#">

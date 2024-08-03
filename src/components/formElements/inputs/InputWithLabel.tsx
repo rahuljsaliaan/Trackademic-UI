@@ -8,6 +8,7 @@ interface InputWithLabelProps<T extends FieldValues> {
   id?: string;
   register: UseFormRegister<T>;
   field: FieldPath<T>;
+  disabled?: boolean;
 }
 
 const StyledInput = styled.input`
@@ -26,7 +27,8 @@ const InputWithLabel = <T extends FieldValues>({
   id,
   type,
   register,
-  field
+  field,
+  disabled = false
 }: InputWithLabelProps<T>) => {
   return (
     <div className="input-with-label">
@@ -36,6 +38,7 @@ const InputWithLabel = <T extends FieldValues>({
         type={type}
         placeholder={placeholder}
         {...register(field)}
+        disabled={disabled}
       />
     </div>
   );
