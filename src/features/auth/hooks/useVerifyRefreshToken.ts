@@ -1,6 +1,6 @@
+import { APIResourceV1 } from 'trackademic-schema-toolkit';
 import { useQuery } from '@tanstack/react-query';
 import { getRefreshToken } from '@/features/auth/services/api';
-import { APIResourceV1 } from 'trackademic-schema-toolkit/dist';
 
 const useRefreshToken = () => {
   const { status } = useQuery({
@@ -9,7 +9,7 @@ const useRefreshToken = () => {
   });
 
   if (status === 'error') {
-    console.log('error');
+    console.error('error');
   }
 
   return { status };

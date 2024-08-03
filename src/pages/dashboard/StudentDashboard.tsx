@@ -2,16 +2,13 @@ import Header from '@/layouts/Header';
 import Quote from '@/components/card/Quote';
 import SectionHeader from '@/components/dashboard/SectionHeader';
 import StatisticsCard from '@/components/dashboard/StatisticsCard';
-import BarChart from '@/components/chart/BarChart';
 import CarouselCard from '@/components/card/CarouselCard';
 import ContentCard from '@/components/card/ContentCard';
 import Table from '@/components/table/Table';
 import Footer from '@/components/dashboard/Footer';
+import StudentAttendanceSummary from '@/features/attendance/components/StudentAttendanceSummary';
 
 export default function StudentDashboard() {
-  const shortageValue = 2;
-  const shortageVariant = shortageValue > 0 ? 'warning' : 'normal';
-
   const contentData = [
     <ContentCard
       heading="New Library Books Available"
@@ -66,21 +63,11 @@ export default function StudentDashboard() {
         />
         <div className="dashboard-attendance-section">
           <SectionHeader title="Attendance" tagline="Where Every Day Counts!" />
-          <BarChart />
-          <div className="statistics-card-container">
-            <StatisticsCard label="Semester" data="04" variant="normal" />
-            <StatisticsCard label="Subjects" data="06" variant="normal" />
-            <StatisticsCard label="Average" data="69" variant="normal" />
-            <StatisticsCard
-              label="Shortage"
-              data={shortageValue}
-              variant={shortageVariant}
-            />
-          </div>
+          <StudentAttendanceSummary />
         </div>
         <div className="dashboard-examinations-section">
           <SectionHeader title="Examinations" tagline="Track Your Triumphs!" />
-          <BarChart />
+          {/* <BarChart /> */}
           <div className="statistics-card-container">
             <StatisticsCard label="Semester" data="04" variant="normal" />
             <StatisticsCard label="Subjects" data="06" variant="normal" />
