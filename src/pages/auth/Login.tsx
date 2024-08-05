@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import AuthHeader from '@/components/auth/AuthHeader';
 import InputWithLabel from '@/components/formElements/inputs/InputWithLabel';
 import Button from '@/components/formElements/buttons/Button';
+import ErrorMessage from '@/components/formElements/errorMessage/ErrorMessage';
 import loginImage from '@/assets/images/loginImage.svg';
 import { RootColor } from '@/types/enum.types';
 import useLogin from '@/features/auth/hooks/useLogin';
@@ -62,6 +63,7 @@ export default function Login() {
             field="password"
             disabled={status === 'pending'}
           />
+          <ErrorMessage message="This is an error message." />
           <div className="auth-form-forgot-anchor-container">
             <a href="#">
               Lost Your Key?<span> Let's Find It Together!</span>
