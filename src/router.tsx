@@ -7,6 +7,7 @@ import ForgotPassword from '@/pages/auth/ForgotPassword';
 import ResetPassword from '@/pages/auth/ResetPassword';
 import StudentDashboard from '@/pages/dashboard/StudentDashboard';
 import LecturerDashboard from '@/pages/dashboard/LecturerDashboard';
+import StudentAttendance from '@/pages/attendance/StudentAttendance';
 import GetStarted from '@/pages/getStarted/GetStarted';
 import NotFoundError from '@/pages/error/NotFoundError';
 import PersistLogin from '@/features/auth/components/PersistLogin';
@@ -52,6 +53,10 @@ const routes: RouteObject[] = [
       {
         path: AppRoutes.ForgotPassword,
         element: <ForgotPassword />
+      },
+      {
+        path: AppRoutes.AttendanceStudent,
+        element: <StudentAttendance />
       }
     ]
   }

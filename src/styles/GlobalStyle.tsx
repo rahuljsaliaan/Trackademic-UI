@@ -317,6 +317,11 @@ const GlobalStyle = createGlobalStyle`
     flex-wrap: wrap;
   }
 
+  .attendance-absent-calender{
+    font-size: 20px;
+    font-weight: 900;
+  }
+
   /* ----------Media Query---------- */
   @media (max-width: 768px) {
     .get-started-container {

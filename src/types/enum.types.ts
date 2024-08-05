@@ -30,6 +30,7 @@ export enum AppRoutes {
   Home = '/',
   Login = '/login',
   DashboardStudent = '/dashboard-student',
+  AttendanceStudent = '/attendance-student',
   DashboardFaculty = '/dashboard-faculty',
   DashboardHOD = '/dashboard-hod',
   DashboardPrincipal = '/dashboard-principal',
