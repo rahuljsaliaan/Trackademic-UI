@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 import Button from '@/components/formElements/buttons/Button';
 import { RootColor } from '@/types/enum.types';
@@ -32,16 +33,17 @@ const Tagline = styled.p`
 interface SectionHeaderProps {
   title: string;
   tagline: string;
+  showButton?: boolean; 
 }
 
-const SectionHeader: React.FC<SectionHeaderProps> = ({ title, tagline }) => {
+const SectionHeader: React.FC<SectionHeaderProps> = ({ title, tagline, showButton = true }) => {
   return (
     <HeaderContainer>
       <TitleContainer>
         <Title>{title}</Title>
         <Tagline>{tagline}</Tagline>
       </TitleContainer>
-      <Button text="More" color={RootColor.PrimaryColor} />
+      {showButton && <Button text="More" color={RootColor.PrimaryColor} />}
     </HeaderContainer>
   );
 };
