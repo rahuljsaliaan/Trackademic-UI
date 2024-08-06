@@ -37,7 +37,7 @@ const StudentAttendanceSummary: React.FC<
   }));
 
   const shortageSubjectsCount = data.filter(
-    (attendanceData) => attendanceData.averagePercentage < 86
+    (attendanceData) => attendanceData.averagePercentage < 80
   ).length;
 
   return (
@@ -54,7 +54,7 @@ const StudentAttendanceSummary: React.FC<
         <StatisticsCard
           label="Shortage"
           data={shortageSubjectsCount}
-          variant={shortageSubjectsCount > 2 ? 'warning' : 'normal'}
+          variant={shortageSubjectsCount > 1 ? 'warning' : 'normal'}
         />
       </div>
     </>

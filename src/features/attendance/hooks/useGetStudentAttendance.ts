@@ -3,7 +3,7 @@ import { QueryKeys } from '@/types/enum.types';
 import { getStudentAttendance } from '../services/api';
 
 export const useGetStudentAttendance = (semester: number) => {
-  const { data: attendanceData, status } = useQuery({
+  const { data: attendanceData , status } = useQuery({
     queryKey: [QueryKeys.StudentAttendance, semester],
     queryFn: () => getStudentAttendance(semester)
   });
