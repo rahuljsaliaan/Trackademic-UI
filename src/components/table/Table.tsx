@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
 interface TableColumnProps {
-  width: string; 
+  width: string;
 }
 
 interface TableProps {
-  columns: { name: string; width: string }[]; 
+  columns: { name: string; width: string }[];
   rows: string[][];
 }
 
@@ -18,17 +18,17 @@ const TableContainer = styled.div`
 const TableHeader = styled.div`
   display: flex;
   width: 100%;
-  border-bottom: 2px solid #4535EA;
+  border-bottom: 2px solid #4535ea;
   padding: 4px 0;
   font-size: 12px;
-  color: #94A3B8;
+  color: #94a3b8;
   font-weight: 900;
 `;
 
 const TableRow = styled.div`
   display: flex;
   width: 100%;
-  border-bottom: 2px solid #D8DEE7;
+  border-bottom: 2px solid #d8dee7;
   padding: 8px 0;
   color: #282828;
   font-weight: 600;
@@ -36,8 +36,8 @@ const TableRow = styled.div`
   transition: border-bottom 0.3s ease;
 
   &:hover {
-    border-bottom: 2px solid #4535EA;
-    cursor: pointer; 
+    border-bottom: 2px solid #4535ea;
+    cursor: pointer;
   }
 `;
 

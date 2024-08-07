@@ -30,12 +30,12 @@ const routes: RouteObject[] = [
                 element: <StudentDashboard />
               },
               {
-                path: AppRoutes.DashboardFaculty,
-                element: <LecturerDashboard />
-              },
-              {
                 path: AppRoutes.AttendanceStudent,
                 element: <StudentAttendance />
+              },
+              {
+                path: AppRoutes.DashboardFaculty,
+                element: <LecturerDashboard />
               }
             ]
           }
