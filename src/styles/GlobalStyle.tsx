@@ -322,6 +322,44 @@ const GlobalStyle = createGlobalStyle`
     font-weight: 900;
   }
 
+  .content-card-button{
+    width: 100%;
+    padding-top: 16px;
+  }
+
+  .take-attendance-header-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .take-attendance-header-btn{
+    background-color: transparent;
+    outline: none;
+    border: none;
+  }
+
+  .take-attendance-header-sub-container{
+    display: flex;
+    gap: 8px;
+  }
+    
+  .take-attendance-hr{
+    border: 1px solid #D8DEE7;
+    margin: 16px 0;
+  }
+
+  .take-attendace-card-stud-name{
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .take-attendace-card-stud-usn{
+    font-size: 12px;
+    font-weight: 700;
+    color: #94A3B8;
+  }
+
   /* ----------Media Query---------- */
   @media (max-width: 768px) {
     .get-started-container {
