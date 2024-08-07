@@ -1,34 +1,20 @@
 import React from 'react';
-import { APIQueryParamV1, IBatchDocument } from 'trackademic-schema-toolkit';
 import BarChart from '@/components/chart/BarChart';
 import { useGetStudentAttendance } from '@/features/attendance/hooks/useGetStudentAttendance';
 import StatisticsCard from '@/components/dashboard/StatisticsCard';
-import { useGetCurrentUser } from '@/features/users/hooks/useGetCurrentUser';
-import { useQueryParams } from '@/hooks/useQueryParams';
-import { useNavigate } from 'react-router-dom';
 
 interface IStudentAttendanceSummaryProps {
   // props definition
+  studentId?: string,
+  semester: number
 }
 
 const StudentAttendanceSummary: React.FC<
   IStudentAttendanceSummaryProps
-> = () => {
-  const { user } = useGetCurrentUser();
-  const query = useQueryParams();
-  const navigate = useNavigate();
+> = ({studentId, semester}) => {
+  const { attendanceData, status: attendanceStatus } = useGetStudentAttendance({semester,studentId});
 
-  let semester = parseInt(query.get(APIQueryParamV1.Semester) ?? '');
-
-  if (!semester) {
-    semester = (user?.studentDetails?.batch as IBatchDocument).semester;
-    query.set(APIQueryParamV1.Semester, semester.toString());
-    navigate({ search: query.toString() });
-  }
-
-  const { attendanceData, status } = useGetStudentAttendance(semester);
-
-  if (!attendanceData || status === 'pending') {
+  if (!attendanceData || attendanceStatus === 'pending') {
     return <div>Loading...</div>;
   }
   const data = attendanceData?.results.map((data) => ({
@@ -54,7 +40,7 @@ const StudentAttendanceSummary: React.FC<
         <StatisticsCard
           label="Shortage"
           data={shortageSubjectsCount}
-          variant={shortageSubjectsCount > 1 ? 'warning' : 'normal'}
+          variant={shortageSubjectsCount > 0 ? 'warning' : 'normal'}
         />
       </div>
     </>

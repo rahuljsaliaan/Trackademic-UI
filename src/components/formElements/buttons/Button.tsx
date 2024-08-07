@@ -8,6 +8,7 @@ interface ButtonProps {
   width?: string;
   type?: 'button' | 'submit' | 'reset';
   isVisible?: boolean;
+  onClick?: ()=> void;
 }
 
 type StyledButtonProps = Omit<ButtonProps, 'text'>;
@@ -33,7 +34,8 @@ const Button: React.FC<ButtonProps> = ({
   padding = '10px 20px',
   width = 'auto',
   type = 'button',
-  isVisible = true
+  isVisible = true,
+  onClick
 }) => {
   return (
     <StyledButton
@@ -42,6 +44,7 @@ const Button: React.FC<ButtonProps> = ({
       color={color}
       padding={padding}
       width={width}
+      onClick={onClick}
     >
       {text}
     </StyledButton>

@@ -56,8 +56,12 @@ export default function StudentAttendance() {
             value={semester}
             onChange={handleSelectChange}
           />
-          <StudentAttendanceTable semester={semester} />
-          <StudentAttendanceSummary />
+
+          {user && (
+            <StudentAttendanceTable studentId={user?.id as string} semester={semester} />
+          )}
+
+          <StudentAttendanceSummary studentId={user?.id as string} semester={semester}/>
         </div>
         <div className="attendance-absent-calender-container">
           <label className="attendance-absent-calender">
