@@ -24,6 +24,12 @@ module.exports = {
         argsIgnorePattern: '^_',
         varsIgnorePattern: '^_'
       }
+    ],
+    'no-restricted-imports': [
+      'error',
+      {
+        patterns: ['.', './*', '../*']
+      }
     ]
   }
 };
