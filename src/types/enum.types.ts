@@ -37,7 +37,8 @@ export enum AppRoutes {
   DashboardPrincipal = '/dashboard-principal',
   ForgotPassword = '/forgot-password',
   ResetPassword = '/reset-password',
-  ChangePassword = '/change-password'
+  ChangePassword = '/change-password',
+  AddAttendance = '/add-attendance'
 }
 
 /**

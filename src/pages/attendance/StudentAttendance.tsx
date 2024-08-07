@@ -1,16 +1,15 @@
 import Header from '@/layouts/Header';
 import SectionHeader from '@/components/dashboard/SectionHeader';
 import InputSelectWithLabel from '@/components/formElements/inputs/InputSelectWithLabel';
-import Table from '@/components/table/Table';
 import Footer from '@/components/dashboard/Footer';
 import { useQueryParams } from '@/hooks/useQueryParams';
-import { ChangeEvent,useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import StudentAttendanceSummary from '@/features/attendance/components/StudentAttendanceSummary';
 import { APIQueryParamV1, IBatchDocument } from 'trackademic-schema-toolkit';
 import { useNavigate } from 'react-router-dom';
 import { createSemester } from '@/utils/helper';
-import { useGetStudentAttendance } from '@/features/attendance/hooks/useGetStudentAttendance';
 import { useGetCurrentUser } from '@/features/users/hooks/useGetCurrentUser';
+import StudentAttendanceTable from '@/features/attendance/components/StudentAttendanceTable';
 
 export default function StudentAttendance() {
   const query = useQueryParams();
@@ -20,35 +19,12 @@ export default function StudentAttendance() {
   const [semester, setSemester] = useState(
     (user?.studentDetails?.batch as IBatchDocument).semester
   );
-  const { attendanceData } = useGetStudentAttendance(semester);
 
-  const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>)=> {
+  const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
     setSemester(parseInt(event.target.value));
     query.set(APIQueryParamV1.Semester, event.target.value);
     navigate({ search: query.toString() });
   };
-
-  const columns = [
-    { name: 'Sl. No', width: '10%' },
-    { name: 'Subject', width: '50%' },
-    { name: 'H', width: '10%' },
-    { name: 'P', width: '10%' },
-    { name: 'A', width: '10%' },
-    { name: '%', width: '10%' }
-  ];
-
-  const rows = !attendanceData
-    ? []
-    : attendanceData.results.map((data, index) => {
-        return [
-          `0${index + 1}`,
-          `${data.subject.name}`,
-          '50',
-          `${data.totalPresent}`,
-          `${data.totalAbsent}`,
-          `${data.averageStatus * 100}`
-        ];
-      });
 
   const options = createSemester(
     (user?.studentDetails?.batch as IBatchDocument).semester
@@ -80,8 +56,12 @@ export default function StudentAttendance() {
             value={semester}
             onChange={handleSelectChange}
           />
-          <Table columns={columns} rows={rows} />
-          <StudentAttendanceSummary />
+
+          {user && (
+            <StudentAttendanceTable studentId={user?.id as string} semester={semester} />
+          )}
+
+          <StudentAttendanceSummary studentId={user?.id as string} semester={semester}/>
         </div>
         <div className="attendance-absent-calender-container">
           <label className="attendance-absent-calender">

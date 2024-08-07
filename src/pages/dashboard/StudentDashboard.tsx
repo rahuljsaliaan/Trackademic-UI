@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom';
+import { APIQueryParamV1, IBatchDocument } from 'trackademic-schema-toolkit';
 import Header from '@/layouts/Header';
 import Quote from '@/components/card/Quote';
 import SectionHeader from '@/components/dashboard/SectionHeader';
@@ -7,8 +9,22 @@ import ContentCard from '@/components/card/ContentCard';
 import Table from '@/components/table/Table';
 import Footer from '@/components/dashboard/Footer';
 import StudentAttendanceSummary from '@/features/attendance/components/StudentAttendanceSummary';
+import { useGetCurrentUser } from '@/features/users/hooks/useGetCurrentUser';
+import { useQueryParams } from '@/hooks/useQueryParams';
 
 export default function StudentDashboard() {
+  const {user} = useGetCurrentUser();
+    const query = useQueryParams();
+    const navigate = useNavigate();
+
+    let semester = parseInt(query.get(APIQueryParamV1.Semester) ?? '');
+
+    if (!semester) {
+      semester = (user?.studentDetails?.batch as IBatchDocument).semester;
+      query.set(APIQueryParamV1.Semester, semester.toString());
+      navigate({ search: query.toString() });
+    }
+
   const contentData = [
     <ContentCard
       heading="New Library Books Available"
@@ -63,7 +79,7 @@ export default function StudentDashboard() {
         />
         <div className="dashboard-attendance-section">
           <SectionHeader title="Attendance" tagline="Where Every Day Counts!" />
-          <StudentAttendanceSummary />
+          <StudentAttendanceSummary studentId={user?.id as string} semester={semester}/>
         </div>
         <div className="dashboard-examinations-section">
           <SectionHeader title="Examinations" tagline="Track Your Triumphs!" />
