@@ -7,11 +7,14 @@ interface ButtonProps {
   padding?: string;
   width?: string;
   type?: 'button' | 'submit' | 'reset';
+  isVisible?: boolean;
 }
 
 type StyledButtonProps = Omit<ButtonProps, 'text'>;
 
 const StyledButton = styled.button<StyledButtonProps>`
+  display: ${(props: StyledButtonProps) =>
+    props.isVisible ? 'block' : 'none'};
   background-color: ${(props: StyledButtonProps) =>
     props.color || RootColor.AccentColor};
   padding: ${(props: StyledButtonProps) => props.padding || '10px 20px'};
@@ -29,10 +32,17 @@ const Button: React.FC<ButtonProps> = ({
   color = RootColor.AccentColor,
   padding = '10px 20px',
   width = 'auto',
-  type = 'button'
+  type = 'button',
+  isVisible = true
 }) => {
   return (
-    <StyledButton type={type} color={color} padding={padding} width={width}>
+    <StyledButton
+      isVisible={isVisible}
+      type={type}
+      color={color}
+      padding={padding}
+      width={width}
+    >
       {text}
     </StyledButton>
   );

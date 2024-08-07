@@ -32,6 +32,7 @@ export enum AppRoutes {
   DashboardStudent = '/dashboard-student',
   AttendanceStudent = '/attendance-student',
   DashboardFaculty = '/dashboard-faculty',
+  FacultyDashboard = '/faculty-dashboard',
   DashboardHOD = '/dashboard-hod',
   DashboardPrincipal = '/dashboard-principal',
   ForgotPassword = '/forgot-password',
