@@ -32,6 +32,10 @@ const routes: RouteObject[] = [
               {
                 path: AppRoutes.DashboardFaculty,
                 element: <LecturerDashboard />
+              },
+              {
+                path: AppRoutes.AttendanceStudent,
+                element: <StudentAttendance />
               }
             ]
           }
@@ -53,10 +57,6 @@ const routes: RouteObject[] = [
       {
         path: AppRoutes.ForgotPassword,
         element: <ForgotPassword />
-      },
-      {
-        path: AppRoutes.AttendanceStudent,
-        element: <StudentAttendance />
       }
     ]
   }
