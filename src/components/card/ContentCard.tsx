@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import Button from '@/components/formElements/buttons/Button';
+
 interface ContentCardProps {
   heading: string;
   paragraph: string;
@@ -10,6 +12,8 @@ interface ContentCardProps {
   time: string;
   label: string;
   subLabel: string;
+  buttonText?: string;
+  isButtonVisible?: boolean;
 }
 
 const CardContainer = styled.div`
@@ -18,7 +22,7 @@ const CardContainer = styled.div`
   align-items: center;
   text-align: center;
   width: 100%;
-  border: 2px solid #4535EA;
+  border: 2px solid #4535ea;
   border-radius: 10px;
   margin: 0 16px;
   padding: 16px;
@@ -34,7 +38,7 @@ const Content = styled.div`
 const Heading = styled.h1`
   font-size: 16px;
   font-weight: 700;
-  color: #4535EA;
+  color: #4535ea;
 `;
 
 const Paragraph = styled.p`
@@ -79,7 +83,7 @@ const Date = styled.p`
 const Time = styled.p`
   font-size: 10px;
   font-weight: 700;
-  color: #94A3B8;
+  color: #94a3b8;
 `;
 
 const IconLabelContainer = styled.div`
@@ -104,7 +108,7 @@ const Label = styled.p`
 const SubLabel = styled.p`
   font-size: 10px;
   font-weight: 700;
-  color: #94A3B8;
+  color: #94a3b8;
 `;
 
 const ContentCard: React.FC<ContentCardProps> = ({
@@ -116,6 +120,8 @@ const ContentCard: React.FC<ContentCardProps> = ({
   time,
   label,
   subLabel,
+  buttonText = '',
+  isButtonVisible = false
 }) => {
   return (
     <CardContainer>
@@ -125,20 +131,23 @@ const ContentCard: React.FC<ContentCardProps> = ({
       </Content>
       <CardBottomContainer>
         <IconDateTimeContainer>
-            <Icon src={dateIconSrc} alt="Date Icon" />
-            <DateTimeContainer>
-                <Date>{date}</Date>
-                <Time>{time}</Time>
-            </DateTimeContainer>
+          <Icon src={dateIconSrc} alt="Date Icon" />
+          <DateTimeContainer>
+            <Date>{date}</Date>
+            <Time>{time}</Time>
+          </DateTimeContainer>
         </IconDateTimeContainer>
         <IconLabelContainer>
-            <Icon src={labelIconSrc} alt="Label Icon" />
-            <LabelContainer>
-                <Label>{label}</Label>
-                <SubLabel>{subLabel}</SubLabel>
-            </LabelContainer>
+          <Icon src={labelIconSrc} alt="Label Icon" />
+          <LabelContainer>
+            <Label>{label}</Label>
+            <SubLabel>{subLabel}</SubLabel>
+          </LabelContainer>
         </IconLabelContainer>
       </CardBottomContainer>
+      <div className="content-card-button">
+        <Button width={'100%'} text={buttonText} isVisible={isButtonVisible} />
+      </div>
     </CardContainer>
   );
 };

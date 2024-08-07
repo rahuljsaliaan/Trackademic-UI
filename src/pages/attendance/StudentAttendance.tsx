@@ -5,7 +5,7 @@ import Table from '@/components/table/Table';
 import Footer from '@/components/dashboard/Footer';
 // import StudentAttendanceSummary from '@/features/attendance/components/StudentAttendanceSummary';
 
-export default function StudentDashboard() {
+export default function StudentAttendance() {
 
   const columns = [
     { name: 'Sl. No', width: '10%' },

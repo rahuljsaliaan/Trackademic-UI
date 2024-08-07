@@ -12,6 +12,7 @@ import GetStarted from '@/pages/getStarted/GetStarted';
 import NotFoundError from '@/pages/error/NotFoundError';
 import PersistLogin from '@/features/auth/components/PersistLogin';
 import RequireAuth from '@/features/auth/components/RequireAuth';
+import AddAttendance from './pages/attendance/AddAttendance';
 
 const routes: RouteObject[] = [
   {
@@ -57,6 +58,10 @@ const routes: RouteObject[] = [
       {
         path: AppRoutes.AttendanceStudent,
         element: <StudentAttendance />
+      },
+      {
+        path: AppRoutes.FacultyDashboard,
+        element: <AddAttendance />
       }
     ]
   }
