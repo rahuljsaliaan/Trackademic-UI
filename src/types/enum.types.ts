@@ -64,5 +64,6 @@ export enum QueryKeys {
 }
 
 export enum MutationKeys {
-  Login = 'login'
+  Login = 'login',
+  Logout = 'logout'
 }
