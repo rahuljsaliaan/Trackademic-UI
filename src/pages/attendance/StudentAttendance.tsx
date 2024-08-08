@@ -11,6 +11,7 @@ import { createSemester } from '@/utils/helper';
 import { useGetCurrentUser } from '@/features/users/hooks/useGetCurrentUser';
 import StudentAttendanceTable from '@/features/attendance/components/StudentAttendanceTable';
 
+
 export default function StudentAttendance() {
   const query = useQueryParams();
   const navigate = useNavigate();

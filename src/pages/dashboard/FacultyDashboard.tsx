@@ -1,14 +1,14 @@
 import Header from '@/layouts/Header';
 import Quote from '@/components/card/Quote';
 import SectionHeader from '@/components/dashboard/SectionHeader';
-import StatisticsCard from '@/components/dashboard/StatisticsCard';
 import CarouselCard from '@/components/card/CarouselCard';
 import ContentCard from '@/components/card/ContentCard';
-import Table from '@/components/table/Table';
 import Footer from '@/components/dashboard/Footer';
+import FacultyActiveSubjectTable from '@/features/subject/components/FacultyActiveSubjectTable';
+import AttendanceStats from '@/features/attendance/components/AttendanceStats';
 // import StudentAttendanceSummary from '@/features/attendance/components/StudentAttendanceSummary';
 
-export default function LecturerDashboard() {
+export default function FacultyDashboard() {
   const contentData = [
     <ContentCard
       heading="Data Structures and Algorithms"
@@ -36,36 +36,6 @@ export default function LecturerDashboard() {
     />
   ];
 
-  const Attendancecolumns = [
-    { name: 'Sl. No', width: '15%' },
-    { name: 'Subject', width: '30%' },
-    { name: 'Scheduled', width: '15%' },
-    { name: 'Taken', width: '15%' },
-    { name: 'Missed', width: '15%' },
-    { name: '%', width: '10%' }
-  ];
-
-  const Attendancerows = [
-    ['01', 'CN', '25', '25', '00', '100'],
-    ['02', 'Java', '25', '25', '00', '100'],
-    ['03', 'DBMS', '25', '25', '00', '100'],
-    ['04', 'Python', '25', '25', '00', '100']
-  ];
-
-  const ActiveSubjectColumns = [
-    { name: 'Sl. No', width: '15%' },
-    { name: 'Subject', width: '30%' },
-    { name: 'Course Code', width: '25%' },
-    { name: 'Batch', width: '15%' },
-    { name: 'Sem', width: '15%' }
-  ];
-
-  const ActiveSubjectRows = [
-    ['01', 'CN', '21MCA101', 'CSE A', '03'],
-    ['02', 'Java', '21MCA102', 'MCA A', '05'],
-    ['03', 'DBMS', '21MCA103', 'AIML C', '07'],
-    ['04', 'Python', '21MCA104', 'MCA B', '01']
-  ];
   return (
     <div className="dashboard">
       <div className="dashboard-contents">
@@ -95,19 +65,14 @@ export default function LecturerDashboard() {
             title="Attendance"
             tagline="Where Every Tick Counts!"
           />
-          <Table columns={Attendancecolumns} rows={Attendancerows} />
-          <div className="statistics-card-container">
-            <StatisticsCard label="Subjects" data="06" variant="normal" />
-            <StatisticsCard label="Average" data="69" variant="normal" />
-            <StatisticsCard label="Missed" data="11" variant="warning" />
-          </div>
+          <AttendanceStats />
         </div>
         <div className="dashboard-calendar-section">
           <SectionHeader
             title="Active Subjects"
             tagline="Your Subject Lineup at a Glance!"
           />
-          <Table columns={ActiveSubjectColumns} rows={ActiveSubjectRows} />
+          <FacultyActiveSubjectTable />
         </div>
       </div>
       <Footer />
