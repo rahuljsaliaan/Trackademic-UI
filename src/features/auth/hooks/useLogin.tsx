@@ -1,10 +1,10 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { login } from '@/features/auth/services/api';
-import { LoginDTO } from 'trackademic-schema-toolkit/dist';
+import { LoginDTO } from 'trackademic-schema-toolkit';
+import { login } from '@/features/auth';
 import { useNavigate } from 'react-router-dom';
 import { MutationKeys, QueryKeys, UserRoleRouteMap } from '@/types/enum.types';
 
-function useLogin() {
+export const useLogin = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
@@ -21,6 +21,4 @@ function useLogin() {
   }
 
   return { mutate, status };
-}
-
-export default useLogin;
+};

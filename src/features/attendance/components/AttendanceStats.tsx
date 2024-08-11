@@ -1,10 +1,10 @@
-import Table from '@/components/table/Table';
 import React from 'react';
-import {  useGetAttendanceStats } from '@/features/attendance/hooks/useGetFacultyAttendance';
-import { ISubjectDocument } from 'trackademic-schema-toolkit/dist';
+import { ISubjectDocument } from 'trackademic-schema-toolkit';
+import Table from '@/components/table/Table';
+import { useGetAttendanceStats } from '@/features/attendance';
 import StatisticsCard from '@/components/dashboard/StatisticsCard';
 
-const AttendanceStats: React.FC = () => {
+export const AttendanceStats: React.FC = () => {
   const { attendanceStatsData, status } = useGetAttendanceStats();
 
   const AttendanceColumns = [
@@ -35,12 +35,20 @@ const AttendanceStats: React.FC = () => {
     <>
       <Table columns={AttendanceColumns} rows={AttendanceRows} />
       <div className="statistics-card-container">
-        <StatisticsCard label="Subjects" data={attendanceStatsData?.results.length ?? 0} variant="normal" />
-        <StatisticsCard label="Average" data={(attendanceStatsData?.overallAverageStatus ?? 0) * 100} variant="normal" />
+        <StatisticsCard
+          label="Subjects"
+          data={attendanceStatsData?.results.length ?? 0}
+          variant="normal"
+        />
+        <StatisticsCard
+          label="Average"
+          data={Math.round(
+            (attendanceStatsData?.overallAverageStatus ?? 0) * 100
+          )}
+          variant="normal"
+        />
         <StatisticsCard label="NotApproved" data={`1`} variant="warning" />
       </div>
     </>
   );
 };
-
-export default AttendanceStats;

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 interface StatisticsCardProps {
   label: string;
   data: string | number;
-  variant?: 'normal' | 'warning'; 
+  variant?: 'normal' | 'warning';
 }
 
 const cardVariants = {
@@ -11,14 +11,14 @@ const cardVariants = {
     border: '2px solid #462EE8',
     backgroundColor: '#EEF5FF',
     headingColor: '#282828',
-    subHeadingColor: '#282828',
+    subHeadingColor: '#282828'
   },
   warning: {
     border: '2px solid #F5B640',
     backgroundColor: 'linear-gradient(180deg, #F5B640 0%, #FFD689 100%)',
     headingColor: '#282828',
-    subHeadingColor: '#282828',
-  },
+    subHeadingColor: '#282828'
+  }
 };
 
 const CardContainer = styled.div<{ variant: 'normal' | 'warning' }>`
@@ -49,7 +49,7 @@ const SubHeading = styled.h2<{ variant: 'normal' | 'warning' }>`
 const StatisticsCard: React.FC<StatisticsCardProps> = ({
   label,
   data,
-  variant = 'normal',
+  variant = 'normal'
 }) => {
   return (
     <CardContainer variant={variant}>

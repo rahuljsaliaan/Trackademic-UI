@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouteObject } from 'react-router-dom';
 import { ReactRouter } from '@/types/utility.types';
-import { AppRoutes } from '@/types/enum.types';
+import { AppRoute } from '@/types/enum.types';
 import App from '@/App';
 import Login from '@/pages/auth/Login';
 import ForgotPassword from '@/pages/auth/ForgotPassword';
@@ -10,8 +10,7 @@ import FacultyDashboard from '@/pages/dashboard/FacultyDashboard';
 import StudentAttendance from '@/pages/attendance/StudentAttendance';
 import GetStarted from '@/pages/getStarted/GetStarted';
 import NotFoundError from '@/pages/error/NotFoundError';
-import PersistLogin from '@/features/auth/components/PersistLogin';
-import RequireAuth from '@/features/auth/components/RequireAuth';
+import { PersistLogin, RequireAuth } from '@/features/auth';
 import AddAttendance from '@/pages/attendance/AddAttendance';
 
 const routes: RouteObject[] = [
@@ -27,19 +26,19 @@ const routes: RouteObject[] = [
             element: <RequireAuth />,
             children: [
               {
-                path: AppRoutes.DashboardStudent,
+                path: AppRoute.DashboardStudent,
                 element: <StudentDashboard />
               },
               {
-                path: AppRoutes.AttendanceStudent,
+                path: AppRoute.AttendanceStudent,
                 element: <StudentAttendance />
               },
               {
-                path: AppRoutes.DashboardFaculty,
-                element: <FacultyDashboard/>
+                path: AppRoute.DashboardFaculty,
+                element: <FacultyDashboard />
               },
               {
-                path: AppRoutes.AddAttendance,
+                path: AppRoute.AddAttendance,
                 element: <AddAttendance />
               }
             ]
@@ -47,20 +46,20 @@ const routes: RouteObject[] = [
         ]
       },
       {
-        path: AppRoutes.Home,
+        path: AppRoute.Home,
         element: <GetStarted />
       },
 
       {
-        path: AppRoutes.Login,
+        path: AppRoute.Login,
         element: <Login />
       },
       {
-        path: AppRoutes.ResetPassword,
+        path: AppRoute.ResetPassword,
         element: <ResetPassword />
       },
       {
-        path: AppRoutes.ForgotPassword,
+        path: AppRoute.ForgotPassword,
         element: <ForgotPassword />
       }
     ]

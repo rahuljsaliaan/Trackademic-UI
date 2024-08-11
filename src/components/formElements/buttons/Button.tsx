@@ -8,7 +8,7 @@ interface ButtonProps {
   width?: string;
   type?: 'button' | 'submit' | 'reset';
   isVisible?: boolean;
-  onClick?: ()=> void;
+  onClick?: () => void;
 }
 
 type StyledButtonProps = Omit<ButtonProps, 'text'>;

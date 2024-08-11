@@ -1,5 +1,5 @@
-import { useGetCurrentUser } from '@/features/users/hooks/useGetCurrentUser';
-import { AppRoutes, UserRoleRouteMap } from '@/types/enum.types';
+import { useGetCurrentUser } from '@/features/users';
+import { AppRoute, UserRoleRouteMap } from '@/types/enum.types';
 import { useNavigate } from 'react-router-dom';
 
 const GetStarted: React.FC = () => {
@@ -9,7 +9,7 @@ const GetStarted: React.FC = () => {
   if (user) navigate(UserRoleRouteMap[user.role]);
 
   function handleOnClick() {
-    navigate(AppRoutes.Login);
+    navigate(AppRoute.Login);
   }
 
   return (

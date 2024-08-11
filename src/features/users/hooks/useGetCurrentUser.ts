@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { getCurrentUser } from '@/features/users/services/api';
 import { APIResourceV1 } from 'trackademic-schema-toolkit';
+import { getCurrentUser } from '@/features/users';
 
 export const useGetCurrentUser = () => {
   const { data: user, status } = useQuery({

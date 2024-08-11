@@ -1,20 +1,18 @@
 import React from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { AppRoutes } from '@/types/enum.types';
-import useRefreshToken from '@/features/auth/hooks/useVerifyRefreshToken';
+import { AppRoute } from '@/types/enum.types';
+import { useRefreshToken } from '@/features/auth';
 
 interface PersistLoginProps {}
 
-const PersistLogin: React.FC<PersistLoginProps> = () => {
+export const PersistLogin: React.FC<PersistLoginProps> = () => {
   const navigate = useNavigate();
 
   const { status } = useRefreshToken();
 
   if (status === 'error') {
-    navigate(`/${AppRoutes.Login}`);
+    navigate(`/${AppRoute.Login}`);
   }
 
   return <>{status === 'pending' ? 'loading' : <Outlet />}</>;
 };
-
-export default PersistLogin;

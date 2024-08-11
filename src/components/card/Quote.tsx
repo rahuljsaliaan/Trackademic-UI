@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const QuoteContainer = styled.div`
   padding: 16px;
-  border: 1px solid #4535EA;
+  border: 1px solid #4535ea;
   border-radius: 10px;
   width: 100%;
 `;
@@ -10,7 +10,7 @@ const QuoteContainer = styled.div`
 const Heading = styled.h2`
   font-size: 14px;
   font-weight: 900;
-  color: #D8DEE7;
+  color: #d8dee7;
   margin-bottom: 16px;
 `;
 

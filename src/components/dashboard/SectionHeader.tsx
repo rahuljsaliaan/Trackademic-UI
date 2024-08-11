@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Button from '@/components/formElements/buttons/Button';
-import { AppRoutes, RootColor } from '@/types/enum.types';
+import { AppRoute, RootColor } from '@/types/enum.types';
 import { useNavigate } from 'react-router-dom';
 
 const HeaderContainer = styled.div`
@@ -34,20 +34,37 @@ const Tagline = styled.p`
 interface SectionHeaderProps {
   title: string;
   tagline: string;
-  showButton?: boolean; 
+  showButton?: boolean;
+  navigationLink?: AppRoute;
 }
 
-
-const SectionHeader: React.FC<SectionHeaderProps> = ({ title, tagline, showButton = true }) => {
-  
+const SectionHeader: React.FC<SectionHeaderProps> = ({
+  title,
+  tagline,
+  showButton = true,
+  navigationLink
+}) => {
   const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    if (!navigationLink) return;
+
+    navigate(navigationLink);
+  };
+
   return (
     <HeaderContainer>
       <TitleContainer>
         <Title>{title}</Title>
         <Tagline>{tagline}</Tagline>
       </TitleContainer>
-      {showButton && <Button text="More" color={RootColor.PrimaryColor} onClick={()=> navigate(`${AppRoutes.AttendanceStudent}`)}/>}
+      {showButton && (
+        <Button
+          text="More"
+          color={RootColor.PrimaryColor}
+          onClick={handleNavigate}
+        />
+      )}
     </HeaderContainer>
   );
 };

@@ -1,9 +1,14 @@
-import { IAssignedSubjectDocument, IBatchDocument, IProgrammeDocument, ISubjectDocument } from 'trackademic-schema-toolkit';
+import {
+  IAssignedSubjectDocument,
+  IBatchDocument,
+  IProgrammeDocument,
+  ISubjectDocument
+} from 'trackademic-schema-toolkit';
 import React from 'react';
 import Table from '@/components/table/Table';
-import { useGetFacultyActiveSubjects } from '@/features/subject/hooks/useGetFacultyActiveSubject';
+import { useGetFacultyActiveSubjects } from '@/features/subject';
 
-const FacultyActiveSubjectTable: React.FC = () => {
+export const FacultyActiveSubjectTable: React.FC = () => {
   const { assignedSubjectsData, status } = useGetFacultyActiveSubjects();
 
   const ActiveSubjectColumns = [
@@ -15,13 +20,19 @@ const FacultyActiveSubjectTable: React.FC = () => {
   ];
 
   const ActiveSubjectRows =
-    assignedSubjectsData?.map((assignedSubject: IAssignedSubjectDocument, index) => [
-      (index + 1).toString(),
-      (assignedSubject.subject as ISubjectDocument).shortName,
-      (assignedSubject.subject as ISubjectDocument).subjectCode,
-      ((assignedSubject.batch as IBatchDocument).programme as IProgrammeDocument).shortName + (assignedSubject.batch as IBatchDocument).section.toString(),
-      (assignedSubject.batch as IBatchDocument).semester.toString()
-    ]) || [];
+    assignedSubjectsData?.map(
+      (assignedSubject: IAssignedSubjectDocument, index) => [
+        (index + 1).toString(),
+        (assignedSubject.subject as ISubjectDocument).shortName,
+        (assignedSubject.subject as ISubjectDocument).subjectCode,
+        (
+          (assignedSubject.batch as IBatchDocument)
+            .programme as IProgrammeDocument
+        ).shortName +
+          (assignedSubject.batch as IBatchDocument).section.toString(),
+        (assignedSubject.batch as IBatchDocument).semester.toString()
+      ]
+    ) || [];
 
   if (!assignedSubjectsData && status === 'pending') {
     return <div>Loading...</div>;
@@ -29,5 +40,3 @@ const FacultyActiveSubjectTable: React.FC = () => {
 
   return <Table columns={ActiveSubjectColumns} rows={ActiveSubjectRows} />;
 };
-
-export default FacultyActiveSubjectTable;
