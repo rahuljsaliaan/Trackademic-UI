@@ -74,7 +74,8 @@ export enum QueryKeys {
  * @enum {string}
  */
 export enum MutationKeys {
-  Login = 'login'
+  Login = 'login',
+  Logout = 'logout'
 }
 
 /**

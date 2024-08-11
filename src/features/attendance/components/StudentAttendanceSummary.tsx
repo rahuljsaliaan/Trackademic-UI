@@ -25,8 +25,8 @@ export const StudentAttendanceSummary: React.FC<
     averagePercentage: data.averageStatus * 100
   }));
 
-  const shortageSubjectsCount = attendanceData?.results.map(
-    (data) => data.totalAttendanceRecords > 0 && data.averageStatus < 80
+  const shortageSubjectsCount = attendanceData?.results.filter(
+    (data) => data.totalAttendanceRecords > 0 && data.averageStatus * 100 < 80
   ).length;
 
   return (
