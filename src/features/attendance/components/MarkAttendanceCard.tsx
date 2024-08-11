@@ -71,7 +71,9 @@ const Status = styled.div<{ status: 'normal' | 'warning' | 'absent' }>`
   border-radius: 4px;
 `;
 
-const MarkAttendanceCard: React.FC<MarkAttendanceCardProps> = ({ status }) => {
+export const MarkAttendanceCard: React.FC<MarkAttendanceCardProps> = ({
+  status
+}) => {
   return (
     <CardContainer status={status}>
       <PhotoContainer>{/* Add photo or avatar here */}</PhotoContainer>
@@ -88,5 +90,3 @@ const MarkAttendanceCard: React.FC<MarkAttendanceCardProps> = ({ status }) => {
     </CardContainer>
   );
 };
-
-export default MarkAttendanceCard;

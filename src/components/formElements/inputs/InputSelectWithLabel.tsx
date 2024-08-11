@@ -33,14 +33,14 @@ const StyledSelect = styled.select`
   font-size: 16px;
   font-weight: 500;
   padding: 16px;
-  color: #94A3B8;
-  border: 2px solid #94A3B8;
+  color: #94a3b8;
+  border: 2px solid #94a3b8;
   border-radius: 4px;
   background-color: #ffffff;
 
   &:focus {
     outline: none;
-    border-color: #4535EA;
+    border-color: #4535ea;
   }
 `;
 
@@ -51,12 +51,22 @@ const Option = styled.option`
   color: #333333;
 `;
 
-const InputSelectWithLabel: React.FC<InputSelectWithLabelProps> = ({ label, placeholder, options, value, onChange }) => {
+const InputSelectWithLabel: React.FC<InputSelectWithLabelProps> = ({
+  label,
+  placeholder,
+  options,
+  value,
+  onChange
+}) => {
   return (
     <Container>
       <StyledLabel>{label}</StyledLabel>
       <StyledSelect value={value} onChange={onChange} defaultValue="">
-        {placeholder && <Option value="" disabled>{placeholder}</Option>}
+        {placeholder && (
+          <Option value="" disabled>
+            {placeholder}
+          </Option>
+        )}
         {options.map((option) => (
           <Option key={option.value} value={option.value}>
             {option.label}

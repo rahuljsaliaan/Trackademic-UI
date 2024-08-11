@@ -1,18 +1,21 @@
 import React from 'react';
 import BarChart from '@/components/chart/BarChart';
-import { useGetStudentAttendance } from '@/features/attendance/hooks/useGetStudentAttendance';
+import { useGetStudentAttendance } from '@/features/attendance';
 import StatisticsCard from '@/components/dashboard/StatisticsCard';
 
 interface IStudentAttendanceSummaryProps {
   // props definition
-  studentId?: string,
-  semester: number
+  studentId?: string;
+  semester: number;
 }
 
-const StudentAttendanceSummary: React.FC<
+export const StudentAttendanceSummary: React.FC<
   IStudentAttendanceSummaryProps
-> = ({studentId, semester}) => {
-  const { attendanceData, status: attendanceStatus } = useGetStudentAttendance({semester,studentId});
+> = ({ studentId, semester }) => {
+  const { attendanceData, status: attendanceStatus } = useGetStudentAttendance({
+    semester,
+    studentId
+  });
 
   if (!attendanceData || attendanceStatus === 'pending') {
     return <div>Loading...</div>;
@@ -22,8 +25,8 @@ const StudentAttendanceSummary: React.FC<
     averagePercentage: data.averageStatus * 100
   }));
 
-  const shortageSubjectsCount = data.filter(
-    (attendanceData) => attendanceData.averagePercentage < 80
+  const shortageSubjectsCount = attendanceData?.results.filter(
+    (data) => data.totalAttendanceRecords > 0 && data.averageStatus * 100 < 80
   ).length;
 
   return (
@@ -46,5 +49,3 @@ const StudentAttendanceSummary: React.FC<
     </>
   );
 };
-
-export default StudentAttendanceSummary;

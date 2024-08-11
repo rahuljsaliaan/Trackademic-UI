@@ -26,7 +26,7 @@ export enum RootColor {
  * Enum for defining route paths in the application.
  * @enum {string}
  */
-export enum AppRoutes {
+export enum AppRoute {
   Home = '/',
   Login = '/login',
   DashboardStudent = '/dashboard-student',
@@ -47,20 +47,41 @@ export enum AppRoutes {
  * Utilizes `UserRole` enum for keys and `AppRoutes` enum for values to assign
  * dashboard routes based on user roles.
  *
- * @type {{ [key in UserRole]: AppRoutes }}
+ * @type {{ [key in UserRole]: AppRoute }}
  */
-export const UserRoleRouteMap: { [key in UserRole]: AppRoutes } = {
-  [UserRole.Student]: AppRoutes.DashboardStudent,
-  [UserRole.Faculty]: AppRoutes.DashboardFaculty,
-  [UserRole.HeadOfDepartment]: AppRoutes.DashboardHOD,
-  [UserRole.Principle]: AppRoutes.DashboardPrincipal
+export const UserRoleRouteMap: { [key in UserRole]: AppRoute } = {
+  [UserRole.Student]: AppRoute.DashboardStudent,
+  [UserRole.Faculty]: AppRoute.DashboardFaculty,
+  [UserRole.HeadOfDepartment]: AppRoute.DashboardHOD,
+  [UserRole.Principle]: AppRoute.DashboardPrincipal
 };
 
+/**
+ * Query keys used in the application.
+ * @enum {string}
+ */
 export enum QueryKeys {
   CurrentUser = 'currentUser',
-  StudentAttendance = 'studentAttendance'
+  StudentAttendance = 'studentAttendance',
+  FacultyActiveSubjects = 'facultyActiveSubjects',
+  FacultyAttendance = 'facultyAttendance',
+  FacultySchedule = 'facultySchedule',
+  EnrollmentStudent = 'enrollmentStudent'
 }
 
+/**
+ * Mutation keys used in the application.
+ * @enum {string}
+ */
 export enum MutationKeys {
-  Login = 'login'
+  Login = 'login',
+  Logout = 'logout'
+}
+
+/**
+ * Date formats used in the application.
+ * @enum {string}
+ */
+export enum DateFormat {
+  Default = 'dd-MM-yyyy'
 }

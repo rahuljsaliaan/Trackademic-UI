@@ -1,17 +1,17 @@
 import Table from '@/components/table/Table';
 import React from 'react';
-import { useGetStudentAttendance } from '../hooks/useGetStudentAttendance';
+import { useGetStudentAttendance } from '@/features/attendance';
 
 interface IStudentAttendanceTableProps {
   studentId: string;
   semester: number;
 }
 
-const StudentAttendanceTable: React.FC<IStudentAttendanceTableProps> = ({
+export const StudentAttendanceTable: React.FC<IStudentAttendanceTableProps> = ({
   studentId,
   semester
 }) => {
-  const { attendanceData } = useGetStudentAttendance({semester,studentId});
+  const { attendanceData } = useGetStudentAttendance({ semester, studentId });
 
   const columns = [
     { name: 'Sl. No', width: '10%' },
@@ -37,5 +37,3 @@ const StudentAttendanceTable: React.FC<IStudentAttendanceTableProps> = ({
 
   return <Table columns={columns} rows={rows} />;
 };
-
-export default StudentAttendanceTable;

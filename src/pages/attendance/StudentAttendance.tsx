@@ -1,15 +1,16 @@
-import Header from '@/layouts/Header';
+import { useNavigate } from 'react-router-dom';
 import SectionHeader from '@/components/dashboard/SectionHeader';
 import InputSelectWithLabel from '@/components/formElements/inputs/InputSelectWithLabel';
-import Footer from '@/components/dashboard/Footer';
 import { useQueryParams } from '@/hooks/useQueryParams';
 import { ChangeEvent, useState } from 'react';
-import StudentAttendanceSummary from '@/features/attendance/components/StudentAttendanceSummary';
+import {
+  StudentAttendanceSummary,
+  StudentAttendanceTable
+} from '@/features/attendance';
 import { APIQueryParamV1, IBatchDocument } from 'trackademic-schema-toolkit';
-import { useNavigate } from 'react-router-dom';
 import { createSemester } from '@/utils/helper';
 import { useGetCurrentUser } from '@/features/users/hooks/useGetCurrentUser';
-import StudentAttendanceTable from '@/features/attendance/components/StudentAttendanceTable';
+import PageLayout from '@/layouts/PageLayout';
 
 export default function StudentAttendance() {
   const query = useQueryParams();
@@ -33,51 +34,44 @@ export default function StudentAttendance() {
   });
 
   return (
-    <div className="dashboard">
-      <div className="dashboard-contents">
-        <Header
-          profileSrc="src/assets/images/profile.png"
-          greetingText="Namasthe!"
-          bellIconSrc="src/assets/icons/notificationBell.svg"
-          notificationDot={true}
-          menuIconSrc="src/assets/icons/menu.svg"
-          closeIconSrc="src/assets/icons/menuClose.svg"
+    <PageLayout>
+      <div className="dashboard-attendance-section">
+        <SectionHeader
+          title="Attendance"
+          tagline="Dive into Your Semester Stories!"
+          showButton={false}
         />
-        <div className="dashboard-attendance-section">
-          <SectionHeader
-            title="Attendance"
-            tagline="Dive into Your Semester Stories!"
-            showButton={false}
-          />
-          <InputSelectWithLabel
-            label="Pick Your Semester"
-            placeholder="Tap Here to Choose"
-            options={options}
-            value={semester}
-            onChange={handleSelectChange}
-          />
+        <InputSelectWithLabel
+          label="Pick Your Semester"
+          placeholder="Tap Here to Choose"
+          options={options}
+          value={semester}
+          onChange={handleSelectChange}
+        />
 
-          {user && (
-            <StudentAttendanceTable studentId={user?.id as string} semester={semester} />
-          )}
-
-          <StudentAttendanceSummary studentId={user?.id as string} semester={semester}/>
-        </div>
-        <div className="attendance-absent-calender-container">
-          <label className="attendance-absent-calender">
-            Absentee Calendar
-          </label>
-          <InputSelectWithLabel
-            label="Pick Your Subject"
-            placeholder="Tap Here to Choose"
-            options={options}
-            // value={selectedValue}
-            // onChange={handleSelectChange}
+        {user && (
+          <StudentAttendanceTable
+            studentId={user?.id as string}
+            semester={semester}
           />
-          {/* Add calendar here */}
-        </div>
+        )}
+
+        <StudentAttendanceSummary
+          studentId={user?.id as string}
+          semester={semester}
+        />
       </div>
-      <Footer />
-    </div>
+      <div className="attendance-absent-calender-container">
+        <label className="attendance-absent-calender">Absentee Calendar</label>
+        <InputSelectWithLabel
+          label="Pick Your Subject"
+          placeholder="Tap Here to Choose"
+          options={options}
+          // value={selectedValue}
+          // onChange={handleSelectChange}
+        />
+        {/* Add calendar here */}
+      </div>
+    </PageLayout>
   );
 }

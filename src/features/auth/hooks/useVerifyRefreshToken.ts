@@ -1,8 +1,8 @@
 import { APIResourceV1 } from 'trackademic-schema-toolkit';
 import { useQuery } from '@tanstack/react-query';
-import { getRefreshToken } from '@/features/auth/services/api';
+import { getRefreshToken } from '@/features/auth';
 
-const useRefreshToken = () => {
+export const useRefreshToken = () => {
   const { status } = useQuery({
     queryKey: [APIResourceV1.RefreshToken],
     queryFn: getRefreshToken
@@ -14,5 +14,3 @@ const useRefreshToken = () => {
 
   return { status };
 };
-
-export default useRefreshToken;

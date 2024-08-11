@@ -13,6 +13,7 @@ interface ContentCardProps {
   label: string;
   subLabel: string;
   buttonText?: string;
+  onClick?: () => unknown;
   isButtonVisible?: boolean;
 }
 
@@ -121,7 +122,8 @@ const ContentCard: React.FC<ContentCardProps> = ({
   label,
   subLabel,
   buttonText = '',
-  isButtonVisible = false
+  isButtonVisible = false,
+  onClick
 }) => {
   return (
     <CardContainer>
@@ -146,7 +148,12 @@ const ContentCard: React.FC<ContentCardProps> = ({
         </IconLabelContainer>
       </CardBottomContainer>
       <div className="content-card-button">
-        <Button width={'100%'} text={buttonText} isVisible={isButtonVisible} />
+        <Button
+          width={'100%'}
+          text={buttonText}
+          isVisible={isButtonVisible}
+          onClick={onClick}
+        />
       </div>
     </CardContainer>
   );

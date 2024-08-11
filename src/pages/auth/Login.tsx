@@ -5,11 +5,11 @@ import Button from '@/components/formElements/buttons/Button';
 import ErrorMessage from '@/components/formElements/errorMessage/ErrorMessage';
 import loginImage from '@/assets/images/loginImage.svg';
 import { RootColor } from '@/types/enum.types';
-import useLogin from '@/features/auth/hooks/useLogin';
+import { useLogin } from '@/features/auth';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoginDTO, loginSchema } from 'trackademic-schema-toolkit';
-import { useGetCurrentUser } from '@/features/users/hooks/useGetCurrentUser';
+import { useGetCurrentUser } from '@/features/users';
 import { UserRoleRouteMap } from '@/types/enum.types.ts';
 
 export default function Login() {

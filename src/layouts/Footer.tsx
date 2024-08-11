@@ -7,7 +7,7 @@ const FooterContainer = styled.div`
   align-items: center;
   justify-content: center;
   background-color: #282828;
-  padding: 32px; 
+  padding: 32px;
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
 `;
@@ -24,7 +24,7 @@ const FooterText = styled.p`
 
 const Footer: React.FC = () => {
   return (
-    <FooterContainer className='dashboard-footer'>
+    <FooterContainer className="dashboard-footer">
       <FooterLogo src="src/assets/logo/logo-dark.svg" alt="logo" />
       <FooterText>© 2024 Trackademic. All rights reserved.</FooterText>
     </FooterContainer>

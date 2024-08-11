@@ -1,3 +1,4 @@
+import useLogout from '@/features/auth/hooks/useLogout';
 import styled from 'styled-components';
 
 const MenuOverlay = styled.div<{ isVisible: boolean }>`
@@ -96,6 +97,12 @@ const NavBar: React.FC<NavBarProps> = ({
   onClose,
   closeIconSrc
 }) => {
+  const { mutate } = useLogout();
+
+  const handleLogout = () => {
+    mutate();
+  };
+
   const handleOverlayClick = () => {
     onClose();
   };
@@ -133,6 +140,10 @@ const NavBar: React.FC<NavBarProps> = ({
           </NavList>
           <NavList>
             <NavLink>Time Table</NavLink>
+            <NavLinkIcon src="src/assets/icons/navArrow.svg" />
+          </NavList>
+          <NavList onClick={handleLogout}>
+            <NavLink>Logout</NavLink>
             <NavLinkIcon src="src/assets/icons/navArrow.svg" />
           </NavList>
         </NavListContainer>
