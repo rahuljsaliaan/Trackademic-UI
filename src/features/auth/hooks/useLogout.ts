@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { logout } from '@/features/auth/services/api';
 import { useNavigate } from 'react-router-dom';
-import { AppRoutes, MutationKeys } from '@/types/enum.types';
+import { AppRoute, MutationKeys } from '@/types/enum.types';
 
 function useLogout() {
   const navigate = useNavigate();
@@ -10,7 +10,7 @@ function useLogout() {
     mutationKey: [MutationKeys.Logout],
     mutationFn: logout,
     onSuccess: () => {
-      navigate(`/${AppRoutes.Login}`);
+      navigate(`/${AppRoute.Login}`);
     }
   });
   if (status === 'error') {
