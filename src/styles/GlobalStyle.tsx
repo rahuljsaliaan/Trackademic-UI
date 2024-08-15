@@ -360,6 +360,59 @@ const GlobalStyle = createGlobalStyle`
     color: #94A3B8;
   }
 
+  .profile-picture-container-div{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .profile-picture-container-div p{
+  font-size: 32px;
+  font-weight: 900;
+  }
+
+.profile-picture-container{
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-color: #d7e7ff;
+  overflow: hidden;
+}
+
+  .profile-picture-container img{
+    width: 100%;
+  height: 100%;
+  object-fit: cover;
+  }
+
+  .profile-content-header{
+     font-size: 20px;
+  font-weight: 700;
+  }
+
+  .profile-content-hr{
+  border: 1px solid #D8DEE7;
+  }
+
+  .profile-content-list{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 8px 0;
+  }
+
+  .profile-content-list-header{
+    font-size: 14px;
+  font-weight: 500;
+  }
+
+  .profile-content-list-value{
+    font-size: 16px;
+  font-weight: 600;
+  }
+
   /* ----------Media Query---------- */
   @media (max-width: 768px) {
     .get-started-container {
