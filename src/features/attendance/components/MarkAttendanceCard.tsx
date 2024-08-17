@@ -5,6 +5,8 @@ interface MarkAttendanceCardProps {
   status: 'normal' | 'warning' | 'absent';
   photoUrl?: string;
   onClick?: () => void;
+  name: string; 
+  usn: string;
 }
 
 const getBorderColor = (status: 'normal' | 'warning' | 'absent') => {
@@ -93,18 +95,20 @@ const Status = styled.div<{ status: 'normal' | 'warning' | 'absent' }>`
 export const MarkAttendanceCard: React.FC<MarkAttendanceCardProps> = ({
   status,
   photoUrl,
-  onClick
+  onClick,
+  name,
+  usn,
 }) => {
   const statusText = status === 'absent' ? 'A' : 'P';
 
   return (
-    <CardContainer status={status} onClick={onClick}>
+    <CardContainer name={name} usn={usn} status={status} onClick={onClick}>
       <PhotoContainer>
         {photoUrl ? <img src={photoUrl} alt="Student Avatar" /> : null}
       </PhotoContainer>
       <InfoContainer>
-        <h1 className="take-attendace-card-stud-name">John Doe</h1>
-        <p className="take-attendace-card-stud-usn">4SO22MC001</p>
+        <h1 className="take-attendace-card-stud-name">{name}</h1>
+        <p className="take-attendace-card-stud-usn">{usn}</p>
       </InfoContainer>
       <StatsContainer>
         <StatItem className="take-attendance-card-stat-item-head">

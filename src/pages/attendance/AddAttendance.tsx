@@ -12,26 +12,39 @@ interface Student {
   id: number;
   status: 'normal' | 'warning' | 'absent';
   photoUrl: string;
+  name: string;
+  usn: string;
 }
 
 export default function AddAttendance() {
   const [students, setStudents] = useState<Student[]>([
-    { id: 1, status: 'normal', photoUrl: '/src/assets/images/profile.png' },
-    { id: 2, status: 'normal', photoUrl: '/src/assets/images/profile.png' },
-    { id: 3, status: 'normal', photoUrl: '/src/assets/images/profile.png' }
+    { id: 1, status: 'normal', photoUrl: '/src/assets/images/profile.png', name: 'John Doe', usn: '4SO22MC001' },
+    { id: 2, status: 'normal', photoUrl: '/src/assets/images/profile.png', name: 'Jane Smith', usn: '4SO22MC002' },
+    { id: 3, status: 'normal', photoUrl: '/src/assets/images/profile.png', name: 'Alice Johnson', usn: '4SO22MC003' }
   ]);
 
+  const [filteredStudents, setFilteredStudents] = useState<Student[]>(students);
+  const [searchTerm, setSearchTerm] = useState('');
   const [isPopupVisible, setIsPopupVisible] = useState(false);
 
   const handleAllPresent = () => {
-    setStudents((prevStudents) =>
-      prevStudents.map((student) => ({ ...student, status: 'normal' }))
-    );
+    const updatedStudents: Student[] = students.map((student) => ({ ...student, status: 'normal' }));
+    setStudents(updatedStudents);
+    setFilteredStudents(updatedStudents);
   };
 
   const toggleStudentStatus = (id: number) => {
-    setStudents((prevStudents) =>
-      prevStudents.map((student) =>
+    const updatedStudents: Student[] = students.map((student) =>
+      student.id === id
+        ? {
+            ...student,
+            status: student.status === 'normal' ? 'absent' : 'normal'
+          }
+        : student
+    );
+    setStudents(updatedStudents);
+    setFilteredStudents((prevFiltered) =>
+      prevFiltered.map((student) =>
         student.id === id
           ? {
               ...student,
@@ -48,6 +61,22 @@ export default function AddAttendance() {
 
   const handleClosePopup = () => {
     setIsPopupVisible(false);
+  };
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.toLowerCase();
+    setSearchTerm(value);
+
+    if (value === '') {
+      setFilteredStudents(students);
+    } else {
+      const filtered = students.filter(
+        (student) =>
+          student.name.toLowerCase().includes(value) ||
+          student.usn.toLowerCase().includes(value)
+      );
+      setFilteredStudents(filtered);
+    }
   };
 
   return (
@@ -72,7 +101,13 @@ export default function AddAttendance() {
       </div>
       <div className="take-attendance-container">
         <div className="take-attendance-header-container">
-          <InputWithoutLabel id="" type="text" placeholder="Search" />
+          <InputWithoutLabel
+            id="search"
+            type="text"
+            placeholder="Search by Name or USN"
+            value={searchTerm}
+            onChange={handleSearch}
+          />
           <div className="take-attendance-header-sub-container">
             <Button
               text="All Present"
@@ -82,14 +117,20 @@ export default function AddAttendance() {
           </div>
         </div>
         <hr className="take-attendance-hr" />
-        {students.map((student) => (
-          <MarkAttendanceCard
-            key={student.id}
-            status={student.status}
-            photoUrl={student.photoUrl}
-            onClick={() => toggleStudentStatus(student.id)}
-          />
-        ))}
+        {filteredStudents.length > 0 ? (
+          filteredStudents.map((student) => (
+            <MarkAttendanceCard
+              key={student.id}
+              status={student.status}
+              photoUrl={student.photoUrl}
+              onClick={() => toggleStudentStatus(student.id)}
+              name={student.name}
+              usn={student.usn}
+            />
+          ))
+        ) : (
+          <p>No students match the search criteria.</p>
+        )}
         <div className="take-attendance-statistics-card-container">
           <StatisticsCard label="Present" data="04" variant="normal" />
           <StatisticsCard label="Absent" data="06" variant="warning" />
