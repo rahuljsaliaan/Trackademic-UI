@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-
 import Button from '@/components/formElements/buttons/Button';
 
 interface ContentCardProps {
@@ -15,9 +14,10 @@ interface ContentCardProps {
   buttonText?: string;
   onClick?: () => unknown;
   isButtonVisible?: boolean;
+  margin?: string; // Add this prop to allow custom margin
 }
 
-const CardContainer = styled.div`
+const CardContainer = styled.div<{ margin?: string }>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,7 +25,7 @@ const CardContainer = styled.div`
   width: 100%;
   border: 2px solid #4535ea;
   border-radius: 10px;
-  margin: 0 16px;
+  margin: ${({ margin }) => margin || '0 16px'}; // Use custom margin if provided, otherwise default
   padding: 16px;
 `;
 
@@ -123,10 +123,11 @@ const ContentCard: React.FC<ContentCardProps> = ({
   subLabel,
   buttonText = '',
   isButtonVisible = false,
-  onClick
+  onClick,
+  margin, // Add this prop to allow custom margin
 }) => {
   return (
-    <CardContainer>
+    <CardContainer margin={margin}>
       <Content>
         <Heading>{heading}</Heading>
         <Paragraph>{paragraph}</Paragraph>
@@ -147,14 +148,11 @@ const ContentCard: React.FC<ContentCardProps> = ({
           </LabelContainer>
         </IconLabelContainer>
       </CardBottomContainer>
-      <div className="content-card-button">
-        <Button
-          width={'100%'}
-          text={buttonText}
-          isVisible={isButtonVisible}
-          onClick={onClick}
-        />
-      </div>
+      {isButtonVisible && (
+        <div className="content-card-button">
+          <Button width={'100%'} text={buttonText} onClick={onClick} />
+        </div>
+      )}
     </CardContainer>
   );
 };

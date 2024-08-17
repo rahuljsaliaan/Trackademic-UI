@@ -14,6 +14,7 @@ const GlobalStyle = createGlobalStyle`
     --tertiary-color: #dfe5ee;
     --text-color: #ffffff;
     --accent-color: #414ded;
+    --warning-color: #EF4444;
 
     font-family: 'Manrope', sans-serif;
     line-height: 1.5;
@@ -357,7 +358,36 @@ const GlobalStyle = createGlobalStyle`
   .take-attendace-card-stud-usn{
     font-size: 12px;
     font-weight: 700;
-    color: #94A3B8;
+    color: #626262;
+  }
+
+  .take-attendance-card-stat-item-head{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .take-attendance-card-stat-item-head h2{
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .take-attendance-card-stat-item-head p{
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .take-attendance-statistics-card-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // justify-content: space-between;
+    gap: 16px;
+  }
+
+  .take-attendance-submit-button-container{
+    margin-top: 16px;
   }
 
   .profile-picture-container-div{

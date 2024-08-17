@@ -3,7 +3,7 @@ import { RootColor } from '@/types/enum.types';
 
 interface ButtonProps {
   text: string;
-  color?: RootColor;
+  color?: string;
   padding?: string;
   width?: string;
   type?: 'button' | 'submit' | 'reset';

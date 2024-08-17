@@ -1,16 +1,55 @@
+import { useState } from 'react';
 import SectionHeader from '@/components/dashboard/SectionHeader';
 import ContentCard from '@/components/card/ContentCard';
 import { MarkAttendanceCard } from '@/features/attendance';
 import InputWithoutLabel from '@/components/formElements/inputs/InputWithoutLabel';
 import Button from '@/components/formElements/buttons/Button';
 import PageLayout from '@/layouts/PageLayout';
-// import { useGetEnrolledStudent } from '@/features/enrollment';
-// import { useGetFacultySchedule } from '@/features/schedule';
+import StatisticsCard from '@/components/dashboard/StatisticsCard';
+import Popup from '@/components/popup/Popup'; // Import the Popup component
+
+interface Student {
+  id: number;
+  status: 'normal' | 'warning' | 'absent';
+  photoUrl: string;
+}
 
 export default function AddAttendance() {
-  // const { facultySchedule, status } = useGetFacultySchedule();
+  const [students, setStudents] = useState<Student[]>([
+    { id: 1, status: 'normal', photoUrl: '/src/assets/images/profile.png' },
+    { id: 2, status: 'normal', photoUrl: '/src/assets/images/profile.png' },
+    { id: 3, status: 'normal', photoUrl: '/src/assets/images/profile.png' }
+  ]);
 
-  // const { enrolledStudents } = useGetEnrolledStudent(facultySchedule.);
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+
+  const handleAllPresent = () => {
+    setStudents((prevStudents) =>
+      prevStudents.map((student) => ({ ...student, status: 'normal' }))
+    );
+  };
+
+  const toggleStudentStatus = (id: number) => {
+    setStudents((prevStudents) =>
+      prevStudents.map((student) =>
+        student.id === id
+          ? {
+              ...student,
+              status: student.status === 'normal' ? 'absent' : 'normal'
+            }
+          : student
+      )
+    );
+  };
+
+  const handleSubmit = () => {
+    setIsPopupVisible(true);
+  };
+
+  const handleClosePopup = () => {
+    setIsPopupVisible(false);
+  };
+
   return (
     <PageLayout>
       <div className="dashboard-attendance-section">
@@ -28,24 +67,42 @@ export default function AddAttendance() {
           time="9:55 AM - 10:50 AM"
           label="4th Sem MCA-B"
           subLabel="AB1 - 402"
+          margin="0"
         />
       </div>
       <div className="take-attendance-container">
         <div className="take-attendance-header-container">
           <InputWithoutLabel id="" type="text" placeholder="Search" />
           <div className="take-attendance-header-sub-container">
-            <Button text="All Present" width="auto" />
-            <button className="take-attendance-header-btn">
-              <img src="src/assets/icons/filterIcon.svg" />
-            </button>
-            <button className="take-attendance-header-btn">
-              <img src="src/assets/icons/sortIcon.svg" />
-            </button>
+            <Button
+              text="All Present"
+              width="auto"
+              onClick={handleAllPresent}
+            />
           </div>
         </div>
         <hr className="take-attendance-hr" />
-        <MarkAttendanceCard status="absent" />
+        {students.map((student) => (
+          <MarkAttendanceCard
+            key={student.id}
+            status={student.status}
+            photoUrl={student.photoUrl}
+            onClick={() => toggleStudentStatus(student.id)}
+          />
+        ))}
+        <div className="take-attendance-statistics-card-container">
+          <StatisticsCard label="Present" data="04" variant="normal" />
+          <StatisticsCard label="Absent" data="06" variant="warning" />
+        </div>
+        <div className="take-attendance-submit-button-container">
+          <Button text="Submit" width="100%" onClick={handleSubmit} />
+        </div>
       </div>
+      <Popup
+        isVisible={isPopupVisible}
+        onClose={handleClosePopup}
+        isTextBoxEnabled={true}
+      />
     </PageLayout>
   );
 }
