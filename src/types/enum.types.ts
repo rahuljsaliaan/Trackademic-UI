@@ -81,7 +81,9 @@ export enum MutationKeys {
   Login = 'login',
   Logout = 'logout',
   AddAttendance = 'addAttendance',
-  AddOrUpdateNote = 'addOrUpdateNote'
+  AddOrUpdateNote = 'addOrUpdateNote',
+  ResetPassword = 'resetPassword',
+  ForgotPassword = 'forgotPassword'
 }
 
 /**

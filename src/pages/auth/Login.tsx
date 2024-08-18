@@ -11,6 +11,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { LoginDTO, loginSchema } from 'trackademic-schema-toolkit';
 import { useGetCurrentUser } from '@/features/users';
 import { UserRoleRouteMap } from '@/types/enum.types.ts';
+import { AppRoute } from '@/types/enum.types';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -65,7 +66,7 @@ export default function Login() {
           />
           <ErrorMessage message="This is an error message." />
           <div className="auth-form-forgot-anchor-container">
-            <a href="#">
+            <a href={`${AppRoute.ForgotPassword}`}>
               Lost Your Key?<span> Let's Find It Together!</span>
             </a>
           </div>

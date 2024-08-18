@@ -1,7 +1,8 @@
 import {
   APIResourceV1,
   IUserDocument,
-  LoginDTO
+  LoginDTO,
+  ResetPasswordDTO
 } from 'trackademic-schema-toolkit';
 import axiosService from '@/services/api';
 
@@ -31,4 +32,41 @@ export const logout = async (): Promise<null> => {
     `${APIResourceV1.Auth}/${APIResourceV1.Logout}`
   );
   return response.data as null;
+};
+
+export const resetPassword = async ({
+  email,
+  otp,
+  password,
+  _confirmPassword,
+}: ResetPasswordDTO): Promise<null> => {
+  const response = await axiosService.patch(
+    `${APIResourceV1.Auth}/${APIResourceV1.ResetPassword}`,
+    {
+      email,
+      otp,
+      password,
+      _confirmPassword
+    }
+  );
+
+  return response.data;
+};
+
+export const forgotPassword = async (): Promise<null> => {
+  const response = await axiosService.post(
+    `${APIResourceV1.Auth}/${APIResourceV1.ForgotPassword}`
+  );
+
+  return response.data;
+};
+
+export const checkOTP = async ({otp:number}:{otp:number}): Promise<IVerificationToken> => {
+  const response = await axiosService.post(
+    `${APIResourceV1.Auth}/${APIResourceV1.VerifyOTP}`,{
+      otp
+    }
+  );
+
+  return response.data;
 };
