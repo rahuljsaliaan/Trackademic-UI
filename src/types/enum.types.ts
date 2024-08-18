@@ -54,7 +54,7 @@ export const UserRoleRouteMap: { [key in UserRole]: AppRoute } = {
   [UserRole.Student]: AppRoute.DashboardStudent,
   [UserRole.Faculty]: AppRoute.DashboardFaculty,
   [UserRole.HeadOfDepartment]: AppRoute.DashboardHOD,
-  [UserRole.Principle]: AppRoute.DashboardPrincipal
+  [UserRole.Principal]: AppRoute.DashboardPrincipal
 };
 
 /**
