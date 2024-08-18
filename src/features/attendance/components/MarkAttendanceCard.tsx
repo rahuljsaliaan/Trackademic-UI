@@ -8,6 +8,9 @@ interface MarkAttendanceCardProps {
   onClick?: () => void;
   name: string;
   usn: string;
+  held: number;
+  present: number;
+  percentage: number;
 }
 
 const getBorderColor = (status: AttendanceStatus) => {
@@ -32,7 +35,9 @@ const getTextColor = (status: AttendanceStatus) => {
   return status === AttendanceStatus.Absent ? '#FFFFFF' : '#000000';
 };
 
-const CardContainer = styled.div<MarkAttendanceCardProps>`
+const CardContainer = styled.div<
+  Omit<MarkAttendanceCardProps, 'held' | 'present' | 'percentage'>
+>`
   display: flex;
   align-items: center;
   width: 100%;
@@ -97,7 +102,10 @@ export const MarkAttendanceCard: React.FC<MarkAttendanceCardProps> = ({
   photoUrl,
   onClick,
   name,
-  usn
+  usn,
+  held,
+  present,
+  percentage
 }) => {
   const statusText = status === 'absent' ? 'A' : 'P';
 
@@ -113,15 +121,15 @@ export const MarkAttendanceCard: React.FC<MarkAttendanceCardProps> = ({
       <StatsContainer>
         <StatItem className="take-attendance-card-stat-item-head">
           <h2>H</h2>
-          <p>25</p>
+          <p>{held}</p>
         </StatItem>
         <StatItem className="take-attendance-card-stat-item-head">
           <h2>P</h2>
-          <p>23</p>
+          <p>{present}</p>
         </StatItem>
         <StatItem className="take-attendance-card-stat-item-head">
           <h2>%</h2>
-          <p>80</p>
+          <p>{percentage}</p>
         </StatItem>
       </StatsContainer>
       <Status status={status}>{statusText}</Status>

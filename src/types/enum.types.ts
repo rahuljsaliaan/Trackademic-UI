@@ -67,7 +67,10 @@ export enum QueryKeys {
   FacultyActiveSubjects = 'facultyActiveSubjects',
   FacultyAttendance = 'facultyAttendance',
   FacultySchedule = 'facultySchedule',
-  EnrollmentStudent = 'enrollmentStudent'
+  EnrollmentStudent = 'enrollmentStudent',
+  Attendance = 'attendance',
+  AddOrUpdateNote = 'addOrUpdateNote',
+  AssignedSubject = 'assignedSubject'
 }
 
 /**
@@ -76,7 +79,9 @@ export enum QueryKeys {
  */
 export enum MutationKeys {
   Login = 'login',
-  Logout = 'logout'
+  Logout = 'logout',
+  AddAttendance = 'addAttendance',
+  AddOrUpdateNote = 'addOrUpdateNote'
 }
 
 /**
