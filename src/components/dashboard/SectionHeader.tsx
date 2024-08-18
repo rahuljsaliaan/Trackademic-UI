@@ -35,6 +35,7 @@ interface SectionHeaderProps {
   title: string;
   tagline: string;
   showButton?: boolean;
+  buttonText?: string;
   navigationLink?: AppRoute;
 }
 
@@ -42,6 +43,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
   title,
   tagline,
   showButton = true,
+  buttonText = 'More',
   navigationLink
 }) => {
   const navigate = useNavigate();
@@ -60,7 +62,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
       </TitleContainer>
       {showButton && (
         <Button
-          text="More"
+          text={buttonText}
           color={RootColor.PrimaryColor}
           onClick={handleNavigate}
         />
