@@ -1,5 +1,4 @@
-import { useNavigate } from 'react-router-dom';
-import { APIQueryParamV1, IBatchDocument } from 'trackademic-schema-toolkit';
+import {  IBatchDocument } from 'trackademic-schema-toolkit';
 import Quote from '@/components/card/Quote';
 import SectionHeader from '@/components/dashboard/SectionHeader';
 import StatisticsCard from '@/components/dashboard/StatisticsCard';
@@ -7,22 +6,15 @@ import CarouselCard from '@/components/card/CarouselCard';
 import Table from '@/components/table/Table';
 import { StudentAttendanceSummary } from '@/features/attendance';
 import { useGetCurrentUser } from '@/features/users';
-import { useQueryParams } from '@/hooks/useQueryParams';
 import PageLayout from '@/layouts/PageLayout';
 import { AppRoute } from '@/types/enum.types';
+import { useGetSemester } from '@/features/schedule/hooks/useGetSemester';
 
 export default function StudentDashboard() {
   const { user } = useGetCurrentUser();
-  const query = useQueryParams();
-  const navigate = useNavigate();
 
-  let semester = parseInt(query.get(APIQueryParamV1.Semester) ?? '');
 
-  if (!semester) {
-    semester = (user?.studentDetails?.batch as IBatchDocument).semester;
-    query.set(APIQueryParamV1.Semester, semester.toString());
-    navigate({ search: query.toString() });
-  }
+  const semester = useGetSemester((user?.studentDetails?.batch as IBatchDocument)?.semester ?? null);
 
   const contentData = [
     {

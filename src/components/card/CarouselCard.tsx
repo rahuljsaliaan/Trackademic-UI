@@ -4,8 +4,7 @@ import ContentCard from '@/components/card/ContentCard';
 import arrowLeft from '@/assets/icons/arrow-left.svg';
 import arrowRight from '@/assets/icons/arrow-right.svg';
 import { useNavigate } from 'react-router-dom';
-import { useQueryParams } from '@/hooks/useQueryParams';
-import { APIResourceV1 } from 'trackademic-schema-toolkit';
+import { APIQueryParamV1 } from 'trackademic-schema-toolkit';
 
 const CarouselContainer = styled.div`
   position: relative;
@@ -77,7 +76,7 @@ interface CarouselCardProps {
     label: string;
     subLabel: string;
     buttonText?: string;
-    subjectId: string;
+    id: string;
     isButtonVisible?: boolean;
   }[];
   navigationLink?: string;
@@ -87,17 +86,12 @@ const CarouselCard: React.FC<CarouselCardProps> = ({
   contentData,
   navigationLink
 }) => {
-
-  const query = useQueryParams()
   const navigate = useNavigate();
 
   const handleNavigate = (currentIndex: number) => {
     if (!navigationLink) return;
 
-    query.set(APIResourceV1.Subject, contentData[currentIndex].subjectId);
-
-    const queryString = new URLSearchParams(query).toString();
-    const link = `${navigationLink}?${queryString}`
+    const link = `${navigationLink}?${APIQueryParamV1.FacultySchedule}=${contentData[currentIndex].id}`;
 
     navigate(link);
   };

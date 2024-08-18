@@ -34,7 +34,7 @@ export const FacultyScheduleCarousel: React.FC<
     subLabel: ` ${data.timeSlot.batch.block}-${data.timeSlot.batch.roomNumber}`,
     buttonText: 'Take Attendance',
     isButtonVisible: true,
-    subjectId: data.timeSlot.subject.id as string,
+    id: data.id as string
   }));
 
   return (

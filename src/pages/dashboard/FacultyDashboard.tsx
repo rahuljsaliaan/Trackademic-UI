@@ -22,7 +22,8 @@ export default function FacultyDashboard() {
           title="Today's Journey"
           tagline="Get Ready to Rock the Day!"
         />
-        <FacultyScheduleCarousel day={day} />
+        {day &&  <FacultyScheduleCarousel day={day} />}
+       
         {/* <StudentAttendanceSummary /> */}
       </div>
       <div className="dashboard-examinations-section">
