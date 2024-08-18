@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import SectionHeader from '@/components/dashboard/SectionHeader';
-import ContentCard from '@/components/card/ContentCard';
 import { MarkAttendanceCard } from '@/features/attendance';
 import InputWithoutLabel from '@/components/formElements/inputs/InputWithoutLabel';
 import Button from '@/components/formElements/buttons/Button';
 import PageLayout from '@/layouts/PageLayout';
+import { useGetScheduleDay } from '@/features/schedule/hooks/useGetScheduleDay';
+import { useGetFacultyScheduleParams } from '@/features/subject/hooks/useGetFacultyScheduleParams';
+import SubjectScheduleCard from '@/features/schedule/components/SubjectScheduleCard';
+
 import StatisticsCard from '@/components/dashboard/StatisticsCard';
 import Popup from '@/components/popup/Popup'; // Import the Popup component
 
@@ -17,10 +20,32 @@ interface Student {
 }
 
 export default function AddAttendance() {
+  const day = useGetScheduleDay();
+  const facultyScheduleId = useGetFacultyScheduleParams();
+
+  // const { enrolledStudents } = useGetEnrolledStudent(facultySchedule.);
   const [students, setStudents] = useState<Student[]>([
-    { id: 1, status: 'normal', photoUrl: '/src/assets/images/profile.png', name: 'John Doe', usn: '4SO22MC001' },
-    { id: 2, status: 'normal', photoUrl: '/src/assets/images/profile.png', name: 'Jane Smith', usn: '4SO22MC002' },
-    { id: 3, status: 'normal', photoUrl: '/src/assets/images/profile.png', name: 'Alice Johnson', usn: '4SO22MC003' }
+    {
+      id: 1,
+      status: 'normal',
+      photoUrl: '/src/assets/images/profile.png',
+      name: 'John Doe',
+      usn: '4SO22MC001'
+    },
+    {
+      id: 2,
+      status: 'normal',
+      photoUrl: '/src/assets/images/profile.png',
+      name: 'Jane Smith',
+      usn: '4SO22MC002'
+    },
+    {
+      id: 3,
+      status: 'normal',
+      photoUrl: '/src/assets/images/profile.png',
+      name: 'Alice Johnson',
+      usn: '4SO22MC003'
+    }
   ]);
 
   const [filteredStudents, setFilteredStudents] = useState<Student[]>(students);
@@ -28,7 +53,10 @@ export default function AddAttendance() {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
 
   const handleAllPresent = () => {
-    const updatedStudents: Student[] = students.map((student) => ({ ...student, status: 'normal' }));
+    const updatedStudents: Student[] = students.map((student) => ({
+      ...student,
+      status: 'normal'
+    }));
     setStudents(updatedStudents);
     setFilteredStudents(updatedStudents);
   };
@@ -87,17 +115,12 @@ export default function AddAttendance() {
           tagline="Effortless Attendance Tracking"
           showButton={false}
         />
-        <ContentCard
-          heading="Data Structures and Algorithms"
-          paragraph="Note: Remember to solve question no. 3 from the exercises in Chapter 01. And be prepared for the Quiz based on the given Exercise."
-          dateIconSrc="src/assets/icons/dateIcon.svg"
-          labelIconSrc="src/assets/icons/venueIcon.svg"
-          date="01-08-2024"
-          time="9:55 AM - 10:50 AM"
-          label="4th Sem MCA-B"
-          subLabel="AB1 - 402"
-          margin="0"
-        />
+        {day && facultyScheduleId && (
+          <SubjectScheduleCard
+            day={day}
+            facultyScheduleId={facultyScheduleId}
+          />
+        )}
       </div>
       <div className="take-attendance-container">
         <div className="take-attendance-header-container">

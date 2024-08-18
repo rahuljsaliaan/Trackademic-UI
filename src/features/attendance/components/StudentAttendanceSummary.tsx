@@ -2,6 +2,7 @@ import React from 'react';
 import BarChart from '@/components/chart/BarChart';
 import { useGetStudentAttendance } from '@/features/attendance';
 import StatisticsCard from '@/components/dashboard/StatisticsCard';
+import { ISubjectDocument } from 'trackademic-schema-toolkit';
 
 interface IStudentAttendanceSummaryProps {
   // props definition
@@ -11,22 +12,21 @@ interface IStudentAttendanceSummaryProps {
 
 export const StudentAttendanceSummary: React.FC<
   IStudentAttendanceSummaryProps
-> = ({ studentId, semester }) => {
+> = ({semester }) => {
   const { attendanceData, status: attendanceStatus } = useGetStudentAttendance({
     semester,
-    studentId
   });
 
   if (!attendanceData || attendanceStatus === 'pending') {
     return <div>Loading...</div>;
   }
-  const data = attendanceData?.results.map((data) => ({
-    label: data.subject.shortName,
-    averagePercentage: data.averageStatus * 100
+  const data = attendanceData?.map((data) => ({
+    label: (data.subject as ISubjectDocument).shortName,
+    averagePercentage: data.attendanceSummary.averageStatus 
   }));
 
-  const shortageSubjectsCount = attendanceData?.results.filter(
-    (data) => data.totalAttendanceRecords > 0 && data.averageStatus * 100 < 80
+  const shortageSubjectsCount = attendanceData?.filter(
+    (data) => data.attendanceSummary.totalAttendanceRecords > 0 && data.attendanceSummary.averageStatus * 100 < (data.subject as ISubjectDocument).minAttendancePercentage
   ).length;
 
   return (
@@ -37,7 +37,7 @@ export const StudentAttendanceSummary: React.FC<
         <StatisticsCard label="Subjects" data={data.length} variant="normal" />
         <StatisticsCard
           label="Average"
-          data={Math.round(attendanceData.overallAverageStatus * 100)}
+          data={Math.round(100)}
           variant="normal"
         />
         <StatisticsCard
