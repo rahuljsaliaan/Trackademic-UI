@@ -22,7 +22,7 @@ export const AttendanceStats: React.FC = () => {
 
   const AttendanceRows = !attendanceStatsData
     ? []
-    : attendanceStatsData.results.map((data, index) => [
+    : attendanceStatsData?.map((data, index) => [
         `${index + 1}`,
         `${(data.subject as ISubjectDocument).shortName}`,
         `${data.totalAttendanceRecords}`,
@@ -37,7 +37,7 @@ export const AttendanceStats: React.FC = () => {
       <div className="statistics-card-container">
         <StatisticsCard
           label="Subjects"
-          data={attendanceStatsData?.results.length ?? 0}
+          data={attendanceStatsData?.length ?? 0}
           variant="normal"
         />
         <StatisticsCard
