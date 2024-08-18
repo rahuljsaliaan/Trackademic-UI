@@ -1,28 +1,27 @@
 import {
   APIResourceV1,
-  IStudentAttendanceSummary,
   APIQueryParamV1,
-  IAttendanceStats
+  IEnrolledStudentDetails,
+  IEnrollmentDocument
 } from 'trackademic-schema-toolkit';
 import axiosService from '@/services/api';
 
 export const getStudentAttendance = async ({
-  studentId,
   semester
 }: {
   studentId?: string;
   semester: number;
-}): Promise<IStudentAttendanceSummary> => {
+}): Promise<IEnrollmentDocument[]> => {
   const response = await axiosService.get(
     // TODO: Also need to pass the student id
-    `${APIResourceV1.Student}/${studentId}/${APIResourceV1.Attendance}/${APIResourceV1.StudentAttendanceSummary}?${APIQueryParamV1.Semester}=${semester}`
+    `${APIResourceV1.Enrollment}?${APIQueryParamV1.Semester}=${semester}`
   );
   return response.data;
 };
 
-export const getAttendanceStats = async (): Promise<IAttendanceStats> => {
+export const getAttendanceStats = async ({batchId,subjectId}:{batchId:string,subjectId:string}): Promise<IEnrolledStudentDetails[]> => {
   const response = await axiosService.get(
-    `${APIResourceV1.Attendance}/${APIResourceV1.AttendanceStats}`
+    `${APIResourceV1.Batch}/${batchId}/${APIResourceV1.Subject}/${subjectId}/${APIResourceV1.Enrollment}/${APIResourceV1.AllEnrolledStudents}`
   );
   return response.data;
 };

@@ -4,6 +4,7 @@ import ContentCard from '@/components/card/ContentCard';
 import arrowLeft from '@/assets/icons/arrow-left.svg';
 import arrowRight from '@/assets/icons/arrow-right.svg';
 import { useNavigate } from 'react-router-dom';
+import { APIQueryParamV1 } from 'trackademic-schema-toolkit';
 
 const CarouselContainer = styled.div`
   position: relative;
@@ -75,7 +76,7 @@ interface CarouselCardProps {
     label: string;
     subLabel: string;
     buttonText?: string;
-
+    id: string;
     isButtonVisible?: boolean;
   }[];
   navigationLink?: string;
@@ -87,10 +88,12 @@ const CarouselCard: React.FC<CarouselCardProps> = ({
 }) => {
   const navigate = useNavigate();
 
-  const handleNavigate = () => {
+  const handleNavigate = (currentIndex: number) => {
     if (!navigationLink) return;
 
-    navigate(navigationLink);
+    const link = `${navigationLink}?${APIQueryParamV1.FacultySchedule}=${contentData[currentIndex].id}`;
+
+    navigate(link);
   };
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -123,7 +126,7 @@ const CarouselCard: React.FC<CarouselCardProps> = ({
         <ContentArea>
           <ContentCard
             {...contentData[currentIndex]}
-            onClick={handleNavigate}
+            onClick={() => handleNavigate(currentIndex)}
           />
         </ContentArea>
         <ArrowButton onClick={handleNext} right disabled={isNextDisabled}>

@@ -3,16 +3,14 @@ import { QueryKeys } from '@/types/enum.types';
 import { getStudentAttendance } from '@/features/attendance';
 
 export const useGetStudentAttendance = ({
-  studentId,
   semester
 }: {
-  studentId?: string;
   semester: number;
 }) => {
   const { data: attendanceData, status } = useQuery({
-    queryKey: [QueryKeys.StudentAttendance, semester, studentId],
-    queryFn: () => getStudentAttendance({ studentId, semester }),
-    enabled: !!studentId && !!semester
+    queryKey: [QueryKeys.StudentAttendance, semester],
+    queryFn: () => getStudentAttendance({semester }),
+    enabled:!!semester
   });
 
   if (status === 'error') {

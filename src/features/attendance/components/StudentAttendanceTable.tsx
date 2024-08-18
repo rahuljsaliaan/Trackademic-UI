@@ -1,17 +1,16 @@
 import Table from '@/components/table/Table';
 import React from 'react';
 import { useGetStudentAttendance } from '@/features/attendance';
+import { ISubjectDocument } from 'trackademic-schema-toolkit';
 
 interface IStudentAttendanceTableProps {
-  studentId: string;
   semester: number;
 }
 
 export const StudentAttendanceTable: React.FC<IStudentAttendanceTableProps> = ({
-  studentId,
   semester
 }) => {
-  const { attendanceData } = useGetStudentAttendance({ semester, studentId });
+  const { attendanceData } = useGetStudentAttendance({ semester});
 
   const columns = [
     { name: 'Sl. No', width: '10%' },
@@ -24,14 +23,14 @@ export const StudentAttendanceTable: React.FC<IStudentAttendanceTableProps> = ({
 
   const rows = !attendanceData
     ? []
-    : attendanceData.results.map((data, index) => {
+    : attendanceData.map((data, index) => {
         return [
           `0${index + 1}`,
-          `${data.subject.name}`,
-          `${data.totalAttendanceRecords}`,
-          `${data.totalPresent}`,
-          `${data.totalAbsent}`,
-          `${data.averageStatus * 100}`
+          `${(data.subject as ISubjectDocument).name}`,
+          `${data.attendanceSummary.totalAttendanceRecords}`,
+          `${data.attendanceSummary.totalPresent}`,
+          `${data.attendanceSummary.totalAbsent}`,
+          `${data.attendanceSummary.averageStatus}`
         ];
       });
 
