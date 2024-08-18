@@ -1,4 +1,4 @@
-import {  IBatchDocument } from 'trackademic-schema-toolkit';
+import { IBatchDocument } from 'trackademic-schema-toolkit';
 import Quote from '@/components/card/Quote';
 import SectionHeader from '@/components/dashboard/SectionHeader';
 import StatisticsCard from '@/components/dashboard/StatisticsCard';
@@ -13,8 +13,9 @@ import { useGetSemester } from '@/features/schedule/hooks/useGetSemester';
 export default function StudentDashboard() {
   const { user } = useGetCurrentUser();
 
-
-  const semester = useGetSemester((user?.studentDetails?.batch as IBatchDocument)?.semester ?? null);
+  const semester = useGetSemester(
+    (user?.studentDetails?.batch as IBatchDocument)?.semester ?? null
+  );
 
   const contentData = [
     {

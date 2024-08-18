@@ -14,6 +14,7 @@ const GlobalStyle = createGlobalStyle`
     --tertiary-color: #dfe5ee;
     --text-color: #ffffff;
     --accent-color: #414ded;
+    --warning-color: #EF4444;
 
     font-family: 'Manrope', sans-serif;
     line-height: 1.5;
@@ -357,7 +358,89 @@ const GlobalStyle = createGlobalStyle`
   .take-attendace-card-stud-usn{
     font-size: 12px;
     font-weight: 700;
-    color: #94A3B8;
+    color: #626262;
+  }
+
+  .take-attendance-card-stat-item-head{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .take-attendance-card-stat-item-head h2{
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .take-attendance-card-stat-item-head p{
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .take-attendance-statistics-card-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // justify-content: space-between;
+    gap: 16px;
+  }
+
+  .take-attendance-submit-button-container{
+    margin-top: 16px;
+  }
+
+  .profile-picture-container-div{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .profile-picture-container-div p{
+  font-size: 32px;
+  font-weight: 900;
+  }
+
+.profile-picture-container{
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-color: #d7e7ff;
+  overflow: hidden;
+}
+
+  .profile-picture-container img{
+    width: 100%;
+  height: 100%;
+  object-fit: cover;
+  }
+
+  .profile-content-header{
+     font-size: 20px;
+  font-weight: 700;
+  }
+
+  .profile-content-hr{
+  border: 1px solid #D8DEE7;
+  }
+
+  .profile-content-list{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 8px 0;
+  }
+
+  .profile-content-list-header{
+    font-size: 14px;
+  font-weight: 500;
+  }
+
+  .profile-content-list-value{
+    font-size: 16px;
+  font-weight: 600;
   }
 
   /* ----------Media Query---------- */
