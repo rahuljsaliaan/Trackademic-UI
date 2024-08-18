@@ -16,7 +16,5 @@ export const useGetFacultyScheduleParams = () => {
     }
   }, [facultySchedule]);
 
-  console.log(facultySchedule, '🪲🪲');
-
   return facultySchedule;
 };

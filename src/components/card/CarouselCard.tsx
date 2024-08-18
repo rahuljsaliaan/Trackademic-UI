@@ -72,6 +72,7 @@ interface CarouselCardProps {
     dateIconSrc: string;
     labelIconSrc: string;
     date: string;
+    day: string;
     time: string;
     label: string;
     subLabel: string;
@@ -91,7 +92,7 @@ const CarouselCard: React.FC<CarouselCardProps> = ({
   const handleNavigate = (currentIndex: number) => {
     if (!navigationLink) return;
 
-    const link = `${navigationLink}?${APIQueryParamV1.FacultySchedule}=${contentData[currentIndex].id}`;
+    const link = `${navigationLink}?${APIQueryParamV1.FacultySchedule}=${contentData[currentIndex].id}&${APIQueryParamV1.Day}=${contentData[currentIndex].day}`;
 
     navigate(link);
   };

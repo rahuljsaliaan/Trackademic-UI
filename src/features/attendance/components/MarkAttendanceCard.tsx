@@ -1,36 +1,35 @@
 import React from 'react';
 import styled from 'styled-components';
+import { AttendanceStatus } from 'trackademic-schema-toolkit';
 
 interface MarkAttendanceCardProps {
-  status: 'normal' | 'warning' | 'absent';
+  status: AttendanceStatus;
   photoUrl?: string;
   onClick?: () => void;
-  name: string; 
+  name: string;
   usn: string;
 }
 
-const getBorderColor = (status: 'normal' | 'warning' | 'absent') => {
+const getBorderColor = (status: AttendanceStatus) => {
   switch (status) {
-    case 'warning':
-      return '#F5B640';
-    case 'absent':
+    case AttendanceStatus.Absent:
       return 'transparent';
     default:
       return '#4535EA';
   }
 };
 
-const getBackgroundColor = (status: 'normal' | 'warning' | 'absent') => {
+const getBackgroundColor = (status: AttendanceStatus) => {
   switch (status) {
-    case 'absent':
+    case AttendanceStatus.Absent:
       return '#FF5151';
     default:
       return '#FFFFFF';
   }
 };
 
-const getTextColor = (status: 'normal' | 'warning' | 'absent') => {
-  return status === 'absent' ? '#FFFFFF' : '#000000';
+const getTextColor = (status: AttendanceStatus) => {
+  return status === AttendanceStatus.Absent ? '#FFFFFF' : '#000000';
 };
 
 const CardContainer = styled.div<MarkAttendanceCardProps>`
@@ -78,16 +77,17 @@ const StatItem = styled.div`
   font-weight: 500;
 `;
 
-const Status = styled.div<{ status: 'normal' | 'warning' | 'absent' }>`
+const Status = styled.div<{ status: AttendanceStatus }>`
   font-size: 20px;
   font-weight: 700;
   background-color: ${(props) =>
-    props.status === 'absent' ? '#FF5151' : '#462EE8'};
+    props.status === AttendanceStatus.Absent ? '#FF5151' : '#462EE8'};
   color: #ffffff;
   padding: 8px;
   border-radius: 5px;
   border: 1px solid
-    ${(props) => (props.status === 'absent' ? '#FFFFFF' : '#462EE8')};
+    ${(props) =>
+      props.status === AttendanceStatus.Absent ? '#FFFFFF' : '#462EE8'};
   line-height: 1;
   margin-left: 16px;
 `;
@@ -97,7 +97,7 @@ export const MarkAttendanceCard: React.FC<MarkAttendanceCardProps> = ({
   photoUrl,
   onClick,
   name,
-  usn,
+  usn
 }) => {
   const statusText = status === 'absent' ? 'A' : 'P';
 
