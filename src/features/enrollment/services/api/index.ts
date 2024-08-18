@@ -8,8 +8,8 @@ export const getEnrolledStudentsDetails = async ({
   batchId,
   subjectId
 }: {
-  batchId: string;
-  subjectId: string;
+  batchId: string | null;
+  subjectId: string | null;
 }): Promise<IEnrolledStudentDetails[]> => {
   const response = await axiosService.get(
     `${APIResourceV1.Batch}/${batchId}/${APIResourceV1.Subject}/${subjectId}/${APIResourceV1.Enrollment}/${APIResourceV1.AllEnrolledStudents}`

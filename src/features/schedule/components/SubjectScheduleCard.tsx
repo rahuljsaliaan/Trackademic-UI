@@ -20,7 +20,10 @@ const SubjectScheduleCard: React.FC<ISubjectScheduleCardProps> = ({
   day,
   facultyScheduleId
 }) => {
-  const { facultySchedule, status } = useGetFacultySchedule(day);
+  const { facultySchedule, status } = useGetFacultySchedule(
+    day,
+    facultyScheduleId as string | null
+  );
 
   if (status === 'pending') {
     return <div>Loading...</div>;
@@ -30,11 +33,7 @@ const SubjectScheduleCard: React.FC<ISubjectScheduleCardProps> = ({
     return <div>Error loading schedule.</div>;
   }
 
-  const filteredSchedule = facultySchedule.filter(
-    (data: IFacultyScheduleDetails) => data.id === facultyScheduleId
-  );
-
-  const contentData = filteredSchedule.map((data: IFacultyScheduleDetails) => ({
+  const contentData = facultySchedule.map((data: IFacultyScheduleDetails) => ({
     heading: data.timeSlot.subject.name,
     paragraph: data.timeSlot.note || '',
     dateIconSrc: dateIcon,

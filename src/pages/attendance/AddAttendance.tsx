@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { AttendanceStatus } from 'trackademic-schema-toolkit';
 import SectionHeader from '@/components/dashboard/SectionHeader';
 import { MarkAttendanceCard } from '@/features/attendance';
 import InputWithoutLabel from '@/components/formElements/inputs/InputWithoutLabel';
@@ -10,10 +11,13 @@ import SubjectScheduleCard from '@/features/schedule/components/SubjectScheduleC
 
 import StatisticsCard from '@/components/dashboard/StatisticsCard';
 import Popup from '@/components/popup/Popup'; // Import the Popup component
+import { useGetEnrolledStudent } from '@/features/enrollment';
+import { useGetFacultySchedule } from '@/features/schedule';
+import { RootColor } from '@/types/enum.types';
 
 interface Student {
-  id: number;
-  status: 'normal' | 'warning' | 'absent';
+  id: string;
+  status: AttendanceStatus;
   photoUrl: string;
   name: string;
   usn: string;
@@ -22,51 +26,67 @@ interface Student {
 export default function AddAttendance() {
   const day = useGetScheduleDay();
   const facultyScheduleId = useGetFacultyScheduleParams();
+  const { facultySchedule } = useGetFacultySchedule(day, facultyScheduleId);
 
-  // const { enrolledStudents } = useGetEnrolledStudent(facultySchedule.);
-  const [students, setStudents] = useState<Student[]>([
-    {
-      id: 1,
-      status: 'normal',
-      photoUrl: '/src/assets/images/profile.png',
-      name: 'John Doe',
-      usn: '4SO22MC001'
-    },
-    {
-      id: 2,
-      status: 'normal',
-      photoUrl: '/src/assets/images/profile.png',
-      name: 'Jane Smith',
-      usn: '4SO22MC002'
-    },
-    {
-      id: 3,
-      status: 'normal',
-      photoUrl: '/src/assets/images/profile.png',
-      name: 'Alice Johnson',
-      usn: '4SO22MC003'
+  const batchId = facultySchedule[0]?.timeSlot.batch.id as string;
+  const subjectId = facultySchedule[0]?.timeSlot.subject.id as string;
+
+  const { enrolledStudents } = useGetEnrolledStudent({ batchId, subjectId });
+  console.log(enrolledStudents);
+
+  const [students, setStudents] = useState<Student[]>([]);
+
+  useEffect(() => {
+    if (enrolledStudents) {
+      const students = enrolledStudents.map(({ studentDetails }) => ({
+        id: studentDetails.id as string,
+        status: AttendanceStatus.Present,
+        photoUrl: '',
+        name: studentDetails.name,
+        usn: studentDetails.registerNumber
+      }));
+      setStudents(students);
+      setFilteredStudents(students);
     }
-  ]);
+  }, [enrolledStudents]);
 
   const [filteredStudents, setFilteredStudents] = useState<Student[]>(students);
   const [searchTerm, setSearchTerm] = useState('');
   const [isPopupVisible, setIsPopupVisible] = useState(false);
 
-  const handleAllPresent = () => {
+  const getAttendanceCount = useCallback(
+    (status: AttendanceStatus): number => {
+      return students.filter((student) => student.status === status).length;
+    },
+    [students]
+  );
+
+  const presentCount = useMemo(() => {
+    return getAttendanceCount(AttendanceStatus.Present);
+  }, [getAttendanceCount]);
+
+  const absentCount = useMemo(() => {
+    return getAttendanceCount(AttendanceStatus.Absent);
+  }, [getAttendanceCount]);
+
+  const handleAllPresentOrAbsent = (status: AttendanceStatus) => {
     const updatedStudents: Student[] = students.map((student) => ({
       ...student,
-      status: 'normal'
+      status
     }));
     setStudents(updatedStudents);
     setFilteredStudents(updatedStudents);
   };
 
-  const toggleStudentStatus = (id: number) => {
+  const toggleStudentStatus = (id: string) => {
     const updatedStudents: Student[] = students.map((student) =>
       student.id === id
         ? {
             ...student,
-            status: student.status === 'normal' ? 'absent' : 'normal'
+            status:
+              student.status === AttendanceStatus.Present
+                ? AttendanceStatus.Absent
+                : AttendanceStatus.Present
           }
         : student
     );
@@ -76,7 +96,10 @@ export default function AddAttendance() {
         student.id === id
           ? {
               ...student,
-              status: student.status === 'normal' ? 'absent' : 'normal'
+              status:
+                student.status === AttendanceStatus.Present
+                  ? AttendanceStatus.Absent
+                  : AttendanceStatus.Present
             }
           : student
       )
@@ -133,9 +156,28 @@ export default function AddAttendance() {
           />
           <div className="take-attendance-header-sub-container">
             <Button
-              text="All Present"
+              text={`
+                All-${
+                  presentCount === students.length
+                    ? AttendanceStatus.Absent
+                    : AttendanceStatus.Present
+                }
+                `}
               width="auto"
-              onClick={handleAllPresent}
+              color={`
+                ${
+                  presentCount === students.length
+                    ? RootColor.WarningColor
+                    : RootColor.AccentColor
+                }
+                `}
+              onClick={() =>
+                handleAllPresentOrAbsent(
+                  presentCount === students.length
+                    ? AttendanceStatus.Absent
+                    : AttendanceStatus.Present
+                )
+              }
             />
           </div>
         </div>
@@ -155,8 +197,12 @@ export default function AddAttendance() {
           <p>No students match the search criteria.</p>
         )}
         <div className="take-attendance-statistics-card-container">
-          <StatisticsCard label="Present" data="04" variant="normal" />
-          <StatisticsCard label="Absent" data="06" variant="warning" />
+          <StatisticsCard
+            label="Present"
+            data={presentCount}
+            variant="normal"
+          />
+          <StatisticsCard label="Absent" data={absentCount} variant="warning" />
         </div>
         <div className="take-attendance-submit-button-container">
           <Button text="Submit" width="100%" onClick={handleSubmit} />

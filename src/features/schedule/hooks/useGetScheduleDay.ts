@@ -1,27 +1,27 @@
+import { useEffect } from 'react';
 import { useQueryParams } from '@/hooks/useQueryParams';
 import { format } from 'date-fns';
-import { useEffect, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { APIQueryParamV1, ScheduleDay } from 'trackademic-schema-toolkit';
 
 export const useGetScheduleDay = () => {
   const query = useQueryParams();
   const navigate = useNavigate();
-  const [day, setDay] = useState<ScheduleDay>();
+  let day = query.get(APIQueryParamV1.Day) as ScheduleDay;
 
-  const queryString = useMemo(() => query.toString(), [query]);
+  if (!day) {
+    day = format(new Date(), 'EEEE').toLocaleLowerCase() as ScheduleDay;
+    query.set(APIQueryParamV1.Day, day);
+  }
 
   useEffect(() => {
-    let dayParam = query.get(APIQueryParamV1.Day) as ScheduleDay;
-
-    if (!dayParam) {
-      dayParam = format(new Date(), 'EEEE').toLocaleLowerCase() as ScheduleDay;
-      query.set(APIQueryParamV1.Day, dayParam);
+    if (day) {
+      query.set(APIQueryParamV1.Day, day);
+      navigate({ search: query.toString() });
     }
+  }, [day]);
 
-    setDay(dayParam);
-    navigate({ search: query.toString() });
-  }, [queryString, navigate]);
+  console.log('day', day);
 
-  return day!;
+  return day;
 };

@@ -19,7 +19,8 @@ export enum RootColor {
   SecondaryColor = 'var(--secondary-color)',
   TertiaryColor = 'var(--tertiary-color)',
   TextColor = 'var(--text-color)',
-  AccentColor = 'var(--accent-color)'
+  AccentColor = 'var(--accent-color)',
+  WarningColor = 'var(--warning-color)'
 }
 
 /**

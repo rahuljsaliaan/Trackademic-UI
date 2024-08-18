@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 interface StatisticsCardProps {
   label: string;
-  data: string | number;
+  data: number;
   variant?: 'normal' | 'warning';
 }
 
