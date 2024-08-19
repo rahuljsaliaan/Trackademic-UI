@@ -8,5 +8,6 @@ export * from '@/features/attendance/components/StudentAttendanceTable';
 export * from '@/features/attendance/hooks/useGetFacultyAttendance';
 export * from '@/features/attendance/hooks/useGetStudentAttendance';
 export * from '@/features/attendance/hooks/useAddAttendance';
+export * from '@/features/attendance/hooks/useAbsentRecords';
 
 export * from '@/features/attendance/services/api';

@@ -4,7 +4,8 @@ import {
   IEnrolledStudentDetails,
   IEnrollmentDocument,
   IAttendanceDocument,
-  CreateAttendanceDTO
+  CreateAttendanceDTO,
+  IAbsentRecords
 } from 'trackademic-schema-toolkit';
 import axiosService from '@/services/api';
 
@@ -46,6 +47,24 @@ export const addStudentsAttendance = async ({
   const response = await axiosService.post(
     `${APIResourceV1.Batch}/${batchId}/${APIResourceV1.Subject}/${subjectId}/${APIResourceV1.Attendance}`,
     studentAttendanceRecords
+  );
+
+  return response.data;
+};
+
+export const getAbsentRecords = async ({
+  subjectId,
+  semester,
+  year,
+  month
+}: {
+  subjectId: string;
+  semester: number;
+  year: number;
+  month: number;
+}): Promise<IAbsentRecords> => {
+  const response = await axiosService.get(
+    `${APIResourceV1.Subject}/${subjectId}/${APIResourceV1.Attendance}/${APIResourceV1.AbsentRecords}?${APIQueryParamV1.Semester}=${semester}&${APIQueryParamV1.Month}=${month}&${APIQueryParamV1.Year}=${year}`
   );
 
   return response.data;

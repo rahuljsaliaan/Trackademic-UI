@@ -1,4 +1,5 @@
 import { IBatchDocument } from 'trackademic-schema-toolkit';
+
 import Quote from '@/components/card/Quote';
 import SectionHeader from '@/components/dashboard/SectionHeader';
 import StatisticsCard from '@/components/dashboard/StatisticsCard';

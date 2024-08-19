@@ -1,4 +1,6 @@
 import { useNavigate } from 'react-router-dom';
+import { useForm, FieldErrors } from 'react-hook-form';
+
 import AuthHeader from '@/components/auth/AuthHeader';
 import InputWithLabel from '@/components/formElements/inputs/InputWithLabel';
 import Button from '@/components/formElements/buttons/Button';
@@ -6,7 +8,6 @@ import ErrorMessage from '@/components/formElements/errorMessage/ErrorMessage';
 import loginImage from '@/assets/images/loginImage.svg';
 import { RootColor } from '@/types/enum.types';
 import { useLogin } from '@/features/auth';
-import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoginDTO, loginSchema } from 'trackademic-schema-toolkit';
 import { useGetCurrentUser } from '@/features/users';
@@ -23,20 +24,37 @@ export default function Login() {
   const {
     register,
     handleSubmit,
-    // formState: { errors }
-    // setError
-    reset
+    formState: { errors },
+    setError
+    // reset
   } = useForm<LoginDTO>({
     resolver: zodResolver(loginSchema)
   });
 
   function handleOnSubmit(data: LoginDTO) {
-    mutate(data, {
-      onError: () => {
-        reset();
-      }
-    });
+    if (Object.keys(errors).length === 0) {
+      mutate(data, {
+        onError: (error) => {
+          setError('email', {
+            type: 'manual',
+            message: error.message || 'An error occurred'
+          });
+        }
+      });
+    }
   }
+
+  function getFirstError(errors: FieldErrors<LoginDTO>) {
+    if (errors.email) {
+      return errors.email.message;
+    }
+    if (errors.password) {
+      return errors.password.message;
+    }
+    return null;
+  }
+
+  const firstError = getFirstError(errors);
 
   return (
     <div className="auth-container">
@@ -64,7 +82,7 @@ export default function Login() {
             field="password"
             disabled={status === 'pending'}
           />
-          <ErrorMessage message="This is an error message." />
+          <ErrorMessage message={firstError} />
           <div className="auth-form-forgot-anchor-container">
             <a href={`${AppRoute.ForgotPassword}`}>
               Lost Your Key?<span> Let's Find It Together!</span>

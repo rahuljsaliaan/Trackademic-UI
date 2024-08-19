@@ -71,7 +71,8 @@ export enum QueryKeys {
   Attendance = 'attendance',
   AddOrUpdateNote = 'addOrUpdateNote',
   AssignedSubject = 'assignedSubject',
-  VerificationToken = 'verificationToken'
+  VerificationToken = 'verificationToken',
+  AbsentRecords = 'absentRecords'
 }
 
 /**
@@ -85,7 +86,8 @@ export enum MutationKeys {
   AddOrUpdateNote = 'addOrUpdateNote',
   ResetPassword = 'resetPassword',
   ForgotPassword = 'forgotPassword',
-  VerifyOTP = 'verifyOTP'
+  VerifyOTP = 'verifyOTP',
+  RefreshToken = 'refreshToken'
 }
 
 /**

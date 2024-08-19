@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface DropdownOption {
-  value: number;
+  value: number | string;
   label: string;
 }
 
@@ -10,7 +10,7 @@ interface InputSelectWithLabelProps {
   label: string;
   placeholder?: string;
   options: DropdownOption[];
-  value?: number;
+  value?: number | string;
   onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 

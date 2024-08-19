@@ -1,6 +1,7 @@
 import {
   passwordOnlySchema,
-  PasswordOnlyDTO
+  PasswordOnlyDTO,
+  ResetPasswordDTO
 } from 'trackademic-schema-toolkit';
 import { useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
@@ -35,14 +36,12 @@ export default function ResetPassword() {
     console.log(errors);
   }, [errors]);
 
-  function handleOnSubmit(data: ResetPasswordDTO) {
+  function handleOnSubmit(data: PasswordOnlyDTO) {
     const updatedData = {
       ...data,
-      email: (verificationData as { email: string; verificationToken: string })
-        .email,
-      verificationToken: (
-        verificationData as { email: string; verificationToken: string }
-      ).verificationToken
+      email: (verificationData as ResetPasswordDTO).email,
+      verificationToken: (verificationData as ResetPasswordDTO)
+        .verificationToken
     };
 
     mutate(updatedData, {
