@@ -1,31 +1,51 @@
+import {
+  passwordOnlySchema,
+  PasswordOnlyDTO
+} from 'trackademic-schema-toolkit';
+import { useQueryClient } from '@tanstack/react-query';
+import { useEffect } from 'react';
+
 import AuthHeader from '@/components/auth/AuthHeader';
 import InputWithLabel from '@/components/formElements/inputs/InputWithLabel';
 import Button from '@/components/formElements/buttons/Button';
 import forgotPasswordImage from '@/assets/images/forgotPasswordImage.svg';
-import { RootColor } from '@/types/enum.types';
+import { RootColor, QueryKeys } from '@/types/enum.types';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  resetPasswordSchema,
-  ResetPasswordDTO
-} from 'trackademic-schema-toolkit';
 import { useResetPassword } from '@/features/auth';
 
 export default function ResetPassword() {
+  const queryClient = useQueryClient();
+  const verificationData = queryClient.getQueryData([
+    QueryKeys.VerificationToken
+  ]);
   const { mutate, status } = useResetPassword();
 
   const {
     register,
     handleSubmit,
-    // formState: { errors }
+    formState: { errors },
     // setError
     reset
-  } = useForm<ResetPasswordDTO>({
-    resolver: zodResolver(resetPasswordSchema)
+  } = useForm<PasswordOnlyDTO>({
+    resolver: zodResolver(passwordOnlySchema)
   });
 
+  useEffect(() => {
+    console.log(errors);
+  }, [errors]);
+
   function handleOnSubmit(data: ResetPasswordDTO) {
-    mutate(data, {
+    const updatedData = {
+      ...data,
+      email: (verificationData as { email: string; verificationToken: string })
+        .email,
+      verificationToken: (
+        verificationData as { email: string; verificationToken: string }
+      ).verificationToken
+    };
+
+    mutate(updatedData, {
       onError: () => {
         reset();
       }
@@ -60,6 +80,7 @@ export default function ResetPassword() {
           />
           <div className="auth-form-button-div">
             <Button
+              type="submit"
               text="Activate Super Security"
               color={RootColor.AccentColor}
               padding="12px 16px"

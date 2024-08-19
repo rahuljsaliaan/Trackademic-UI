@@ -1,22 +1,29 @@
 import { useMutation } from '@tanstack/react-query';
-import { resetPassword } from '@/features/auth';
 import { useNavigate } from 'react-router-dom';
-import { AppRoute, MutationKeys } from '@/types/enum.types';
+import { toast } from 'react-hot-toast';
 import { ResetPasswordDTO } from 'trackademic-schema-toolkit';
+import { resetPassword } from '@/features/auth';
+import { AppRoute, MutationKeys } from '@/types/enum.types';
 
 export const useResetPassword = () => {
   const navigate = useNavigate();
 
   const { mutate, status } = useMutation({
     mutationKey: [MutationKeys.ResetPassword],
-    mutationFn:({email,otp,password,_confirmPassword}:ResetPasswordDTO)=> resetPassword({email,otp,password,_confirmPassword}),
+    mutationFn: ({
+      email,
+      verificationToken,
+      password,
+      _confirmPassword
+    }: ResetPasswordDTO) =>
+      resetPassword({ email, verificationToken, password, _confirmPassword }),
     onSuccess: () => {
       navigate(AppRoute.Login);
+    },
+    onError: () => {
+      toast.error('An error occurred. Please try again.');
     }
   });
-  if (status === 'error') {
-    console.error('error');
-  }
 
   return { mutate, status };
 };

@@ -15,6 +15,7 @@ interface ButtonProps {
   buttonText: string;
   buttonColor?: string;
   buttonPadding?: string;
+  onClick?: () => void;
 }
 
 type StyledButtonProps = Omit<ButtonProps, 'buttonText'>;
@@ -56,7 +57,8 @@ const InputWithLabelAndButton = <T extends FieldValues>({
   disabled = false,
   buttonText,
   buttonColor,
-  buttonPadding
+  buttonPadding,
+  onClick
 }: InputWithLabelAndButtonProps<T>) => {
   return (
     <div className="input-with-label-and-button">
@@ -71,7 +73,12 @@ const InputWithLabelAndButton = <T extends FieldValues>({
         />
       </div>
       <div className="input-button-container">
-        <StyledButton type="button" buttonColor={buttonColor} buttonPadding={buttonPadding}>
+        <StyledButton
+          type="button"
+          buttonColor={buttonColor}
+          buttonPadding={buttonPadding}
+          onClick={onClick}
+        >
           {buttonText}
         </StyledButton>
       </div>

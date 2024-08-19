@@ -8,7 +8,7 @@ export const useGetEnrolledStudent = ({
   otp:string;
 }) => {
 
-  const { data: enrolledStudents, status } = useQuery({
+  const { data: CheckOTPData, status } = useQuery({
     queryKey: [QueryKeys.CheckOTP],
     queryFn: () => checkOTP({otp}),
   });
@@ -17,5 +17,5 @@ export const useGetEnrolledStudent = ({
     console.error('Error fetching enrolled students details');
   }
 
-  return { enrolledStudents, status };
+  return { CheckOTPData, status };
 };
