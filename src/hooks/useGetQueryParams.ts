@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo} from 'React';
+import { useState, useEffect, useMemo } from 'react';
 import { useQueryParams } from '@/hooks/useQueryParams';
 
 const useGetQueryParams = (paramName: string) => {
@@ -6,15 +6,15 @@ const useGetQueryParams = (paramName: string) => {
 
   const [param, setParam] = useState<string>();
 
-  const id = useMemo(() => query.get(paramName), [query,paramName])
+  const id = useMemo(() => query.get(paramName), [query, paramName]);
 
   useEffect(() => {
-    if(id){
-     setParam(id as string);
+    if (id) {
+      setParam(id as string);
     }
   }, [id]);
 
-  return  param
+  return param;
 };
 
 export { useGetQueryParams };
