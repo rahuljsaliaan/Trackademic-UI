@@ -39,7 +39,9 @@ export enum AppRoute {
   ResetPassword = '/reset-password',
   ChangePassword = '/change-password',
   AddAttendance = '/add-attendance',
-  AttendanceHistory = '/attendance-history'
+  AttendanceHistory = '/attendance-history',
+  AttHistory = '/attHistory',
+  ApproveAttendance = '/approve-attendance'
 }
 
 /**
@@ -72,7 +74,10 @@ export enum QueryKeys {
   AddOrUpdateNote = 'addOrUpdateNote',
   AssignedSubject = 'assignedSubject',
   VerificationToken = 'verificationToken',
-  AbsentRecords = 'absentRecords'
+  AbsentRecords = 'absentRecords',
+  AllAttendance = 'allAttendance',
+  AttHistory = 'attHistory',
+
 }
 
 /**
@@ -87,7 +92,8 @@ export enum MutationKeys {
   ResetPassword = 'resetPassword',
   ForgotPassword = 'forgotPassword',
   VerifyOTP = 'verifyOTP',
-  RefreshToken = 'refreshToken'
+  RefreshToken = 'refreshToken',
+  Approved = 'approved'
 }
 
 /**

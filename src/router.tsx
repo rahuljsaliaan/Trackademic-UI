@@ -13,6 +13,8 @@ import NotFoundError from '@/pages/error/NotFoundError';
 import { PersistLogin, RequireAuth } from '@/features/auth';
 import AddAttendance from '@/pages/attendance/AddAttendance';
 import AttendanceHistory from '@/pages/attendance/AttendanceHistory';
+import HodDashboard from '@/pages/dashboard/HodDashboard';
+import ApproveAttendance from '@/pages/attendance/ApproveAttendance';
 
 const routes: RouteObject[] = [
   {
@@ -45,6 +47,14 @@ const routes: RouteObject[] = [
               {
                 path: AppRoute.AttendanceHistory,
                 element: <AttendanceHistory />
+              },
+              {
+                path: AppRoute.DashboardHOD,
+                element: <HodDashboard />
+              },
+              { 
+                path: AppRoute.ApproveAttendance, 
+                element: <ApproveAttendance /> 
               }
             ]
           }

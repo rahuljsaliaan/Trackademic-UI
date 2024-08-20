@@ -56,7 +56,7 @@ const AttendanceHistory: React.FC<IAttendanceHistoryProps> = () => {
         <Calendar
           mode="single"
           selected={date}
-          onSelect={(date) => {
+          onSelect={(date: unknown) => {
             if (date instanceof Date) {
               setDate(date as Date);
             }
