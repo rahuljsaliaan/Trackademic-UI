@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosRequestConfig } from 'axios';
-import { IBaseService } from '@/types/core.types';
+import { IBaseService, ErrorResponseData } from '@/types/core.types';
 import { ApiServiceData, ApiServiceQueryParams } from '@/types/utility.types';
 // import AsyncHandler from '@/utils/decorators/AsyncHandler';
 import AppConfig from '@/config/AppConfig';
@@ -64,6 +64,9 @@ class ApiService implements IBaseService<AxiosError> {
         errorMessage = 'Forbidden access.';
       } else if (error.response.status >= 500) {
         errorMessage = 'Server error. Please try again later.';
+      } else {
+        errorMessage =
+          (error.response.data as ErrorResponseData).message || errorMessage;
       }
     } else if (error.request) {
       errorMessage = 'No response received from the server.';

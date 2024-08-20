@@ -68,12 +68,16 @@ const ButtonContainer = styled.div`
 interface PopupProps {
   isVisible: boolean;
   onClose: () => void;
+  onConfirm: () => void;
+  onTextChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   isTextBoxEnabled: boolean;
 }
 
 const Popup: React.FC<PopupProps> = ({
   isVisible,
   onClose,
+  onConfirm,
+  onTextChange,
   isTextBoxEnabled = false
 }) => {
   if (!isVisible) return null;
@@ -88,12 +92,13 @@ const Popup: React.FC<PopupProps> = ({
           this submission will be permanent and cannot be undone.
         </Message>
         <TextBox
+          onChange={onTextChange}
           isTextBoxEnabled={isTextBoxEnabled}
           placeholder="Optional notes here..."
         />
         <ButtonContainer>
           <Button text="Cancel" color="#EF4444" onClick={onClose} />
-          <Button text="Continue" />
+          <Button text="Continue" onClick={onConfirm} />
         </ButtonContainer>
       </PopupBox>
     </Overlay>

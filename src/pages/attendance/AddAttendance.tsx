@@ -1,19 +1,22 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AttendanceStatus } from 'trackademic-schema-toolkit';
+
 import SectionHeader from '@/components/dashboard/SectionHeader';
-import { MarkAttendanceCard } from '@/features/attendance';
+import { MarkAttendanceCard, useAddAttendance } from '@/features/attendance';
 import InputWithoutLabel from '@/components/formElements/inputs/InputWithoutLabel';
 import Button from '@/components/formElements/buttons/Button';
 import PageLayout from '@/layouts/PageLayout';
 import { useGetScheduleDay } from '@/features/schedule/hooks/useGetScheduleDay';
 import { useGetFacultyScheduleParams } from '@/features/subject/hooks/useGetFacultyScheduleParams';
 import SubjectScheduleCard from '@/features/schedule/components/SubjectScheduleCard';
-
 import StatisticsCard from '@/components/dashboard/StatisticsCard';
 import Popup from '@/components/popup/Popup'; // Import the Popup component
 import { useGetEnrolledStudent } from '@/features/enrollment';
 import { useGetFacultySchedule } from '@/features/schedule';
-import { RootColor } from '@/types/enum.types';
+import { AppRoute, RootColor } from '@/types/enum.types';
+import { getDateFromTimeString } from '@/utils/helper';
+import { useAddOrUpdateNote } from '@/features/assignedSubject/hooks/useAddOrUpdateNote';
 
 interface Student {
   id: string;
@@ -21,20 +24,26 @@ interface Student {
   photoUrl: string;
   name: string;
   usn: string;
+  held: number;
+  present: number;
+  percentage: number;
 }
 
 export default function AddAttendance() {
   const day = useGetScheduleDay();
   const facultyScheduleId = useGetFacultyScheduleParams();
   const { facultySchedule } = useGetFacultySchedule(day, facultyScheduleId);
+  const { addAttendanceMutate, status } = useAddAttendance();
+  const { addOrUpdateNote } = useAddOrUpdateNote();
+  const navigate = useNavigate();
 
   const batchId = facultySchedule[0]?.timeSlot.batch.id as string;
   const subjectId = facultySchedule[0]?.timeSlot.subject.id as string;
 
   const { enrolledStudents } = useGetEnrolledStudent({ batchId, subjectId });
-  console.log(enrolledStudents);
 
   const [students, setStudents] = useState<Student[]>([]);
+  const [note, setNote] = useState<string>('');
 
   useEffect(() => {
     if (enrolledStudents) {
@@ -43,12 +52,28 @@ export default function AddAttendance() {
         status: AttendanceStatus.Present,
         photoUrl: '',
         name: studentDetails.name,
-        usn: studentDetails.registerNumber
+        usn: studentDetails.registerNumber,
+        held: studentDetails.attendanceSummary.totalAttendanceRecords,
+        present: studentDetails.attendanceSummary.totalPresent,
+        percentage: studentDetails.attendanceSummary.averageStatus
       }));
       setStudents(students);
       setFilteredStudents(students);
     }
   }, [enrolledStudents]);
+
+  useEffect(() => {
+    if (status === 'success') {
+      // TODO: redirect to the desired view page
+      addOrUpdateNote({
+        assignedSubjectId: facultySchedule[0].timeSlot.assignedSubject
+          .id as string,
+        note
+      });
+      navigate(AppRoute.DashboardFaculty, { replace: true });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [status, facultySchedule, addOrUpdateNote, navigate]);
 
   const [filteredStudents, setFilteredStudents] = useState<Student[]>(students);
   const [searchTerm, setSearchTerm] = useState('');
@@ -112,6 +137,28 @@ export default function AddAttendance() {
 
   const handleClosePopup = () => {
     setIsPopupVisible(false);
+  };
+
+  const handleConfirmPopup = () => {
+    addAttendanceMutate({
+      batchId,
+      subjectId,
+      studentAttendanceRecords: {
+        date: getDateFromTimeString(facultySchedule[0].timeSlot.startTime),
+        attendanceRecords: students.reduce<
+          Record<string, { status: AttendanceStatus }>
+        >((acc, student) => {
+          acc[student.id] = {
+            status: student.status
+          };
+          return acc;
+        }, {})
+      }
+    });
+  };
+
+  const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setNote(e.target.value);
   };
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -191,6 +238,9 @@ export default function AddAttendance() {
               onClick={() => toggleStudentStatus(student.id)}
               name={student.name}
               usn={student.usn}
+              held={student.held}
+              present={student.present}
+              percentage={student.percentage}
             />
           ))
         ) : (
@@ -212,6 +262,8 @@ export default function AddAttendance() {
         isVisible={isPopupVisible}
         onClose={handleClosePopup}
         isTextBoxEnabled={true}
+        onConfirm={handleConfirmPopup}
+        onTextChange={handleTextChange}
       />
     </PageLayout>
   );

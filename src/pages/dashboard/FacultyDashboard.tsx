@@ -4,6 +4,7 @@ import { FacultyActiveSubjectTable } from '@/features/subject';
 import { FacultyScheduleCarousel } from '@/features/schedule';
 import PageLayout from '@/layouts/PageLayout';
 import { useGetScheduleDay } from '@/features/schedule/hooks/useGetScheduleDay';
+import { AttendanceStats } from '@/features/attendance';
 
 // import StudentAttendanceSummary from '@/features/attendance/components/StudentAttendanceSummary';
 
@@ -22,13 +23,13 @@ export default function FacultyDashboard() {
           title="Today's Journey"
           tagline="Get Ready to Rock the Day!"
         />
-        {day &&  <FacultyScheduleCarousel day={day} />}
-       
+        {day && <FacultyScheduleCarousel day={day} />}
+
         {/* <StudentAttendanceSummary /> */}
       </div>
       <div className="dashboard-examinations-section">
         <SectionHeader title="Attendance" tagline="Where Every Tick Counts!" />
-        {/* <AttendanceStats /> */}
+        <AttendanceStats />
       </div>
       <div className="dashboard-calendar-section">
         <SectionHeader

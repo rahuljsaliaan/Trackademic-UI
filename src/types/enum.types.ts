@@ -33,7 +33,6 @@ export enum AppRoute {
   DashboardStudent = '/dashboard-student',
   AttendanceStudent = '/attendance-student',
   DashboardFaculty = '/dashboard-faculty',
-  FacultyDashboard = '/faculty-dashboard',
   DashboardHOD = '/dashboard-hod',
   DashboardPrincipal = '/dashboard-principal',
   ForgotPassword = '/forgot-password',
@@ -54,7 +53,7 @@ export const UserRoleRouteMap: { [key in UserRole]: AppRoute } = {
   [UserRole.Student]: AppRoute.DashboardStudent,
   [UserRole.Faculty]: AppRoute.DashboardFaculty,
   [UserRole.HeadOfDepartment]: AppRoute.DashboardHOD,
-  [UserRole.Principle]: AppRoute.DashboardPrincipal
+  [UserRole.Principal]: AppRoute.DashboardPrincipal
 };
 
 /**
@@ -65,9 +64,14 @@ export enum QueryKeys {
   CurrentUser = 'currentUser',
   StudentAttendance = 'studentAttendance',
   FacultyActiveSubjects = 'facultyActiveSubjects',
-  FacultyAttendance = 'facultyAttendance',
   FacultySchedule = 'facultySchedule',
-  EnrollmentStudent = 'enrollmentStudent'
+  EnrollmentStudent = 'enrollmentStudent',
+  Attendance = 'attendance',
+  AttendanceStats = 'attendanceStats',
+  AddOrUpdateNote = 'addOrUpdateNote',
+  AssignedSubject = 'assignedSubject',
+  VerificationToken = 'verificationToken',
+  AbsentRecords = 'absentRecords'
 }
 
 /**
@@ -76,7 +80,13 @@ export enum QueryKeys {
  */
 export enum MutationKeys {
   Login = 'login',
-  Logout = 'logout'
+  Logout = 'logout',
+  AddAttendance = 'addAttendance',
+  AddOrUpdateNote = 'addOrUpdateNote',
+  ResetPassword = 'resetPassword',
+  ForgotPassword = 'forgotPassword',
+  VerifyOTP = 'verifyOTP',
+  RefreshToken = 'refreshToken'
 }
 
 /**

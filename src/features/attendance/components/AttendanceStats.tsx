@@ -22,14 +22,29 @@ export const AttendanceStats: React.FC = () => {
 
   const AttendanceRows = !attendanceStatsData
     ? []
-    : attendanceStatsData?.map((data, index) => [
+    : attendanceStatsData?.results?.map((data, index) => [
         `${index + 1}`,
         `${(data.subject as ISubjectDocument).shortName}`,
         `${data.totalAttendanceRecords}`,
         `${data.totalApproved}`,
         `${data.totalNotApproved}`,
-        `${data.averageStatus * 100}`
+        `${Math.round(data.averageStatus).toFixed(2)}`
       ]);
+
+  const totals = attendanceStatsData?.results?.reduce(
+    (acc, data) => {
+      acc.totalNotApproved += data.totalNotApproved;
+      acc.totalRecords += data.totalAttendanceRecords;
+      acc.totalApproved += data.totalApproved;
+      return acc;
+    },
+    {
+      totalNotApproved: 0,
+      totalRecords: 0,
+      totalApproved: 0,
+      totalAverageStatus: 0
+    }
+  );
 
   return (
     <>
@@ -37,17 +52,19 @@ export const AttendanceStats: React.FC = () => {
       <div className="statistics-card-container">
         <StatisticsCard
           label="Subjects"
-          data={attendanceStatsData?.length ?? 0}
+          data={attendanceStatsData?.results.length ?? 0}
           variant="normal"
         />
         <StatisticsCard
           label="Average"
-          data={Math.round(
-            (attendanceStatsData?.overallAverageStatus ?? 0) * 100
-          )}
+          data={Math.round(attendanceStatsData?.overallAverageStatus ?? 0)}
           variant="normal"
         />
-        <StatisticsCard label="NotApproved" data={`1`} variant="warning" />
+        <StatisticsCard
+          label="NotApproved"
+          data={totals?.totalNotApproved ?? 0}
+          variant={(totals?.totalNotApproved ?? 0 > 0) ? 'warning' : 'normal'}
+        />
       </div>
     </>
   );

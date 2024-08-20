@@ -1,23 +1,27 @@
 import styled from 'styled-components';
+import { FieldPath, FieldValues, UseFormRegister } from 'react-hook-form';
 
-interface InputWithLabelProps {
+interface InputWithLabelProps<T extends FieldValues> {
   label: string;
   placeholder: string;
   type?: string;
-  name?: string;
   id?: string;
+  register: UseFormRegister<T>;
+  field: FieldPath<T>;
+  disabled?: boolean;
 }
 
 interface ButtonProps {
   buttonText: string;
   buttonColor?: string;
   buttonPadding?: string;
+  onClick?: () => void;
 }
 
 type StyledButtonProps = Omit<ButtonProps, 'buttonText'>;
 
-interface InputWithLabelAndButtonProps
-  extends InputWithLabelProps,
+interface InputWithLabelAndButtonProps<T extends FieldValues>
+  extends InputWithLabelProps<T>,
     ButtonProps {}
 
 const StyledLabel = styled.label`
@@ -43,29 +47,38 @@ const StyledButton = styled.button<StyledButtonProps>`
   font-weight: 700;
 `;
 
-const InputWithLabelAndButton: React.FC<InputWithLabelAndButtonProps> = ({
+const InputWithLabelAndButton = <T extends FieldValues>({
   label,
   placeholder,
   type = 'text',
-  name,
   id,
+  register,
+  field,
+  disabled = false,
   buttonText,
   buttonColor,
-  buttonPadding
-}) => {
+  buttonPadding,
+  onClick
+}: InputWithLabelAndButtonProps<T>) => {
   return (
     <div className="input-with-label-and-button">
       <div className="input-with-label-div">
-        <StyledLabel htmlFor={id || name}>{label}</StyledLabel>
+        <StyledLabel htmlFor={id || field}>{label}</StyledLabel>
         <StyledInput
           type={type}
-          id={id || name}
-          name={name}
+          id={id || field}
           placeholder={placeholder}
+          {...register(field)}
+          disabled={disabled}
         />
       </div>
       <div className="input-button-container">
-        <StyledButton buttonColor={buttonColor} buttonPadding={buttonPadding}>
+        <StyledButton
+          type="button"
+          buttonColor={buttonColor}
+          buttonPadding={buttonPadding}
+          onClick={onClick}
+        >
           {buttonText}
         </StyledButton>
       </div>

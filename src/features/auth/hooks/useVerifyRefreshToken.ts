@@ -1,16 +1,12 @@
-import { APIResourceV1 } from 'trackademic-schema-toolkit';
-import { useQuery } from '@tanstack/react-query';
-import { getRefreshToken } from '@/features/auth';
+import { useMutation } from '@tanstack/react-query';
+import { verifyRefreshToken } from '@/features/auth/services/api';
+import { MutationKeys } from '@/types/enum.types';
 
 export const useRefreshToken = () => {
-  const { status } = useQuery({
-    queryKey: [APIResourceV1.RefreshToken],
-    queryFn: getRefreshToken
+  const { mutate, status } = useMutation({
+    mutationKey: [MutationKeys.RefreshToken],
+    mutationFn: verifyRefreshToken
   });
 
-  if (status === 'error') {
-    console.error('error');
-  }
-
-  return { status };
+  return { mutate, status };
 };

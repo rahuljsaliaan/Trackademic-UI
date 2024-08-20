@@ -25,3 +25,10 @@ export interface IEventData {
  * @param data - The event data passed to the callback when an event occurs.
  */
 export type EventCallBack = (data: IEventData) => void;
+
+/**
+ * Interface representing the structure of error response data.
+ */
+export interface ErrorResponseData {
+  message?: string;
+}

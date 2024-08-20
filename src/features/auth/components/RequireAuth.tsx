@@ -13,7 +13,7 @@ export const RequireAuth: React.FC<RequireAuthProps> = () => {
   const { status } = useGetCurrentUser();
 
   if (status === 'error') {
-    navigate(`/${AppRoute.Login}`);
+    navigate(`/${AppRoute.Login}`, { replace: true });
   }
 
   return <>{status === 'pending' ? 'loading' : <Outlet />}</>;

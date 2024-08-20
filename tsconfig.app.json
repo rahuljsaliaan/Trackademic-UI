@@ -30,5 +30,5 @@
       "@/*": ["src/*"]
     }
   },
-  "include": ["src", "src/service-worker.js"]
+  "include": ["src", "src/service-worker.js", "lib"]
 }

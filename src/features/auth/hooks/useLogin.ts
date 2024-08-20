@@ -16,9 +16,6 @@ export const useLogin = () => {
       navigate(UserRoleRouteMap[data.role]);
     }
   });
-  if (status === 'error') {
-    console.error('error');
-  }
 
   return { mutate, status };
 };

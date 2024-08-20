@@ -1,10 +1,13 @@
 import React, { useRef } from 'react';
+import { UseFormRegister } from 'react-hook-form';
+import { LoginDTO } from 'trackademic-schema-toolkit';
 
 interface InputOTPProps {
   label: string;
+  register: UseFormRegister<LoginDTO>;
 }
 
-const InputOTP: React.FC<InputOTPProps> = ({ label }) => {
+const InputOTP: React.FC<InputOTPProps> = ({ label, register }) => {
   const digitGroupRef = useRef<HTMLFormElement>(null);
 
   const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -21,8 +24,6 @@ const InputOTP: React.FC<InputOTPProps> = ({ label }) => {
         }
       } else if (
         (e.key >= '0' && e.key <= '9') ||
-        (e.key >= 'A' && e.key <= 'Z') ||
-        (e.key >= 'a' && e.key <= 'z') ||
         e.key === 'ArrowRight'
       ) {
         const next = parent.querySelector(
@@ -34,6 +35,12 @@ const InputOTP: React.FC<InputOTPProps> = ({ label }) => {
           parent.submit();
         }
       }
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (!/[0-9]/.test(e.key)) {
+      e.preventDefault();
     }
   };
 
@@ -51,35 +58,39 @@ const InputOTP: React.FC<InputOTPProps> = ({ label }) => {
         <input
           type="text"
           id="digit-1"
-          name="digit-1"
+          {...register('digit-1')}
           data-next="digit-2"
           onKeyUp={handleKeyUp}
+          onKeyPress={handleKeyPress}
           maxLength={1}
         />
         <input
           type="text"
           id="digit-2"
-          name="digit-2"
+          {...register('digit-2')}
           data-next="digit-3"
           data-previous="digit-1"
           onKeyUp={handleKeyUp}
+          onKeyPress={handleKeyPress}
           maxLength={1}
         />
         <input
           type="text"
           id="digit-3"
-          name="digit-3"
+          {...register('digit-3')}
           data-next="digit-4"
           data-previous="digit-2"
           onKeyUp={handleKeyUp}
+          onKeyPress={handleKeyPress}
           maxLength={1}
         />
         <input
           type="text"
           id="digit-4"
-          name="digit-4"
+          {...register('digit-4')}
           data-previous="digit-3"
           onKeyUp={handleKeyUp}
+          onKeyPress={handleKeyPress}
           maxLength={1}
         />
       </form>
