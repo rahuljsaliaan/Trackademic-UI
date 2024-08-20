@@ -1,18 +1,26 @@
-import {useState} from "React"
+import {useEffect, useState} from "React"
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import SectionHeader from '@/components/dashboard/SectionHeader';
 import {
   CreateAnnouncementDTO,
-  createAnnouncementSchema
+  createAnnouncementSchema,
+  IProgrammeDocument
 } from 'trackademic-schema-toolkit';
 import { useAddAnnouncement } from '@/features/announcement';
 import InputSelectWithLabel from '@/components/formElements/inputs/InputSelectWithLabel';
 import InputWithLabel from '@/components/formElements/inputs/InputWithLabel';
 import PageLayout from '@/layouts/PageLayout';
+import { useGetAllBatches } from "@/features/batch";
+import { useGetCurrentUser } from "@/features/users";
 
 export default function AddAnnouncement() {
   const { mutate, status } = useAddAnnouncement();
+  const {user} = useGetCurrentUser();
+
+  const programmeId = (user?.programme as IProgrammeDocument).id as string
+
+  const { allBatches } = useGetAllBatches({programmeId});
 
   const {
     register,
@@ -24,23 +32,23 @@ export default function AddAnnouncement() {
     resolver: zodResolver(createAnnouncementSchema)
   });
 
-  const [selectedAudience, setSelectedAudience] = useState()
+  const [selectedAudience, setSelectedAudience] = useState<string>();
 
-    const handleOnChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedSubject(e.target.value);
+  const [selectedAudienceId, setSelectAudienceId] = useState<string>();
+
+  useEffect(() => {
+    setSelectAudienceId()
+
+  },[selectedAudience])
+
+  const handleOnChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedAudience(e.target.value);
     query.set(APIResourceV1.Subject, e.target.value);
     navigate({ search: query.toString() });
   };
 
   function handleOnSubmit(data: CreateAnnouncementDTO) {
-      mutate(data, {
-        onError: (error) => {
-          setError('email', {
-            type: 'manual',
-            message: error.message || 'An error occurred'
-          });
-        }
-      });
+      mutate(data);
     }
   }
 
@@ -57,10 +65,10 @@ export default function AddAnnouncement() {
         label="Target Audience"
         placeholder="Tap Here to Choose"
         options={}
-        value={}
-        onChange={}
+        value={selectedAudience}
+        onChange={handleOnChange}
       />
-      <form onSubmit={handleOnSubmit}>
+      <form onSubmit={handleSubmit(handleOnSubmit)}>
         <InputWithLabel
           id="subject"
           type="text"
