@@ -1,5 +1,9 @@
 import useLogout from '@/features/auth/hooks/useLogout';
+import { useGetCurrentUser } from '@/features/users';
+import { AppRoute } from '@/types/enum.types';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { APIResourceV1 } from 'trackademic-schema-toolkit';
 
 const MenuOverlay = styled.div<{ isVisible: boolean }>`
   position: fixed;
@@ -98,6 +102,8 @@ const NavBar: React.FC<NavBarProps> = ({
   closeIconSrc
 }) => {
   const { mutate } = useLogout();
+  const navigate = useNavigate();
+  const { user } = useGetCurrentUser();
 
   const handleLogout = () => {
     mutate();
@@ -105,6 +111,11 @@ const NavBar: React.FC<NavBarProps> = ({
 
   const handleOverlayClick = () => {
     onClose();
+  };
+
+  const handleProfile = () => {
+    const profileUrl = `${AppRoute.Profile}?${APIResourceV1.User}=${user?.id}`;
+    navigate(profileUrl);
   };
 
   const handleNavContainerClick = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -122,24 +133,8 @@ const NavBar: React.FC<NavBarProps> = ({
             <NavLink>Home</NavLink>
             <NavLinkIcon src="src/assets/icons/navArrow.svg" />
           </NavList>
-          <NavList>
-            <NavLink>Attendance</NavLink>
-            <NavLinkIcon src="src/assets/icons/navArrow.svg" />
-          </NavList>
-          <NavList>
-            <NavLink>Examinations</NavLink>
-            <NavLinkIcon src="src/assets/icons/navArrow.svg" />
-          </NavList>
-          <NavList>
-            <NavLink>Announcements</NavLink>
-            <NavLinkIcon src="src/assets/icons/navArrow.svg" />
-          </NavList>
-          <NavList>
-            <NavLink>Events & Calendar</NavLink>
-            <NavLinkIcon src="src/assets/icons/navArrow.svg" />
-          </NavList>
-          <NavList>
-            <NavLink>Time Table</NavLink>
+          <NavList onClick={handleProfile}>
+            <NavLink>Profile</NavLink>
             <NavLinkIcon src="src/assets/icons/navArrow.svg" />
           </NavList>
           <NavList onClick={handleLogout}>

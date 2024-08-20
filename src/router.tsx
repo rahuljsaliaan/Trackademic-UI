@@ -15,6 +15,7 @@ import AddAttendance from '@/pages/attendance/AddAttendance';
 import AttendanceHistory from '@/pages/attendance/AttendanceHistory';
 import HodDashboard from '@/pages/dashboard/HodDashboard';
 import ApproveAttendance from '@/pages/attendance/ApproveAttendance';
+import Profile from '@/pages/profile/Profile';
 
 const routes: RouteObject[] = [
   {
@@ -52,9 +53,9 @@ const routes: RouteObject[] = [
                 path: AppRoute.DashboardHOD,
                 element: <HodDashboard />
               },
-              { 
-                path: AppRoute.ApproveAttendance, 
-                element: <ApproveAttendance /> 
+              {
+                path: AppRoute.ApproveAttendance,
+                element: <ApproveAttendance />
               }
             ]
           }
@@ -76,6 +77,10 @@ const routes: RouteObject[] = [
       {
         path: AppRoute.ForgotPassword,
         element: <ForgotPassword />
+      },
+      {
+        path: AppRoute.Profile,
+        element: <Profile />
       }
     ]
   }

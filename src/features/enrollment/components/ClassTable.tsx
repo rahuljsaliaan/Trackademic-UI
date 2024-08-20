@@ -1,8 +1,16 @@
 import React from 'react';
 import Table from '@/components/table/Table';
+import { useGetCurrentUser } from '@/features/users';
+import { useGetAllBatches } from '@/features/batch';
+import { IProgrammeDocument } from 'trackademic-schema-toolkit';
 
 export const ClassTable: React.FC = () => {
-//   const { attendanceStatsData, status } = useGetAttendanceStats();
+  TextTrackCueList;
+
+  const { user } = useGetCurrentUser();
+  const programmeId = (user?.programme as IProgrammeDocument)?.id as string;
+
+  const { allBatches,status } = useGetAllBatches({ programmeId });
 
   const AttendanceColumns = [
     { name: 'Sl.No', width: '15%' },
@@ -11,24 +19,22 @@ export const ClassTable: React.FC = () => {
     { name: 'Semester', width: '20%' }
   ];
 
-//   if (!attendanceStatsData && status === 'pending') {
-//     return <div>Loading...</div>;
-//   }
+    if (!allBatches && status === 'pending') {
+      return <div>Loading...</div>;
+    }
 
-//   const AttendanceRows = !attendanceStatsData
-//     ? []
-//     : attendanceStatsData?.results?.map((data, index) => [
-//         `${index + 1}`,
-//         `${(data.subject as ISubjectDocument).shortName}`,
-//         `${data.totalAttendanceRecords}`,
-//         `${data.totalApproved}`,
-//         `${data.totalNotApproved}`,
-//         `${Math.round(data.averageStatus).toFixed(2)}`
-//       ]);
+    const AttendanceRows = !allBatches
+      ? []
+      : allBatches?.map((data, index) => [
+          `${index + 1}`,
+          `${(data.programme as IProgrammeDocument).name}`,
+          `${data.section}`,
+          `${data.semester}`
+        ]);
 
   return (
     <>
-      <Table columns={AttendanceColumns} rows={[]} />
+      <Table columns={AttendanceColumns} rows={AttendanceRows} />
     </>
   );
 };

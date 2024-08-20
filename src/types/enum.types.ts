@@ -41,7 +41,8 @@ export enum AppRoute {
   AddAttendance = '/add-attendance',
   AttendanceHistory = '/attendance-history',
   AttHistory = '/attHistory',
-  ApproveAttendance = '/approve-attendance'
+  ApproveAttendance = '/approve-attendance',
+  Profile = '/profile'
 }
 
 /**
@@ -65,6 +66,7 @@ export const UserRoleRouteMap: { [key in UserRole]: AppRoute } = {
  */
 export enum QueryKeys {
   CurrentUser = 'currentUser',
+  User = 'User',
   StudentAttendance = 'studentAttendance',
   FacultyActiveSubjects = 'facultyActiveSubjects',
   FacultySchedule = 'facultySchedule',
@@ -77,7 +79,8 @@ export enum QueryKeys {
   AbsentRecords = 'absentRecords',
   AllAttendance = 'allAttendance',
   AttHistory = 'attHistory',
-
+  AllBatches = 'allBatches',
+  Announcements = 'announcements'
 }
 
 /**
@@ -93,7 +96,8 @@ export enum MutationKeys {
   ForgotPassword = 'forgotPassword',
   VerifyOTP = 'verifyOTP',
   RefreshToken = 'refreshToken',
-  Approved = 'approved'
+  Approved = 'approved',
+  Announcement = 'announcement'
 }
 
 /**

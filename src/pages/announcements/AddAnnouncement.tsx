@@ -1,9 +1,49 @@
+import {useState} from "React"
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
 import SectionHeader from '@/components/dashboard/SectionHeader';
+import {
+  CreateAnnouncementDTO,
+  createAnnouncementSchema
+} from 'trackademic-schema-toolkit';
+import { useAddAnnouncement } from '@/features/announcement';
 import InputSelectWithLabel from '@/components/formElements/inputs/InputSelectWithLabel';
 import InputWithLabel from '@/components/formElements/inputs/InputWithLabel';
 import PageLayout from '@/layouts/PageLayout';
 
-export default function HodDashboard() {
+export default function AddAnnouncement() {
+  const { mutate, status } = useAddAnnouncement();
+
+  const {
+    register,
+    handleSubmit
+    // formState: { errors },
+    // setError
+    // rese
+  } = useForm<CreateAnnouncementDTO>({
+    resolver: zodResolver(createAnnouncementSchema)
+  });
+
+  const [selectedAudience, setSelectedAudience] = useState()
+
+    const handleOnChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedSubject(e.target.value);
+    query.set(APIResourceV1.Subject, e.target.value);
+    navigate({ search: query.toString() });
+  };
+
+  function handleOnSubmit(data: CreateAnnouncementDTO) {
+      mutate(data, {
+        onError: (error) => {
+          setError('email', {
+            type: 'manual',
+            message: error.message || 'An error occurred'
+          });
+        }
+      });
+    }
+  }
+
   return (
     <PageLayout>
       <div className="dashboard-attendance-section">
@@ -20,20 +60,24 @@ export default function HodDashboard() {
         value={}
         onChange={}
       />
-      <form onSubmit={}>
+      <form onSubmit={handleOnSubmit}>
         <InputWithLabel
+          id="subject"
+          type="text"
           label="Subject"
           placeholder="Type Here"
-          type='text'
-          id='subject'
-          disabled={false}
+          register={register}
+          field="subject"
+          disabled={status === 'pending'}
         />
         <InputWithLabel
-          label="Announcement"
+          id="announcement"
+          type="text"
+          label="announcement"
           placeholder="Type Here"
-          type='text'
-          id='announcementText'
-          disabled={false}
+          register={register}
+          field="announcement"
+          disabled={status === 'pending'}
         />
       </form>
     </PageLayout>

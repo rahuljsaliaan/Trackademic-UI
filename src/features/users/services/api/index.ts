@@ -7,3 +7,12 @@ export const getCurrentUser = async (): Promise<IUserDocument> => {
   );
   return response.data;
 };
+
+export const getUser = async ({
+  userId
+}: {
+  userId?: string;
+}): Promise<IUserDocument> => {
+  const response = await axiosService.get(`${APIResourceV1.User}/${userId}`);
+  return response.data;
+};
