@@ -12,6 +12,7 @@ import GetStarted from '@/pages/getStarted/GetStarted';
 import NotFoundError from '@/pages/error/NotFoundError';
 import { PersistLogin, RequireAuth } from '@/features/auth';
 import AddAttendance from '@/pages/attendance/AddAttendance';
+import AttendanceHistory from '@/pages/attendance/AttendanceHistory';
 
 const routes: RouteObject[] = [
   {
@@ -40,6 +41,10 @@ const routes: RouteObject[] = [
               {
                 path: AppRoute.AddAttendance,
                 element: <AddAttendance />
+              },
+              {
+                path: AppRoute.AttendanceHistory,
+                element: <AttendanceHistory />
               }
             ]
           }

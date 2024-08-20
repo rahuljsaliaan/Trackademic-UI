@@ -38,7 +38,8 @@ export enum AppRoute {
   ForgotPassword = '/forgot-password',
   ResetPassword = '/reset-password',
   ChangePassword = '/change-password',
-  AddAttendance = '/add-attendance'
+  AddAttendance = '/add-attendance',
+  AttendanceHistory = '/attendance-history'
 }
 
 /**
