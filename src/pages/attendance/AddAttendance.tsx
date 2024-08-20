@@ -14,7 +14,7 @@ import StatisticsCard from '@/components/dashboard/StatisticsCard';
 import Popup from '@/components/popup/Popup'; // Import the Popup component
 import { useGetEnrolledStudent } from '@/features/enrollment';
 import { useGetFacultySchedule } from '@/features/schedule';
-import { RootColor } from '@/types/enum.types';
+import { AppRoute, RootColor } from '@/types/enum.types';
 import { getDateFromTimeString } from '@/utils/helper';
 import { useAddOrUpdateNote } from '@/features/assignedSubject/hooks/useAddOrUpdateNote';
 
@@ -65,12 +65,12 @@ export default function AddAttendance() {
   useEffect(() => {
     if (status === 'success') {
       // TODO: redirect to the desired view page
-      // addOrUpdateNote({
-      //   assignedSubjectId: facultySchedule[0].timeSlot.assignedSubject
-      //     .id as string,
-      //   note
-      // });
-      // navigate(AppRoute.FacultyDashboard);
+      addOrUpdateNote({
+        assignedSubjectId: facultySchedule[0].timeSlot.assignedSubject
+          .id as string,
+        note
+      });
+      navigate(AppRoute.DashboardFaculty, { replace: true });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [status, facultySchedule, addOrUpdateNote, navigate]);

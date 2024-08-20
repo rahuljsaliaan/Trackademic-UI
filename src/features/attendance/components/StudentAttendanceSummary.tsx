@@ -12,9 +12,9 @@ interface IStudentAttendanceSummaryProps {
 
 export const StudentAttendanceSummary: React.FC<
   IStudentAttendanceSummaryProps
-> = ({semester }) => {
+> = ({ semester }) => {
   const { attendanceData, status: attendanceStatus } = useGetStudentAttendance({
-    semester,
+    semester
   });
 
   if (!attendanceData || attendanceStatus === 'pending') {
@@ -22,11 +22,22 @@ export const StudentAttendanceSummary: React.FC<
   }
   const data = attendanceData?.map((data) => ({
     label: (data.subject as ISubjectDocument).shortName,
-    averagePercentage: data.attendanceSummary.averageStatus 
+    averagePercentage: data.attendanceSummary.averageStatus
   }));
 
+  const filteredData = attendanceData.filter(
+    (data) => data.attendanceSummary.totalAttendanceRecords !== 0
+  );
+  const overallAverage =
+    filteredData.reduce((acc, data) => {
+      return acc + data.attendanceSummary.averageStatus;
+    }, 0) / filteredData.length;
+
   const shortageSubjectsCount = attendanceData?.filter(
-    (data) => data.attendanceSummary.totalAttendanceRecords > 0 && data.attendanceSummary.averageStatus * 100 < (data.subject as ISubjectDocument).minAttendancePercentage
+    (data) =>
+      data.attendanceSummary.totalAttendanceRecords > 0 &&
+      data.attendanceSummary.averageStatus <
+        (data.subject as ISubjectDocument).minAttendancePercentage
   ).length;
 
   return (
@@ -37,7 +48,7 @@ export const StudentAttendanceSummary: React.FC<
         <StatisticsCard label="Subjects" data={data.length} variant="normal" />
         <StatisticsCard
           label="Average"
-          data={Math.round(100)}
+          data={overallAverage}
           variant="normal"
         />
         <StatisticsCard

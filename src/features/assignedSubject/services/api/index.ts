@@ -12,7 +12,7 @@ export const addOrUpdateNote = async ({
   assignedSubjectId: string;
 }): Promise<IAssignedSubjectDocument> => {
   const response = await axiosService.patch(
-    `${APIResourceV1.AssignedSubject}/${assignedSubjectId}/note`,
+    `${APIResourceV1.AssignedSubject}/${assignedSubjectId}/${APIResourceV1.Note}`,
     {
       note
     }

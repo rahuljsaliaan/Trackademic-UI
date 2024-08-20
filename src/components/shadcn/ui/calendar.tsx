@@ -16,12 +16,12 @@ function Calendar({
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
-      className={cn('p-3 rounded-md border-2 border-popover', className)} // Add border to calendar container
+      className={cn('p-3 rounded-md border-2 border-accent', className)} // Add border to calendar container
       classNames={{
         months: 'flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0',
         month: 'space-y-4',
         caption: 'flex justify-center pt-1 relative items-center',
-        caption_label: 'text-sm text-popover text-[16px] font-bold',
+        caption_label: 'text-sm text-accent text-[16px] font-bold',
         nav: 'space-x-1 flex items-center',
         nav_button: cn(
           buttonVariants({ variant: 'outline' }),
@@ -34,10 +34,10 @@ function Calendar({
         head_cell:
           'text-muted-foreground rounded-md w-9 font-normal text-[0.8rem]',
         row: 'flex w-full mt-2',
-        cell: 'h-9 w-9 text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-md [&:has([aria-selected].day-outside)]:bg-transparent [&:has([aria-selected])]:bg-accent focus-within:relative focus-within:z-20 rounded-md hover:bg-transparent',
+        cell: 'h-9 w-9 text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-md [&:has([aria-selected].day-outside)]:bg-transparent [&:has([aria-selected])]:bg-warning focus-within:relative focus-within:z-20 rounded-md hover:bg-transparent',
         day: cn(
           buttonVariants({ variant: 'ghost' }),
-          'h-9 w-9 p-0 bg-transparent font-bold hover:bg-transparent hover:border-none'
+          'h-9 w-9 p-0 bg-transparent font-bold hover:bg-accent hover:border-1 hover:border-accent'
         ),
         day_range_end: 'day-range-end',
         day_selected: 'text-primary text-[16px] font-bold hover:bg-transparent',
