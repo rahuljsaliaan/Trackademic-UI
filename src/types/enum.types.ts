@@ -42,7 +42,8 @@ export enum AppRoute {
   AttendanceHistory = '/attendance-history',
   AttHistory = '/attHistory',
   ApproveAttendance = '/approve-attendance',
-  Profile = '/profile'
+  Profile = '/profile',
+  AddAnnouncement = '/add-announcement'
 }
 
 /**

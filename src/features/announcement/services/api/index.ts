@@ -11,13 +11,21 @@ export const getAnnouncements = async (): Promise<IAnnouncementDocument[]> => {
 
 export const addAnnouncement = async ({
   programmeId,
-  batchId
+  batchId,
+  announcementSubject,
+  announcementContent
 }: {
   programmeId: string;
   batchId: string;
+  announcementSubject: string;
+  announcementContent: string;
 }): Promise<IAnnouncementDocument> => {
   const response = await axiosService.post(
-    `${APIResourceV1.Programme}/${programmeId}/${APIResourceV1.Batch}/${batchId}/${APIResourceV1.Announcement}`
+    `${APIResourceV1.Programme}/${programmeId}/${APIResourceV1.Batch}/${batchId}/${APIResourceV1.Announcement}`,
+    {
+      announcementSubject,
+      announcementContent
+    }
   );
   return response.data;
 };

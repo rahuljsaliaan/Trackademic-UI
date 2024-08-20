@@ -16,6 +16,8 @@ import AttendanceHistory from '@/pages/attendance/AttendanceHistory';
 import HodDashboard from '@/pages/dashboard/HodDashboard';
 import ApproveAttendance from '@/pages/attendance/ApproveAttendance';
 import Profile from '@/pages/profile/Profile';
+import AddAnnouncement from '@/pages/announcements/AddAnnouncement';
+import PrincipalDashboard from '@/pages/dashboard/PrincipalDashboard';
 
 const routes: RouteObject[] = [
   {
@@ -56,6 +58,14 @@ const routes: RouteObject[] = [
               {
                 path: AppRoute.ApproveAttendance,
                 element: <ApproveAttendance />
+              },
+              {
+                path: AppRoute.AddAnnouncement,
+                element: <AddAnnouncement />
+              },
+              {
+                path: AppRoute.DashboardPrincipal,
+                element: <PrincipalDashboard />
               }
             ]
           }

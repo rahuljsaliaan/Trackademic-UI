@@ -1,6 +1,6 @@
 import Quote from '@/components/card/Quote';
 import SectionHeader from '@/components/dashboard/SectionHeader';
-import {AttendanceApprovalCarousel} from '@/features/attendance/components/AttendanceApprovalCarousel';
+import { AttendanceApprovalCarousel } from '@/features/attendance/components/AttendanceApprovalCarousel';
 import PageLayout from '@/layouts/PageLayout';
 import { AppRoute } from '@/types/enum.types';
 import { ClassTable } from '@/features/enrollment';
@@ -48,6 +48,7 @@ export default function HodDashboard() {
           buttonText="Add"
           title="Announcements"
           tagline="Hot News & Cool Updates"
+          navigationLink={AppRoute.AddAnnouncement}
         />
       </div>
       <div className="dashboard-calendar-section">
