@@ -5,6 +5,7 @@ import { FacultyScheduleCarousel } from '@/features/schedule';
 import PageLayout from '@/layouts/PageLayout';
 import { useGetScheduleDay } from '@/features/schedule/hooks/useGetScheduleDay';
 import { AttendanceStats } from '@/features/attendance';
+import { AppRoute } from '@/types/enum.types';
 
 // import StudentAttendanceSummary from '@/features/attendance/components/StudentAttendanceSummary';
 
@@ -28,7 +29,11 @@ export default function FacultyDashboard() {
         {/* <StudentAttendanceSummary /> */}
       </div>
       <div className="dashboard-examinations-section">
-        <SectionHeader title="Attendance" tagline="Where Every Tick Counts!" />
+        <SectionHeader
+          title="Attendance"
+          tagline="Where Every Tick Counts!"
+          navigationLink={AppRoute.AttendanceHistory}
+        />
         <AttendanceStats />
       </div>
       <div className="dashboard-calendar-section">

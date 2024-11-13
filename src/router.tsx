@@ -12,6 +12,12 @@ import GetStarted from '@/pages/getStarted/GetStarted';
 import NotFoundError from '@/pages/error/NotFoundError';
 import { PersistLogin, RequireAuth } from '@/features/auth';
 import AddAttendance from '@/pages/attendance/AddAttendance';
+import AttendanceHistory from '@/pages/attendance/AttendanceHistory';
+import HodDashboard from '@/pages/dashboard/HodDashboard';
+import ApproveAttendance from '@/pages/attendance/ApproveAttendance';
+import Profile from '@/pages/profile/Profile';
+import AddAnnouncement from '@/pages/announcements/AddAnnouncement';
+import PrincipalDashboard from '@/pages/dashboard/PrincipalDashboard';
 
 const routes: RouteObject[] = [
   {
@@ -40,6 +46,26 @@ const routes: RouteObject[] = [
               {
                 path: AppRoute.AddAttendance,
                 element: <AddAttendance />
+              },
+              {
+                path: AppRoute.AttendanceHistory,
+                element: <AttendanceHistory />
+              },
+              {
+                path: AppRoute.DashboardHOD,
+                element: <HodDashboard />
+              },
+              {
+                path: AppRoute.ApproveAttendance,
+                element: <ApproveAttendance />
+              },
+              {
+                path: AppRoute.AddAnnouncement,
+                element: <AddAnnouncement />
+              },
+              {
+                path: AppRoute.DashboardPrincipal,
+                element: <PrincipalDashboard />
               }
             ]
           }
@@ -61,6 +87,10 @@ const routes: RouteObject[] = [
       {
         path: AppRoute.ForgotPassword,
         element: <ForgotPassword />
+      },
+      {
+        path: AppRoute.Profile,
+        element: <Profile />
       }
     ]
   }

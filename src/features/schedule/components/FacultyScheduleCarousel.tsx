@@ -2,7 +2,8 @@ import { format } from 'date-fns';
 import React from 'react';
 import {
   IFacultyScheduleDetails,
-  ScheduleDay
+  ScheduleDay,
+  APIQueryParamV1
 } from 'trackademic-schema-toolkit';
 import { useGetFacultySchedule } from '@/features/schedule';
 import { AppRoute, DateFormat } from '@/types/enum.types';
@@ -41,7 +42,7 @@ export const FacultyScheduleCarousel: React.FC<
   return (
     <CarouselCard
       contentData={contentData}
-      navigationLink={AppRoute.AddAttendance}
+      navigationLink={`${AppRoute.AddAttendance}?${APIQueryParamV1.FacultySchedule}`}
     />
   );
 };

@@ -25,6 +25,8 @@ const SubjectScheduleCard: React.FC<ISubjectScheduleCardProps> = ({
     facultyScheduleId as string | null
   );
 
+  console.log(facultySchedule);
+
   if (status === 'pending') {
     return <div>Loading...</div>;
   }

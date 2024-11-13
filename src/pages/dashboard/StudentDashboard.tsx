@@ -10,6 +10,7 @@ import { useGetCurrentUser } from '@/features/users';
 import PageLayout from '@/layouts/PageLayout';
 import { AppRoute } from '@/types/enum.types';
 import { useGetSemester } from '@/features/schedule/hooks/useGetSemester';
+import AnnouncementCarousel from '@/features/announcement/components/AnnouncementCarousel';
 
 export default function StudentDashboard() {
   const { user } = useGetCurrentUser();
@@ -17,31 +18,6 @@ export default function StudentDashboard() {
   const semester = useGetSemester(
     (user?.studentDetails?.batch as IBatchDocument)?.semester ?? null
   );
-
-  const contentData = [
-    {
-      heading: 'New Library Books Available',
-      paragraph:
-        'Check out the latest arrivals in the library. A wide range of new books ,across various genres are now available.',
-      dateIconSrc: 'src/assets/icons/dateIcon.svg',
-      labelIconSrc: 'src/assets/icons/authorIcon.svg',
-      date: '01-08-2024',
-      time: '03:05 PM',
-      label: 'Felcy Dsouza',
-      subLabel: 'Librarian'
-    },
-    {
-      heading: '4th SEE Time Table Released',
-      paragraph:
-        'Check out the Time Table for the 4th Semester End Examination. Be prepared for the exam.',
-      dateIconSrc: 'src/assets/icons/dateIcon.svg',
-      labelIconSrc: 'src/assets/icons/authorIcon.svg',
-      date: '02-08-2024',
-      time: '03:05 PM',
-      label: 'Hareesh B',
-      subLabel: 'HOD-MCA'
-    }
-  ];
 
   const columns = [
     { name: 'Sl. No', width: '15%' },
@@ -78,19 +54,13 @@ export default function StudentDashboard() {
         <SectionHeader title="Examinations" tagline="Track Your Triumphs!" />
         {/* <BarChart /> */}
         <div className="statistics-card-container">
-          <StatisticsCard label="Semester" data="04" variant="normal" />
-          <StatisticsCard label="Subjects" data="06" variant="normal" />
+          <StatisticsCard label="Semester" data="03" variant="normal" />
+          <StatisticsCard label="Subjects" data="04" variant="normal" />
           <StatisticsCard label="SGPA" data="6.9" variant="normal" />
           <StatisticsCard label="CGPA" data="7.6" variant="normal" />
         </div>
       </div>
-      <div className="dashboard-announcements-section">
-        <SectionHeader
-          title="Announcements"
-          tagline="Hot News & Cool Updates"
-        />
-        <CarouselCard contentData={contentData} />
-      </div>
+      <AnnouncementCarousel />
       <div className="dashboard-calendar-section">
         <SectionHeader
           title="Events & Calendar"

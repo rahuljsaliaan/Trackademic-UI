@@ -92,7 +92,7 @@ const CarouselCard: React.FC<CarouselCardProps> = ({
   const handleNavigate = (currentIndex: number) => {
     if (!navigationLink) return;
 
-    const link = `${navigationLink}?${APIQueryParamV1.FacultySchedule}=${contentData[currentIndex].id}&${APIQueryParamV1.Day}=${contentData[currentIndex].day}`;
+    const link = `${navigationLink}=${contentData[currentIndex].id}&${APIQueryParamV1.Day}=${contentData[currentIndex].day}`;
 
     navigate(link);
   };

@@ -10,12 +10,11 @@ export const useGetEnrolledStudent = ({
   subjectId: string | null;
 }) => {
   // Determine if query should be enabled based on the presence of batchId and subjectId
-  const enabled = !!batchId && !!subjectId;
 
   const { data: enrolledStudents, status } = useQuery({
     queryKey: [QueryKeys.EnrollmentStudent, batchId, subjectId],
     queryFn: () => getEnrolledStudentsDetails({ batchId, subjectId }),
-    enabled // Only fetch if both batchId and subjectId are provided
+    enabled: !!batchId && !!subjectId
   });
 
   if (status === 'error') {

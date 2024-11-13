@@ -34,6 +34,7 @@ const Tagline = styled.p`
 interface SectionHeaderProps {
   title: string;
   tagline: string;
+  buttonText?: string;
   showButton?: boolean;
   navigationLink?: AppRoute;
 }
@@ -41,6 +42,7 @@ interface SectionHeaderProps {
 const SectionHeader: React.FC<SectionHeaderProps> = ({
   title,
   tagline,
+  buttonText = "more",
   showButton = true,
   navigationLink
 }) => {
@@ -60,7 +62,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
       </TitleContainer>
       {showButton && (
         <Button
-          text="More"
+          text={buttonText}
           color={RootColor.PrimaryColor}
           onClick={handleNavigate}
         />
